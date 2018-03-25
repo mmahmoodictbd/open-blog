@@ -13,7 +13,7 @@
 	<groupId>com.unloadbrain</groupId>
 	<artifactId>openblog</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<packaging>pom</packaging>
+	<packaging>jar</packaging>
 
 	<name>OpenBlog</name>
 	<description>Open Source Blogging Engine for UnloadBrain.com</description>
