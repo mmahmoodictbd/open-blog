@@ -12,9 +12,9 @@
   <div class="main-container container">
     <div class="row">
       <#include "sidebar.ftl">
-        <div class="col-md-9">
-          <#include "blog-posts.ftl">
-        </div>
+      <div class="col-md-9">
+        <#include "blog-posts.ftl">
+      </div>
     </div>
   </div>
 
