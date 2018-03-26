@@ -1,0 +1,3 @@
+<!-- Bootstrap core JavaScript -->
+<script src="/webjars/jquery/jquery.min.js"></script>
+<script src="/webjars/bootstrap/js/bootstrap.min.js"></script>
