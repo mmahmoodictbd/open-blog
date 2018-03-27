@@ -7,19 +7,24 @@
 
 <body>
 
-  <#include "top-nav.ftl">
+    <#include "top-nav.ftl">
 
-  <div class="main-container container">
-    <div class="row">
-      <#include "sidebar.ftl">
-      <div class="col-md-9">
-        <#include "blog-posts.ftl">
-      </div>
+    <div class="main-container container">
+        <div class="row">
+
+            <div class="col-md-2">
+                <#include "sidebar.ftl">
+            </div>
+
+            <div class="col-md-8">
+                <#include "posts.ftl">
+            </div>
+
+        </div>
     </div>
-  </div>
 
-  <#include "footer.ftl">
-  <#include "scripts.ftl">
+    <#include "footer.ftl">
+    <#include "scripts.ftl">
 
 </body>
 

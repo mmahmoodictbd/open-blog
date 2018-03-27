@@ -1,3 +1,100 @@
+
+
+
+body {
+    font-family:  Helvetica, sans-serif;
+    font-weight: normal;
+}
+
+.site-header .home-link {
+    color: #141412;
+    display: block;
+    margin: 0 auto;
+    max-width: 1080px;
+    min-height: 230px;
+    text-decoration: none;
+    width: 100%;
+
+    padding-right: 20px;
+    padding-bottom: 10px;
+    padding-left: 20px;
+}
+
+.site-title {
+    font-size: 60px;
+    font-weight: bold;
+    line-height: 1;
+    margin: 0;
+    padding: 40px 0 10px;
+}
+
+.site-description {
+    font: 300 italic 20px  Helvetica, sans-serif;
+    margin: 0;
+}
+
+.categories h5 {
+    color: #6c757d;
+}
+
+.categories a {
+    color: #333333;
+    text-decoration: none;
+}
+
 .main-container {
     padding-top: 1.6rem;
 }
+
+.post {
+    position: relative;
+    margin-bottom: 60px;
+}
+
+
+a.post-image {
+    width: 100%;
+    /*height: 300px;*/
+    display: block;
+    background-size: cover;
+    background-position: center center;
+    /*border: 1px solid #e1e1e1;*/
+    margin-top: 2px;
+    margin-bottom: 2px;
+}
+
+.post-datecircle {
+    height: auto;
+    position: absolute;
+    left: 30px;
+    bottom: -20px;
+    margin-bottom: 0;
+    text-align: center;
+    z-index: 100;
+}
+
+.post-body {
+    margin-top: 5px;
+    margin-bottom: 2px;
+}
+
+.post-title {
+    margin-top: 10px;
+
+}
+
+.post-title a {
+    color: #141412;
+    text-decoration: none;
+    margin-top: 5px;
+
+}
+
+.post-text {
+    color: #344151;
+    font-size: 1.15em;
+    font-weight: 400;
+    letter-spacing: 0.01em;
+    line-height: 1.5em;
+}
+
