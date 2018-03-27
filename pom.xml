@@ -52,7 +52,13 @@
 			<version>4.0.0-2</version>
 		</dependency>
 
-        <dependency>
+		<dependency>
+			<groupId>org.webjars</groupId>
+			<artifactId>font-awesome</artifactId>
+			<version>5.0.6</version>
+		</dependency>
+
+		<dependency>
             <groupId>org.webjars</groupId>
             <artifactId>webjars-locator</artifactId>
             <version>0.30</version>

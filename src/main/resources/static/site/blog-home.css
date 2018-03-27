@@ -4,21 +4,29 @@
 body {
     font-family:  Helvetica, sans-serif;
     font-weight: normal;
+    font-size: 1em;
+    letter-spacing: 0.03em;
+    line-height: 1.5em;
 }
 
 .site-header .home-link {
-    color: #141412;
+
     display: block;
     margin: 0 auto;
     max-width: 1080px;
     min-height: 230px;
-    text-decoration: none;
     width: 100%;
 
     padding-right: 20px;
     padding-bottom: 10px;
     padding-left: 20px;
 }
+
+.site-header .home-link a {
+    text-decoration: none;
+    color: #141412;
+}
+
 
 .site-title {
     font-size: 60px;
@@ -31,6 +39,13 @@ body {
 .site-description {
     font: 300 italic 20px  Helvetica, sans-serif;
     margin: 0;
+}
+
+.social {
+    margin-top: 15px;
+}
+.social a {
+    padding: 3px;
 }
 
 .categories h5 {
@@ -63,15 +78,6 @@ a.post-image {
     margin-bottom: 2px;
 }
 
-.post-datecircle {
-    height: auto;
-    position: absolute;
-    left: 30px;
-    bottom: -20px;
-    margin-bottom: 0;
-    text-align: center;
-    z-index: 100;
-}
 
 .post-body {
     margin-top: 5px;
@@ -92,9 +98,7 @@ a.post-image {
 
 .post-text {
     color: #344151;
-    font-size: 1.15em;
-    font-weight: 400;
+    font-size: 1em;
     letter-spacing: 0.01em;
     line-height: 1.5em;
 }
-
