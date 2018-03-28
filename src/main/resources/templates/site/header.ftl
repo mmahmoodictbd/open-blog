@@ -6,9 +6,8 @@
 
 <title>Unload Brain</title>
 
-<!-- Bootstrap core CSS -->
+
 <link href="/webjars/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 <link href="/webjars/font-awesome/on-server/css/fontawesome-all.min.css" rel="stylesheet">
 
-<!-- Custom styles for this template -->
 <link href="/static/site/blog-home.css" rel="stylesheet">
