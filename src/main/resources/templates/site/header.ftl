@@ -10,4 +10,5 @@
 <link href="/webjars/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 <link href="/webjars/font-awesome/on-server/css/fontawesome-all.min.css" rel="stylesheet">
 
-<link href="/static/site/custom.css" rel="stylesheet">
+<link href="/static/site/base.css" rel="stylesheet">
+<link href="/static/site/site.css" rel="stylesheet">
