@@ -1,14 +1,8 @@
 <!DOCTYPE html>
 <html lang="en" style="height: 100%">
 <head>
-    <meta charset="utf-8">
     <title>UnloadBrain - Login</title>
-
-    <link href="/webjars/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-    <link href="/webjars/font-awesome/on-server/css/fontawesome-all.min.css" rel="stylesheet">
-
-    <link href="/static/site/base.css" rel="stylesheet">
-    <link href="/static/site/admin.css" rel="stylesheet">
+    <#include "header.ftl">
 </head>
 
 <body style="height: 100%">
