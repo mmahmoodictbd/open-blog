@@ -1,18 +1,16 @@
 
-.site-header .home-link {
+.home-link {
 
     display: block;
     margin: 0 auto;
-    max-width: 1080px;
     min-height: 230px;
     width: 100%;
 
     padding-right: 20px;
     padding-bottom: 10px;
-    padding-left: 20px;
 }
 
-.site-header .home-link a {
+.home-link a {
     text-decoration: none;
     color: #141412;
 }
@@ -88,7 +86,4 @@ a.post-image {
 
 .post-text {
     color: #344151;
-    font-size: 1em;
-    letter-spacing: 0.01em;
-    line-height: 1.5em;
 }

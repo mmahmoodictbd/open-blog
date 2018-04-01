@@ -5,3 +5,8 @@ body {
     letter-spacing: 0.03em;
     line-height: 1.5em;
 }
+
+a {
+    color: #215c98;
+    text-decoration: none;
+}
