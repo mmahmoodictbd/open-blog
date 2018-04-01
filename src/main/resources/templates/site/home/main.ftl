@@ -28,7 +28,7 @@
     </div>
 
     <#include "../common/footer.ftl">
-    <#include "scripts.ftl">
+    <#include "../common/scripts.ftl">
 
 </body>
 
