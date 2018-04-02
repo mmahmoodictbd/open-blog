@@ -2,7 +2,7 @@
 <header id="masthead" class="container" role="banner">
 
     <div class="home-link">
-        <div class="site-title"><a href="http://unloadbrain.com/" title="Unload Brain" rel="home">Unload Brain</a></div>
+        <div class="site-title"><a href="/" title="Unload Brain" rel="home">Unload Brain</a></div>
         <div1 class="site-description">I'm Mahmood, regular software engineer. I love to try out different
         technologies, read a lot, forget things in hourly basis. This blog is an initiative to dump my
         knowledge.</div1>
