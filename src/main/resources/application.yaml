@@ -1,0 +1,13 @@
+spring:
+  application:
+    name: UnloadBrain
+  profiles:
+    active: dev
+  jpa:
+    generate-ddl: false
+  resources:
+    add-mappings: false
+
+logging:
+  level:
+    root: INFO
