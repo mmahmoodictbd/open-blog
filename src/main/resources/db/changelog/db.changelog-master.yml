@@ -1,0 +1,9 @@
+databaseChangeLog:
+  - include:
+      file: "classpath:/db/changelog/create-table-category.yml"
+  - include:
+      file: "classpath:/db/changelog/create-table-tag.yml"
+  - include:
+      file: "classpath:/db/changelog/create-table-post.yml"
+
+

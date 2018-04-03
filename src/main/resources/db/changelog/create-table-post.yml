@@ -1,0 +1,114 @@
+databaseChangeLog:
+  - changeSet:
+      id: create-table-post
+      author: mahmood
+      changes:
+      - createTable:
+          tableName: post
+          columns:
+          - column:
+              name: id
+              type: BIGINT
+              autoIncrement: true
+              constraints:
+                primaryKey: true
+                primaryKeyName: pk_post
+                nullable: false
+          - column:
+              name: title
+              type: varchar(255)
+              constraints:
+                nullable: false
+          - column:
+              name: text
+              type: longtext
+          - column:
+              name: publish_date
+              type: datetime(6)
+          - column:
+              name: created_at
+              type: datetime(6)
+              constraints:
+                nullable: false
+          - column:
+              name: updated_at
+              type: datetime(6)
+              constraints:
+                nullable: false
+
+
+  - changeSet:
+      id: create-table-post_categories
+      author: mahmood
+      changes:
+      - createTable:
+          tableName: post_categories
+          columns:
+          - column:
+              name: post_id
+              type: BIGINT
+              constraints:
+                nullable: false
+          - column:
+              name: categories_id
+              type: BIGINT
+              constraints:
+                nullable: false
+      - addUniqueConstraint:
+          constraintName: uk_post_categories_post_id_categories_id
+          tableName: post_categories
+          columnNames: post_id, categories_id
+      - createIndex:
+          indexName: idx_post_categories_post_id
+          tableName: post_categories
+          columns:
+          - column:
+              name: post_id
+              type: BIGINT
+      - createIndex:
+          indexName: idx_post_categories_categories_id
+          tableName: post_categories
+          columns:
+          - column:
+              name: categories_id
+              type: BIGINT
+
+
+  - changeSet:
+      id: create-table-post_tags
+      author: mahmood
+      changes:
+      - createTable:
+          tableName: post_tags
+          columns:
+          - column:
+              name: post_id
+              type: BIGINT
+              constraints:
+                nullable: false
+          - column:
+              name: tags_id
+              type: BIGINT
+              constraints:
+                nullable: false
+      - addUniqueConstraint:
+          constraintName: uk_post_tags_post_id_tags_id
+          tableName: post_tags
+          columnNames: post_id, tags_id
+      - createIndex:
+          indexName: idx_post_tags_post_id
+          tableName: post_tags
+          columns:
+          - column:
+              name: post_id
+              type: BIGINT
+      - createIndex:
+          indexName: idx_post_tags_tags_id
+          tableName: post_tags
+          columns:
+          - column:
+              name: tags_id
+              type: BIGINT
+
+
+
