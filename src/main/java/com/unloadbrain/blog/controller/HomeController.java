@@ -13,7 +13,7 @@ import java.util.List;
 public class HomeController {
 
     @RequestMapping(path = "/", method = RequestMethod.GET)
-    public String home(Model model) {
+    public String showHomePage(Model model) {
         List<String> posts = new ArrayList<>();
         posts.add("1");
         posts.add("2");
@@ -25,7 +25,7 @@ public class HomeController {
     }
 
     @RequestMapping(path = "/post", method = RequestMethod.GET)
-    public String post(@RequestParam long id, Model model) {
+    public String showPostPage(@RequestParam long id, Model model) {
         model.addAttribute("posts", null);
         return "site/post/main";
     }
