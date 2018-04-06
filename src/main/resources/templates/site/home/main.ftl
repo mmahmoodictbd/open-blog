@@ -13,19 +13,19 @@
     <#include "../common/site-banner.ftl">
     <#include "top-nav.ftl">
 
-    <div class="main-container container">
-        <div class="row">
+<div class="main-container container">
+    <div class="row">
 
-            <div class="col-md-2">
+        <div class="col-md-2">
                 <#include "sidebar.ftl">
-            </div>
-
-            <div class="col-md-8">
-                <#include "home-posts.ftl">
-            </div>
-
         </div>
+
+        <div class="col-md-8">
+                <#include "home-posts.ftl">
+        </div>
+
     </div>
+</div>
 
     <#include "../common/footer.ftl">
     <#include "../common/scripts.ftl">

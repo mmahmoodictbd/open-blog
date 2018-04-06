@@ -1,4 +1,3 @@
-
 <header id="masthead" class="container" role="banner">
 
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
