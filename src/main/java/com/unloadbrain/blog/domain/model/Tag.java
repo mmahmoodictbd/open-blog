@@ -33,6 +33,10 @@ public class Tag {
     @Length(min = 1, max = 255)
     private String name;
 
+    @Column
+    @Length(min = 1, max = 255)
+    private String slug;
+
     @Column(updatable = false)
     @NotNull
     @CreatedDate
