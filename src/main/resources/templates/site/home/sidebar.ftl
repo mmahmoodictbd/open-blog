@@ -1,7 +1,7 @@
 <!-- Sidebar Widgets Column -->
 
 
-<div class="container categories d-none d-sm-block">
+<div class="container categories d-none d-sm-block" style="line-height: 1.7em;">
 
     <h5 class="">Categories</h5>
 
