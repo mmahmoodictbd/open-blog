@@ -20,6 +20,11 @@ databaseChangeLog:
               constraints:
                 nullable: false
           - column:
+              name: slug
+              type: varchar(255)
+              constraints:
+                nullable: false
+          - column:
               name: parent
               type: varchar(255)
           - column:

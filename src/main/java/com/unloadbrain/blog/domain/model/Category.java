@@ -32,6 +32,10 @@ public class Category {
     private String name;
 
     @Column
+    @Length(min = 1, max = 255)
+    private String slug;
+
+    @Column
     private String parent;
 
     @Column(updatable = false)
