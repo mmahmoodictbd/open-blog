@@ -23,6 +23,11 @@ databaseChangeLog:
               name: content
               type: longtext
           - column:
+              name: status
+              type: varchar(255)
+              constraints:
+                nullable: false
+          - column:
               name: publish_date
               type: datetime(6)
           - column:

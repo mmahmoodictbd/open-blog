@@ -3,6 +3,7 @@ package com.unloadbrain.blog.service;
 import com.unloadbrain.blog.Application;
 import com.unloadbrain.blog.domain.model.Category;
 import com.unloadbrain.blog.domain.model.Post;
+import com.unloadbrain.blog.domain.model.PostStatus;
 import com.unloadbrain.blog.domain.model.Tag;
 import com.unloadbrain.blog.domain.repository.CategoryRepository;
 import com.unloadbrain.blog.domain.repository.PostRepository;
@@ -56,6 +57,7 @@ public class PostServiceTests {
         post.setContent("Long detail content.");
         post.setCategories(Collections.singleton(category));
         post.setTags(Collections.singleton(tag));
+        post.setStatus(PostStatus.DRAFT);
         postRepository.save(post);
 
         // When
