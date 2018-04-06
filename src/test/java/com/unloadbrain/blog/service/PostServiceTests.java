@@ -53,7 +53,7 @@ public class PostServiceTests {
 
         Post post = new Post();
         post.setTitle("Hello World to Java!");
-        post.setText("Long detail text.");
+        post.setContent("Long detail content.");
         post.setCategories(Collections.singleton(category));
         post.setTags(Collections.singleton(tag));
         postRepository.save(post);

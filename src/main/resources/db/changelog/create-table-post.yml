@@ -20,7 +20,7 @@ databaseChangeLog:
               constraints:
                 nullable: false
           - column:
-              name: text
+              name: content
               type: longtext
           - column:
               name: publish_date

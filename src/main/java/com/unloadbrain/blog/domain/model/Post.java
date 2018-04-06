@@ -36,7 +36,7 @@ public class Post {
 
     @Column
     @Lob
-    private String text;
+    private String content;
 
     @OneToMany(cascade = CascadeType.ALL)
     private Set<Category> categories;
