@@ -36,6 +36,7 @@ public class Category {
     private String slug;
 
     @Column
+    @Length(max = 255)
     private String parent;
 
     @Column(updatable = false)
