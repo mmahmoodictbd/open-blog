@@ -74,9 +74,9 @@
         </dependency>
 
         <dependency>
-            <groupId>org.webjars.bower</groupId>
+            <groupId>org.webjars.npm</groupId>
             <artifactId>summernote</artifactId>
-            <version>0.8.9</version>
+            <version>0.8.10</version>
         </dependency>
 
         <dependency>
