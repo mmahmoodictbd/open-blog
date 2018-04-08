@@ -1,0 +1,46 @@
+# OpenBlog - Open source blogging platform
+
+The main purpose to this project is to build a small blogging engine.
+
+image:https://travis-ci.org/mmahmoodictbd/OpenBlog.svg?branch=master["Build Status", link="https://travis-ci.org/mmahmoodictbd/OpenBlog
+
+### Why OpenBlog
+ - Small footprint.
+ - Throw my template code, just reuse Java code.
+ - Standard Spring project.
+ - You can write your own feature.
+ - Not a tons of extra features.
+
+### Background
+I want to write blog, so I brought UnloadBrain.com. I liked Wordpress, but I want have my own template and custom features. So...here it is.
+
+
+### Current project status
+At this very early stage, everything is hardcoded. Plan is to make a MVP first. Once MVP is done, version will start from 1.0.0-RELEASE.
+
+
+### Technologies
+* Java 8
+* Spring Boot
+* Spring Data JPA
+* Spring MVC
+* Freemarker
+* https://summernote.org/[Summernote]
+* Maven
+
+
+### Versioning
+
+This project follow http://semver.org[Semantic Versioning] to maintain an
+understandable backwards compatibility strategy.
+
+The version format is as follows:
+
+```
+<major>.<minor>.<patch>-<label>
+```
+
+
+### Copyright & License
+
+Licensed under the MIT License, see the link:LICENSE[LICENSE] file for details.
