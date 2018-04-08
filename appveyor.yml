@@ -11,6 +11,5 @@ install:
   - SET PATH=%JAVA_HOME%\bin;%PATH%
   - echo %PATH%
   - java -version
-  - gradlew.bat --version
 build_script:
   - mvn -B -V clean verify
