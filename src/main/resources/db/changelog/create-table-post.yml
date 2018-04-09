@@ -28,6 +28,9 @@ databaseChangeLog:
               constraints:
                 nullable: false
           - column:
+              name: permalink
+              type: varchar(255)
+          - column:
               name: publish_date
               type: datetime(6)
           - column:

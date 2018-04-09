@@ -41,6 +41,10 @@ public class Post extends BaseEntity {
     private PostStatus status;
 
     @Column
+    @Length(max = 255)
+    private String permalink;
+
+    @Column
     private Date publishDate;
 
 }
