@@ -31,6 +31,9 @@ databaseChangeLog:
               name: permalink
               type: varchar(255)
           - column:
+              name: feature_image_link
+              type: varchar(255)
+          - column:
               name: publish_date
               type: datetime(6)
           - column:

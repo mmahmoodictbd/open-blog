@@ -45,6 +45,10 @@ public class Post extends BaseEntity {
     private String permalink;
 
     @Column
+    @Length(max = 255)
+    private String featureImageLink;
+
+    @Column
     private Date publishDate;
 
 }
