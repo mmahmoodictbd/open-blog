@@ -1,5 +1,6 @@
 package com.unloadbrain.blog.domain.model;
 
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.validator.constraints.Length;
@@ -7,9 +8,9 @@ import org.hibernate.validator.constraints.Length;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 
-
 @Getter
 @Setter
+@EqualsAndHashCode
 @Entity
 public class Category extends BaseEntity {
 
