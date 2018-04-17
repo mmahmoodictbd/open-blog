@@ -9,7 +9,7 @@ import javax.validation.constraints.NotNull;
 @Setter
 public class PostDTO {
 
-    private long id;
+    private Long id;
 
     @NotNull
     private String title;
@@ -17,9 +17,11 @@ public class PostDTO {
     @NotNull
     private String content;
 
-    private String category;
+    private String categories;
 
     private String tags;
+
+    private String status;
 
     private String permalink;
 
