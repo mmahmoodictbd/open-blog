@@ -30,7 +30,7 @@ public class Post extends BaseEntity {
     private String content;
 
     @OneToMany(cascade = CascadeType.ALL)
-    private Set<Category> categories = new LinkedHashSet<>();;
+    private Set<Category> categories = new LinkedHashSet<>();
 
     @OneToMany(cascade = CascadeType.ALL)
     private Set<Tag> tags = new LinkedHashSet<>();
