@@ -47,7 +47,7 @@
                             <a class="dropdown-item" href="#" data-value="spring-boot">--Spring Boot</a>
                         </div>
 
-                        <input type="hidden" id="category" name="category" />
+                        <input type="hidden" id="categories" name="categories" />
                     </div>
                 </div>
 
@@ -68,22 +68,6 @@
 <script src="/webjars/summernote/dist/summernote-bs4.min.js"></script>
 
 <script>
-
-    var HelloButton = function (context) {
-        var ui = $.summernote.ui;
-
-        // create button
-        var button = ui.button({
-            contents: '<i class="fa fa-child"/> Hello',
-            tooltip: 'hello',
-            click: function () {
-                // invoke insertText method with 'hello' on editor module.
-                context.invoke('editor.insertText', 'hello');
-            }
-        });
-
-        return button.render();   // return button as jquery object
-    }
 
     $(document).ready(function () {
 
@@ -110,7 +94,7 @@
 
         $('#categoryDropdown .dropdown-menu a').click(function () {
             var selectedOption = $(this).attr('data-value');
-            $('#category').val(selectedOption);
+            $('#categories').val(selectedOption);
             $('#categoryDropdownBtn').text(selectedOption);
         });
 
