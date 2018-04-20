@@ -34,6 +34,14 @@ public class PostServiceTests {
     @Autowired
     private TagRepository tagRepository;
 
+    @Autowired
+    private PostService postService;
+
+    @Test
+    public void testCreatePost() {
+
+    }
+
     @Test
     @Transactional
     public void testPostSavesCorrectly() throws Exception {
