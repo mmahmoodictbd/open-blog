@@ -2,6 +2,7 @@ package com.unloadbrain.blog.domain.model;
 
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.CascadeType;
@@ -18,6 +19,7 @@ import java.util.Set;
 
 @Getter
 @Setter
+@ToString
 @Entity
 public class Post extends BaseEntity {
 
