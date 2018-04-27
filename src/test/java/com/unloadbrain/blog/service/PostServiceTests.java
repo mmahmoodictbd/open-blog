@@ -1,77 +1,56 @@
 package com.unloadbrain.blog.service;
 
-import com.unloadbrain.blog.Application;
-import com.unloadbrain.blog.domain.model.Category;
+import com.unloadbrain.blog.config.MappingConfig;
 import com.unloadbrain.blog.domain.model.Post;
-import com.unloadbrain.blog.domain.model.PostStatus;
-import com.unloadbrain.blog.domain.model.Tag;
 import com.unloadbrain.blog.domain.repository.CategoryRepository;
 import com.unloadbrain.blog.domain.repository.PostRepository;
 import com.unloadbrain.blog.domain.repository.TagRepository;
+import com.unloadbrain.blog.dto.PostDTO;
+import com.unloadbrain.blog.helper.ObjectFactory;
+import com.unloadbrain.blog.util.DateUtility;
+import org.junit.Ignore;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.modelmapper.ModelMapper;
 
-import javax.transaction.Transactional;
-import java.util.Collections;
-import java.util.Optional;
+import static org.junit.Assert.assertNotNull;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
-import static org.junit.Assert.assertTrue;
 
-@RunWith(SpringJUnit4ClassRunner.class)
-@SpringBootTest(classes = {Application.class})
 public class PostServiceTests {
 
+    private PostRepository postRepositoryMock;
+    private CategoryRepository categoryRepositoryMock;
+    private TagRepository tagRepositoryMock;
+    private DateUtility dateUtility;
+    private ModelMapper modelMapper;
 
-    @Autowired
-    private PostRepository postRepository;
-
-    @Autowired
-    private CategoryRepository categoryRepository;
-
-    @Autowired
-    private TagRepository tagRepository;
-
-    @Autowired
     private PostService postService;
 
+    public PostServiceTests() {
+        this.postRepositoryMock = mock(PostRepository.class);
+        this.categoryRepositoryMock = mock(CategoryRepository.class);
+        this.tagRepositoryMock = mock(TagRepository.class);
+        this.dateUtility = new DateUtility();
+        this.modelMapper = new MappingConfig().createModelMapper();
+        this.postService = new PostService(postRepositoryMock, categoryRepositoryMock, tagRepositoryMock, dateUtility, modelMapper);
+    }
+
+    @Ignore
     @Test
     public void testCreatePost() {
 
-    }
-
-    @Test
-    @Transactional
-    public void testPostSavesCorrectly() throws Exception {
-
         // Given
-
-        categoryRepository.deleteAll();
-        tagRepository.deleteAll();
-        postRepository.deleteAll();
-
-        Category category = new Category();
-        category.setName("Programming");
-        category = categoryRepository.saveAndFlush(category);
-
-        Tag tag = new Tag();
-        tag.setName("Java");
-        tag = tagRepository.saveAndFlush(tag);
-
-        Post post = new Post();
-        post.setTitle("Hello World to Java!");
-        post.setContent("Long detail content.");
-        post.setCategories(Collections.singleton(category));
-        post.setTags(Collections.singleton(tag));
-        post.setStatus(PostStatus.DRAFT);
-        postRepository.save(post);
+        when(postRepositoryMock.save(any())).thenReturn(ObjectFactory.createDraftPost());
+        PostDTO postDTO = ObjectFactory.createDraftPostDTO();
 
         // When
-        Optional<Post> retrievedPost = postRepository.findById(post.getId());
+        Post post = postService.createPost(postDTO);
 
         // Then
-        assertTrue(retrievedPost.isPresent());
+        assertNotNull("Saved post should have createAt date.", post.getCreatedAt());
     }
+
+
 }
