@@ -18,13 +18,13 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThat;
 
-public class MappingConfigurationTest {
+public class MappingConfigTest {
 
     private ModelMapper modelMapper;
 
     @Before
     public void setUp() {
-        modelMapper = new MappingConfiguration().createModelMapper();
+        modelMapper = new MappingConfig().createModelMapper();
     }
 
     @Test
@@ -69,18 +69,6 @@ public class MappingConfigurationTest {
         assertEquals(postDTO.getContent(), post.getContent());
         assertEquals(postDTO.getPermalink(), post.getPermalink());
         assertEquals(postDTO.getFeatureImageLink(), post.getFeatureImageLink());
-        assertEquals(postDTO.getStatus(), post.getStatus().name());
-
-        Set<Category> commaSeparatedStringToCategorySet = Arrays.stream(postDTO.getCategories().split(","))
-                .map(cat -> new Category(){{setName(cat);}})
-                .collect(Collectors.toCollection(LinkedHashSet<Category>::new));
-        assertThat(commaSeparatedStringToCategorySet, is(post.getCategories()));
-
-        Set<Tag> commaSeparatedStringToTagSet = Arrays.stream(postDTO.getTags().split(","))
-                .map(tag -> new Tag(){{setName(tag);}})
-                .collect(Collectors.toCollection(LinkedHashSet<Tag>::new));
-        assertThat(commaSeparatedStringToTagSet, is(post.getTags()));
-
 
     }
 

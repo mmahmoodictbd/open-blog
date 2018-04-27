@@ -12,13 +12,11 @@ import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import java.util.Arrays;
-import java.util.LinkedHashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
 
 @Configuration
-public class MappingConfiguration {
+public class MappingConfig {
 
     @Bean
     public ModelMapper createModelMapper() {
@@ -40,7 +38,6 @@ public class MappingConfiguration {
                 .addMapping(source -> source.getContent(), PostDTO::setContent)
                 .addMapping(source -> source.getPermalink(), PostDTO::setPermalink)
                 .addMapping(source -> source.getFeatureImageLink(), PostDTO::setFeatureImageLink);
-
 
         mapper.addMappings(new PropertyMap<Post, PostDTO>() {
 
@@ -71,39 +68,26 @@ public class MappingConfiguration {
 
     private ModelMapper addMappingPostDTOToPost(ModelMapper mapper) {
 
+        PropertyMap propertyMap = new PropertyMap<PostDTO, Post>() {
+
+            @Override
+            protected void configure() {
+                skip(destination.getCategories());
+                skip(destination.getTags());
+                skip(destination.getStatus());
+                skip(destination.getCreatedAt());
+                skip(destination.getUpdatedAt());
+                skip(destination.getPublishDate());
+            }
+        };
+
         mapper.createTypeMap(PostDTO.class, Post.class)
                 .addMapping(source -> source.getId(), Post::setId)
                 .addMapping(source -> source.getTitle(), Post::setTitle)
                 .addMapping(source -> source.getContent(), Post::setContent)
                 .addMapping(source -> source.getPermalink(), Post::setPermalink)
-                .addMapping(source -> source.getFeatureImageLink(), Post::setFeatureImageLink);
-
-
-        mapper.addMappings(new PropertyMap<PostDTO, Post>() {
-
-            Converter<String, Set<Category>> convertCategories = ctx ->
-                    ctx.getSource() == null ? null : Arrays.stream(ctx.getSource().split(","))
-                            .map(cat -> new Category(){{setName(cat);}})
-                            .collect(Collectors.toCollection(LinkedHashSet<Category>::new));
-
-            Converter<String, Set<Tag>> convertTags = ctx ->
-                    ctx.getSource() == null ? null : Arrays.stream(ctx.getSource().split(","))
-                            .map(tag -> new Tag(){{setName(tag);}})
-                            .collect(Collectors.toCollection(LinkedHashSet<Tag>::new));
-
-            Converter<String, PostStatus> convertPostStatus =
-                    ctx -> ctx.getSource() == null ? null : PostStatus.valueOf(ctx.getSource());
-
-            @Override
-            protected void configure() {
-                using(convertCategories).map(source.getCategories(), destination.getCategories());
-                using(convertTags).map(source.getTags(), destination.getTags());
-                using(convertPostStatus).map(source.getStatus(), destination.getStatus());
-                skip(destination.getCreatedAt());
-                skip(destination.getUpdatedAt());
-                skip(destination.getPublishDate());
-            }
-        });
+                .addMapping(source -> source.getFeatureImageLink(), Post::setFeatureImageLink)
+                .addMappings(propertyMap);
 
         mapper.validate();
 
