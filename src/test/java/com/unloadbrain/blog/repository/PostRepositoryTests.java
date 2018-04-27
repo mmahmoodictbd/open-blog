@@ -57,10 +57,12 @@ public class PostRepositoryTests extends BaseTest {
 
         Category category = new Category();
         category.setName("Programming");
+        category.setSlug("programming");
         category = categoryRepository.saveAndFlush(category);
 
         Tag tag = new Tag();
         tag.setName("Java");
+        tag.setSlug("java");
         tag = tagRepository.saveAndFlush(tag);
 
         Post post = new Post();

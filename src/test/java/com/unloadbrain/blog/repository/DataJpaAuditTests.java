@@ -23,7 +23,7 @@ public class DataJpaAuditTests {
 
         Tag unsaved = new Tag();
         unsaved.setName("sampleTag");
-
+        unsaved.setSlug("sample-tag");
         Tag saved = tagRepository.save(unsaved);
 
         assertNotNull(saved.getCreatedAt());
