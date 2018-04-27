@@ -1,19 +1,29 @@
 package com.unloadbrain.blog.controller.admin;
 
+import com.unloadbrain.blog.dto.PostDTO;
+import com.unloadbrain.blog.service.PostService;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
 public class PostController {
 
-    @RequestMapping(path = "/admin/post", method = RequestMethod.GET)
+    private PostService postService;
+
+    public PostController(PostService postService) {
+        this.postService = postService;
+    }
+
+    @GetMapping("/admin/post")
     public String showPostCreateEditPage() {
         return "admin/post";
     }
 
-    @RequestMapping(path = "/admin/post", method = RequestMethod.POST)
-    public String createPost() {
+    @PostMapping("/admin/post")
+    public String createPost(@ModelAttribute PostDTO postDTO) {
+        postService.createPost(postDTO);
         return "redirect:/admin/post";
     }
 }
