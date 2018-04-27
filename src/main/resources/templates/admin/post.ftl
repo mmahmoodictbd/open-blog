@@ -32,7 +32,8 @@
 
                 <div class="form-group">
                     <button name="action" value="draft" type="submit" class="btn btn-secondary btn-sm">Save draft</button>
-                    <button name="action" value="preview" type="submit" class="btn btn-secondary btn-sm">Preview</button>
+                    <!--<button name="action" value="preview" type="submit" class="btn btn-secondary
+                    btn-sm">Preview</button>-->
                     <button name="action" value="publish" type="submit" class="btn btn-primary btn-sm">Publish</button>
                 </div>
 
