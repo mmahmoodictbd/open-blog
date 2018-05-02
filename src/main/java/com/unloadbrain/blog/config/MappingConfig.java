@@ -56,8 +56,8 @@ public class MappingConfig {
             protected void configure() {
                 using(convertCategories).map(source.getCategories(), destination.getCategories());
                 using(convertTags).map(source.getTags(), destination.getTags());
-                using(convertPostStatus).map(source.getStatus(), destination.getStatus());
                 skip(destination.getAction());
+                skip(destination.getStatus());
             }
         });
 
@@ -74,10 +74,8 @@ public class MappingConfig {
             protected void configure() {
                 skip(destination.getCategories());
                 skip(destination.getTags());
-                skip(destination.getStatus());
                 skip(destination.getCreatedAt());
                 skip(destination.getUpdatedAt());
-                skip(destination.getPublishDate());
             }
         };
 
