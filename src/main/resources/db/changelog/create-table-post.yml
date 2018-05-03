@@ -1,10 +1,10 @@
 databaseChangeLog:
   - changeSet:
-      id: create-table-post
+      id: create-table-published-post
       author: mahmood
       changes:
       - createTable:
-          tableName: post
+          tableName: published_post
           columns:
           - column:
               name: id
@@ -22,11 +22,6 @@ databaseChangeLog:
           - column:
               name: content
               type: longtext
-          - column:
-              name: status
-              type: varchar(255)
-              constraints:
-                nullable: false
           - column:
               name: permalink
               type: varchar(255)
