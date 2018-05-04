@@ -42,7 +42,6 @@ public class MappingConfigTest {
         assertEquals(post.getContent(), postDTO.getContent());
         assertEquals(post.getPermalink(), postDTO.getPermalink());
         assertEquals(post.getFeatureImageLink(), postDTO.getFeatureImageLink());
-        assertEquals(post.getStatus().name(), postDTO.getStatus());
 
         String categorySetToCommaSeparatedString =
                 post.getCategories().stream().map(Category::getName).collect(Collectors.joining(","));
