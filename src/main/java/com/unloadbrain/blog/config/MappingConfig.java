@@ -2,7 +2,6 @@ package com.unloadbrain.blog.config;
 
 import com.unloadbrain.blog.domain.model.Category;
 import com.unloadbrain.blog.domain.model.Post;
-import com.unloadbrain.blog.domain.model.PostStatus;
 import com.unloadbrain.blog.domain.model.Tag;
 import com.unloadbrain.blog.dto.PostDTO;
 import org.modelmapper.Converter;
@@ -48,9 +47,6 @@ public class MappingConfig {
             Converter<Set<Tag>, String> convertTags = ctx ->
                     ctx.getSource() == null ? null :
                             ctx.getSource().stream().map(Tag::getName).collect(Collectors.joining(","));
-
-            Converter<PostStatus, String> convertPostStatus =
-                    ctx -> ctx.getSource() == null ? null : ctx.getSource().name().toUpperCase();
 
             @Override
             protected void configure() {
