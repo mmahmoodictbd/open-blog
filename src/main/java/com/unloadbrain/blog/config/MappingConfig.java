@@ -31,14 +31,7 @@ public class MappingConfig {
 
     private ModelMapper addMappingPostToPostDTO(ModelMapper mapper) {
 
-        mapper.createTypeMap(Post.class, PostDTO.class)
-                .addMapping(source -> source.getId(), PostDTO::setId)
-                .addMapping(source -> source.getTitle(), PostDTO::setTitle)
-                .addMapping(source -> source.getContent(), PostDTO::setContent)
-                .addMapping(source -> source.getPermalink(), PostDTO::setPermalink)
-                .addMapping(source -> source.getFeatureImageLink(), PostDTO::setFeatureImageLink);
-
-        mapper.addMappings(new PropertyMap<Post, PostDTO>() {
+        PropertyMap propertyMap = new PropertyMap<Post, PostDTO>() {
 
             Converter<Set<Category>, String> convertCategories = ctx ->
                     ctx.getSource() == null ? null :
@@ -55,7 +48,15 @@ public class MappingConfig {
                 skip(destination.getAction());
                 skip(destination.getStatus());
             }
-        });
+        };
+
+        mapper.createTypeMap(Post.class, PostDTO.class)
+                .addMapping(source -> source.getId(), PostDTO::setId)
+                .addMapping(source -> source.getTitle(), PostDTO::setTitle)
+                .addMapping(source -> source.getContent(), PostDTO::setContent)
+                .addMapping(source -> source.getPermalink(), PostDTO::setPermalink)
+                .addMapping(source -> source.getFeatureImageLink(), PostDTO::setFeatureImageLink)
+                .addMappings(propertyMap);
 
         mapper.validate();
 
