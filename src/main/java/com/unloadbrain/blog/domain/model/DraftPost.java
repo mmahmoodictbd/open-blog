@@ -14,7 +14,7 @@ import javax.persistence.OneToOne;
 @Entity
 public class DraftPost extends Post {
 
-    @OneToOne(optional=true, fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.LAZY)
     private PublishedPost publishedPost;
 
 }

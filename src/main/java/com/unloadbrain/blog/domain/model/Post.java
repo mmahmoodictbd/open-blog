@@ -7,13 +7,9 @@ import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.persistence.Lob;
 import javax.persistence.MappedSuperclass;
 import javax.persistence.OneToMany;
-import javax.validation.constraints.NotNull;
-import java.util.Date;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
@@ -21,7 +17,7 @@ import java.util.Set;
 @Setter
 @ToString
 @MappedSuperclass
-public abstract class Post extends BaseEntity {
+public class Post extends BaseEntity {
 
     @Column
     @Length(min = 1, max = 255)
