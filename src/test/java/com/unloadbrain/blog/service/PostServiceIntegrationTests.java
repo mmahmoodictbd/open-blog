@@ -51,7 +51,7 @@ public class PostServiceIntegrationTests {
         formData.put("content", Collections.singletonList("Hello <b>World!</b>"));
         formData.put("categories", Collections.singletonList("Java"));
         formData.put("tags", Collections.singletonList("java"));
-        formData.put("action", Collections.singletonList("draft")) ;
+        formData.put("action", Collections.singletonList("draft"));
 
         mockMvc.perform(post("/admin/post")
                 .contentType(MediaType.APPLICATION_FORM_URLENCODED)
