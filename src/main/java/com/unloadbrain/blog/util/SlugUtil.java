@@ -18,7 +18,7 @@ public class SlugUtil {
         String normalized = Normalizer.normalize(noWhitespace, Normalizer.Form.NFD);
         String onlyLatin = NON_LATIN.matcher(normalized).replaceAll("");
 
-        String removedExtraHyphen = onlyLatin.charAt(onlyLatin.length() - 1) == '-'?
+        String removedExtraHyphen = onlyLatin.charAt(onlyLatin.length() - 1) == '-' ?
                 onlyLatin.substring(0, onlyLatin.length() - 1) : onlyLatin;
 
         return removedExtraHyphen.toLowerCase(Locale.ENGLISH);
