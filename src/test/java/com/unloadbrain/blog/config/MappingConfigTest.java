@@ -9,14 +9,9 @@ import org.junit.Before;
 import org.junit.Test;
 import org.modelmapper.ModelMapper;
 
-import java.util.Arrays;
-import java.util.LinkedHashSet;
-import java.util.Set;
 import java.util.stream.Collectors;
 
-import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertThat;
 
 public class MappingConfigTest {
 
