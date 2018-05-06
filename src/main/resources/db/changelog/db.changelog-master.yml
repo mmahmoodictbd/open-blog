@@ -4,7 +4,9 @@ databaseChangeLog:
   - include:
       file: "classpath:/db/changelog/create-table-tag.yml"
   - include:
-      file: "classpath:/db/changelog/create-table-post.yml"
+      file: "classpath:/db/changelog/create-table-published-post.yml"
+  - include:
+      file: "classpath:/db/changelog/create-table-draft-post.yml"
   - include:
       file: "classpath:/db/changelog/create-table-site.yml"
 

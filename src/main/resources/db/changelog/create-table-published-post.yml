@@ -12,7 +12,7 @@ databaseChangeLog:
               autoIncrement: true
               constraints:
                 primaryKey: true
-                primaryKeyName: pk_post
+                primaryKeyName: pk_pub_post
                 nullable: false
           - column:
               name: title
@@ -48,10 +48,10 @@ databaseChangeLog:
       author: mahmood
       changes:
       - createTable:
-          tableName: post_categories
+          tableName: published_post_categories
           columns:
           - column:
-              name: post_id
+              name: published_post_id
               type: BIGINT
               constraints:
                 nullable: false
@@ -61,19 +61,19 @@ databaseChangeLog:
               constraints:
                 nullable: false
       - addUniqueConstraint:
-          constraintName: uk_post_categories_post_id_categories_id
-          tableName: post_categories
-          columnNames: post_id, categories_id
+          constraintName: uk_pub_post_categories_pub_post_id_categories_id
+          tableName: published_post_categories
+          columnNames: published_post_id, categories_id
       - createIndex:
-          indexName: idx_post_categories_post_id
-          tableName: post_categories
+          indexName: idx_pub_post_categories_post_id
+          tableName: published_post_categories
           columns:
           - column:
-              name: post_id
+              name: published_post_id
               type: BIGINT
       - createIndex:
-          indexName: idx_post_categories_categories_id
-          tableName: post_categories
+          indexName: idx_pub_post_categories_categories_id
+          tableName: published_post_categories
           columns:
           - column:
               name: categories_id
@@ -81,14 +81,14 @@ databaseChangeLog:
 
 
   - changeSet:
-      id: create-table-post_tags
+      id: create-table-published_post_tags
       author: mahmood
       changes:
       - createTable:
-          tableName: post_tags
+          tableName: published_post_tags
           columns:
           - column:
-              name: post_id
+              name: published_post_id
               type: BIGINT
               constraints:
                 nullable: false
@@ -98,19 +98,19 @@ databaseChangeLog:
               constraints:
                 nullable: false
       - addUniqueConstraint:
-          constraintName: uk_post_tags_post_id_tags_id
-          tableName: post_tags
-          columnNames: post_id, tags_id
+          constraintName: uk_pub_post_tags_post_id_tags_id
+          tableName: published_post_tags
+          columnNames: published_post_id, tags_id
       - createIndex:
-          indexName: idx_post_tags_post_id
-          tableName: post_tags
+          indexName: idx_pub_post_tags_post_id
+          tableName: published_post_tags
           columns:
           - column:
-              name: post_id
+              name: published_post_id
               type: BIGINT
       - createIndex:
-          indexName: idx_post_tags_tags_id
-          tableName: post_tags
+          indexName: idx_pub_post_tags_tags_id
+          tableName: published_post_tags
           columns:
           - column:
               name: tags_id

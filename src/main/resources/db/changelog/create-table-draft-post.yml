@@ -1,0 +1,126 @@
+databaseChangeLog:
+  - changeSet:
+      id: create-table-draft-post
+      author: mahmood
+      changes:
+      - createTable:
+          tableName: draft_post
+          columns:
+          - column:
+              name: id
+              type: BIGINT
+              autoIncrement: true
+              constraints:
+                primaryKey: true
+                primaryKeyName: pk_draft_post
+                nullable: false
+          - column:
+              name: title
+              type: varchar(255)
+              constraints:
+                nullable: false
+          - column:
+              name: content
+              type: longtext
+          - column:
+              name: permalink
+              type: varchar(255)
+          - column:
+              name: feature_image_link
+              type: varchar(255)
+          - column:
+              name: published_post_id
+              type: BIGINT
+          - column:
+              name: created_at
+              type: datetime(6)
+              constraints:
+                nullable: false
+          - column:
+              name: updated_at
+              type: datetime(6)
+              constraints:
+                nullable: false
+      - createIndex:
+          indexName: idx_draft_post_published_post_id
+          tableName: draft_post
+          columns:
+          - column:
+              name: published_post_id
+              type: BIGINT
+
+  - changeSet:
+      id: create-table-post_categories
+      author: mahmood
+      changes:
+      - createTable:
+          tableName: draft_post_categories
+          columns:
+          - column:
+              name: draft_post_id
+              type: BIGINT
+              constraints:
+                nullable: false
+          - column:
+              name: categories_id
+              type: BIGINT
+              constraints:
+                nullable: false
+      - addUniqueConstraint:
+          constraintName: uk_draft_post_categories_draft_post_id_categories_id
+          tableName: draft_post_categories
+          columnNames: draft_post_id, categories_id
+      - createIndex:
+          indexName: idx_draft_post_categories_post_id
+          tableName: draft_post_categories
+          columns:
+          - column:
+              name: draft_post_id
+              type: BIGINT
+      - createIndex:
+          indexName: idx_draft_post_categories_categories_id
+          tableName: draft_post_categories
+          columns:
+          - column:
+              name: categories_id
+              type: BIGINT
+
+
+  - changeSet:
+      id: create-table-draft_post_tags
+      author: mahmood
+      changes:
+      - createTable:
+          tableName: draft_post_tags
+          columns:
+          - column:
+              name: draft_post_id
+              type: BIGINT
+              constraints:
+                nullable: false
+          - column:
+              name: tags_id
+              type: BIGINT
+              constraints:
+                nullable: false
+      - addUniqueConstraint:
+          constraintName: uk_draft_post_tags_post_id_tags_id
+          tableName: draft_post_tags
+          columnNames: draft_post_id, tags_id
+      - createIndex:
+          indexName: idx_draft_post_tags_post_id
+          tableName: draft_post_tags
+          columns:
+          - column:
+              name: draft_post_id
+              type: BIGINT
+      - createIndex:
+          indexName: idx_draft_post_tags_tags_id
+          tableName: draft_post_tags
+          columns:
+          - column:
+              name: tags_id
+              type: BIGINT
+
+
+
