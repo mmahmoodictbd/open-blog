@@ -21,13 +21,13 @@ public class PostDTO {
 
     private String tags;
 
-    private String status;
+    private PostStatusDTO status;
 
     private String permalink;
 
     private String featureImageLink;
 
     @NotNull
-    private String action;
+    private PostActionDTO action;
 
 }
