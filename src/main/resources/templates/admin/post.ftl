@@ -31,10 +31,11 @@
             <div class="col-md-3">
 
                 <div class="form-group">
-                    <button name="action" value="draft" type="submit" class="btn btn-secondary btn-sm">Save draft</button>
+                    <button name="action" value="DRAFT" type="submit" class="btn btn-secondary btn-sm">Save draft
+                    </button>
                     <!--<button name="action" value="preview" type="submit" class="btn btn-secondary
                     btn-sm">Preview</button>-->
-                    <button name="action" value="publish" type="submit" class="btn btn-primary btn-sm">Publish</button>
+                    <button name="action" value="PUBLISH" type="submit" class="btn btn-primary btn-sm">Publish</button>
                 </div>
 
                 <div id="categoryDropdown" class="form-group">
@@ -48,7 +49,7 @@
                             <a class="dropdown-item" href="#" data-value="spring-boot">--Spring Boot</a>
                         </div>
 
-                        <input type="hidden" id="categories" name="categories" />
+                        <input type="hidden" id="categories" name="categories"/>
                     </div>
                 </div>
 
@@ -76,7 +77,7 @@
             placeholder: 'Happy blogging :-)',
             height: 400,
             callbacks: {
-                onImageUpload: function(image) {
+                onImageUpload: function (image) {
                     uploadImage(image[0]);
                 }
             },
@@ -109,13 +110,13 @@
                 processData: false,
                 data: data,
                 type: "post",
-                success: function(url) {
+                success: function (url) {
                     url = 'www.w3schools.com/howto/img_fjords.jpg'
                     var image = $('<img>').attr('src', 'https://' + url);
                     $('.summernote').summernote("insertNode", image[0]);
                     console.log('hellO!')
                 },
-                error: function(data) {
+                error: function (data) {
                     console.log(data);
                 }
             });
