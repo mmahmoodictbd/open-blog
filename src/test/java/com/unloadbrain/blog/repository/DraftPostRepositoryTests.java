@@ -3,11 +3,10 @@ package com.unloadbrain.blog.repository;
 import com.unloadbrain.blog.Application;
 import com.unloadbrain.blog.BaseTest;
 import com.unloadbrain.blog.domain.model.Category;
-import com.unloadbrain.blog.domain.model.Post;
-import com.unloadbrain.blog.domain.model.PostStatus;
+import com.unloadbrain.blog.domain.model.DraftPost;
 import com.unloadbrain.blog.domain.model.Tag;
 import com.unloadbrain.blog.domain.repository.CategoryRepository;
-import com.unloadbrain.blog.domain.repository.PostRepository;
+import com.unloadbrain.blog.domain.repository.DraftPostRepository;
 import com.unloadbrain.blog.domain.repository.TagRepository;
 import org.junit.Rule;
 import org.junit.Test;
@@ -25,13 +24,13 @@ import static org.junit.Assert.assertTrue;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest(classes = {Application.class})
-public class PostRepositoryTests extends BaseTest {
+public class DraftPostRepositoryTests extends BaseTest {
 
     @Rule
     public ExpectedException expectedException = ExpectedException.none();
 
     @Autowired
-    private PostRepository postRepository;
+    private DraftPostRepository draftPostRepository;
 
     @Autowired
     private CategoryRepository categoryRepository;
@@ -47,13 +46,13 @@ public class PostRepositoryTests extends BaseTest {
 
     @Test
     @Transactional
-    public void testPostSavesCorrectly() {
+    public void testDraftPostSavesCorrectly() {
 
         // Given
 
         categoryRepository.deleteAll();
         tagRepository.deleteAll();
-        postRepository.deleteAll();
+        draftPostRepository.deleteAll();
 
         Category category = new Category();
         category.setName("Programming");
@@ -65,16 +64,15 @@ public class PostRepositoryTests extends BaseTest {
         tag.setSlug("java");
         tag = tagRepository.saveAndFlush(tag);
 
-        Post post = new Post();
+        DraftPost post = new DraftPost();
         post.setTitle("Hello World to Java!");
         post.setContent("Long detail content.");
         post.setCategories(Collections.singleton(category));
         post.setTags(Collections.singleton(tag));
-        post.setStatus(PostStatus.DRAFT);
-        postRepository.save(post);
+        draftPostRepository.save(post);
 
         // When
-        Optional<Post> retrievedPost = postRepository.findById(post.getId());
+        Optional<DraftPost> retrievedPost = draftPostRepository.findById(post.getId());
 
         // Then
         assertTrue(retrievedPost.isPresent());
