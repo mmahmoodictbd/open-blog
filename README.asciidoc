@@ -6,7 +6,16 @@ image:https://travis-ci.org/mmahmoodictbd/OpenBlog.svg?branch=master["Build Stat
 image:https://ci.appveyor.com/api/projects/status/pvt16qsbnb4atemd?svg=true["Appveyor Status", link="https://ci.appveyor.com/project/mmahmoodictbd/openblog"]
 image:https://codecov.io/gh/mmahmoodictbd/OpenBlog/branch/master/graph/badge.svg["Code Coverage", link="https://codecov.io/gh/mmahmoodictbd/OpenBlog"]
 
+image:https://sonarcloud.io/api/project_badges/measure?project=com.unloadbrain%3Aopenblog&metric=alert_status["Quality Gate", link="https://sonarcloud.io/dashboard?id=com.unloadbrain%3Aopenblog"]
+image:https://sonarcloud.io/api/project_badges/measure?project=com.unloadbrain%3Aopenblog&metric=bugs["Bugs", link="https://sonarcloud.io/dashboard?id=com.unloadbrain%3Aopenblog"]
+image:https://sonarcloud.io/api/project_badges/measure?project=com.unloadbrain%3Aopenblog&metric=code_smells["Code smells", link="https://sonarcloud.io/dashboard?id=com.unloadbrain%3Aopenblog"]
+image:https://sonarcloud.io/api/project_badges/measure?project=com.unloadbrain%3Aopenblog&metric=security_rating["Security rating", link="https://sonarcloud.io/dashboard?id=com.unloadbrain%3Aopenblog"]
+image:https://sonarcloud.io/api/project_badges/measure?project=com.unloadbrain%3Aopenblog&metric=sqale_rating["Maintainability", link="https://sonarcloud.io/dashboard?id=com.unloadbrain%3Aopenblog"]
 
+
+
+
+*ATTENTION:* Project still in a very early alpha version, the API may and will change frequently. Please, use it at your own risk, until release version 1.0.
 
 ### Why OpenBlog
  - Small footprint.
