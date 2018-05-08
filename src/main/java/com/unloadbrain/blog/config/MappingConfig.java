@@ -1,9 +1,13 @@
 package com.unloadbrain.blog.config;
 
 import com.unloadbrain.blog.domain.model.Category;
+import com.unloadbrain.blog.domain.model.DraftPost;
 import com.unloadbrain.blog.domain.model.Post;
+import com.unloadbrain.blog.domain.model.PublishedPost;
 import com.unloadbrain.blog.domain.model.Tag;
 import com.unloadbrain.blog.dto.PostDTO;
+import com.unloadbrain.blog.dto.PostStatusDTO;
+import org.modelmapper.Condition;
 import org.modelmapper.Converter;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.PropertyMap;
@@ -43,8 +47,10 @@ public class MappingConfig {
 
             @Override
             protected void configure() {
+
                 using(convertCategories).map(source.getCategories(), destination.getCategories());
                 using(convertTags).map(source.getTags(), destination.getTags());
+
                 skip(destination.getAction());
                 skip(destination.getStatus());
             }
@@ -57,6 +63,24 @@ public class MappingConfig {
                 .addMapping(source -> source.getPermalink(), PostDTO::setPermalink)
                 .addMapping(source -> source.getFeatureImageLink(), PostDTO::setFeatureImageLink)
                 .addMappings(propertyMap);
+
+        mapper.createTypeMap(DraftPost.class, PostDTO.class)
+                .addMappings(new PropertyMap<DraftPost, PostDTO>() {
+                    @Override
+                    protected void configure() {
+                        map().setStatus(PostStatusDTO.DRAFT);
+                        skip(destination.getAction());
+                    }
+                });
+
+        mapper.createTypeMap(PublishedPost.class, PostDTO.class)
+                .addMappings(new PropertyMap<PublishedPost, PostDTO>() {
+                    @Override
+                    protected void configure() {
+                        map().setStatus(PostStatusDTO.PUBLISHED);
+                        skip(destination.getAction());
+                    }
+                });
 
         mapper.validate();
 
