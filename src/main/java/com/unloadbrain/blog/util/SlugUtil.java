@@ -14,14 +14,15 @@ public class SlugUtil {
 
     public static String toSlug(String input) {
 
-        String noWhitespace = WHITESPACE.matcher(input).replaceAll("-");
-        String normalized = Normalizer.normalize(noWhitespace, Normalizer.Form.NFD);
-        String onlyLatin = NON_LATIN.matcher(normalized).replaceAll("");
+        String noWhitespaceString = WHITESPACE.matcher(input).replaceAll("-");
+        String normalizedString = Normalizer.normalize(noWhitespaceString, Normalizer.Form.NFD);
+        String onlyLatinString = NON_LATIN.matcher(normalizedString).replaceAll("");
 
-        String removedExtraHyphen = onlyLatin.charAt(onlyLatin.length() - 1) == '-' ?
-                onlyLatin.substring(0, onlyLatin.length() - 1) : onlyLatin;
+        if (onlyLatinString.length() > 0 &&  onlyLatinString.charAt(onlyLatinString.length() - 1) == '-') {
+            onlyLatinString = onlyLatinString.substring(0, onlyLatinString.length() - 1);
+        }
 
-        return removedExtraHyphen.toLowerCase(Locale.ENGLISH);
+        return onlyLatinString.toLowerCase(Locale.ENGLISH);
     }
 
 }
