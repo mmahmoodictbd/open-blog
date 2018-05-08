@@ -19,12 +19,23 @@
             <div class="col-md-9">
 
                 <div class="form-group">
-                    <input name="title" type="text" class="form-control" id="title" placeholder="Title">
+                    <input name="title" type="text" class="form-control" id="title"
+                           placeholder="Title" value="${(post.title)!}">
                 </div>
 
                 <div class="form-group">
-                    <textarea name="content" class="form-control summernote" data-toolbar="full"></textarea>
+                    <textarea name="content" class="form-control summernote"
+                              data-toolbar="full">${(post.content)!}</textarea>
                 </div>
+
+                <input type="hidden" id="id" name="id" value="${(post.id)!}" />
+
+                <#if (post.status)! == "DRAFT">
+                    <input type="hidden" id="status" name="status" value="DRAFT" />
+                <#else>
+                    <input type="hidden" id="status" name="status" value="PUBLISHED" />
+                </#if>
+
 
             </div>
 

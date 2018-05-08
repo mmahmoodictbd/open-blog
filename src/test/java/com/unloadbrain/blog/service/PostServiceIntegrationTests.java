@@ -13,11 +13,9 @@ import org.springframework.util.MultiValueMap;
 
 import java.util.Collections;
 
-import static org.hamcrest.CoreMatchers.containsString;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 
@@ -37,8 +35,6 @@ public class PostServiceIntegrationTests {
         this.mockMvc.perform(get("/admin/post"))
                 .andExpect(status().isOk())
                 .andExpect(view().name("admin/post"))
-                .andExpect(content().string(containsString(
-                        "<input name=\"title\" type=\"text\" class=\"form-control\" id=\"title\" placeholder=\"Title\">")))
                 .andDo(print());
     }
 
