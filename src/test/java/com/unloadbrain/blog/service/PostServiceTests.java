@@ -13,7 +13,9 @@ import com.unloadbrain.blog.dto.PostIdentityDTO;
 import com.unloadbrain.blog.dto.PostStatusDTO;
 import com.unloadbrain.blog.helper.ObjectFactory;
 import com.unloadbrain.blog.util.DateUtility;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 import org.mockito.ArgumentCaptor;
 import org.modelmapper.ModelMapper;
 
@@ -31,6 +33,9 @@ import static org.mockito.Mockito.when;
 
 
 public class PostServiceTests {
+
+    @Rule
+    public ExpectedException thrown = ExpectedException.none();
 
     private PublishedPostRepository publishedPostRepository;
     private DraftPostRepository draftPostRepository;
@@ -252,6 +257,52 @@ public class PostServiceTests {
 
         verify(publishedPostRepository).save(publishedPostArgCaptor.capture());
         assertEquals("NewPublishedTitle", publishedPostArgCaptor.getValue().getTitle());
+
+    }
+
+    @Test
+    public void testGetPostWhenStatusIsDraft() {
+
+        // Given
+        when(draftPostRepository.findById(any())).thenReturn(Optional.of(ObjectFactory.createDraftPost()));
+
+        // When
+        PostDTO postDTO = postService.getPost(1L, PostStatusDTO.DRAFT);
+
+        // Then
+        assertEquals(1, postDTO.getId().longValue());
+
+    }
+
+    @Test
+    public void testGetPostWhenStatusIsPublished() {
+
+        // Given
+        when(publishedPostRepository.findById(any())).thenReturn(Optional.of(ObjectFactory.createPublishedPost()));
+
+        // When
+        PostDTO postDTO = postService.getPost(1L, PostStatusDTO.PUBLISHED);
+
+        // Then
+        assertEquals(1, postDTO.getId().longValue());
+
+    }
+
+    @Test
+    public void throwExceptionPostCouldNotBeFound() throws IllegalStateException {
+
+        // Given
+
+        thrown.expect(IllegalStateException.class);
+        thrown.expectMessage("Could not find the post.");
+
+        when(publishedPostRepository.findById(any())).thenReturn(Optional.empty());
+
+        // When
+        PostDTO postDTO = postService.getPost(1L, PostStatusDTO.PUBLISHED);
+
+        // Then
+        // Expect test to be passed.
 
     }
 }

@@ -2,7 +2,6 @@ package com.unloadbrain.blog.service;
 
 import com.unloadbrain.blog.domain.model.Category;
 import com.unloadbrain.blog.domain.model.DraftPost;
-import com.unloadbrain.blog.domain.model.Post;
 import com.unloadbrain.blog.domain.model.PublishedPost;
 import com.unloadbrain.blog.domain.model.Tag;
 import com.unloadbrain.blog.domain.repository.CategoryRepository;
@@ -54,50 +53,69 @@ public class PostService {
     @Transactional
     public PostIdentityDTO createUpdatePost(PostDTO postDTO) {
 
-        Post post = modelMapper.map(postDTO, Post.class);
+        //Post post = modelMapper.map(postDTO, Post.class);
 
         Set<Category> categories = new LinkedHashSet<>();
-        for (String categoryString : postDTO.getCategories().split(COMMA)) {
-            Category persistedCategory = categoryRepository.findByName(categoryString);
-            if (persistedCategory == null) {
-                // TODO: Categories will be pre persisted
-                Category category = new Category();
-                category.setName(categoryString);
-                category.setSlug(SlugUtil.toSlug(categoryString));
-                persistedCategory = categoryRepository.save(category);
+
+        if (postDTO.getCategories() != null && postDTO.getCategories().length() > 0) {
+
+            for (String categoryString : postDTO.getCategories().split(COMMA)) {
+                Category persistedCategory = categoryRepository.findByName(categoryString);
+                if (persistedCategory == null) {
+                    // TODO: Categories will be pre persisted
+                    Category category = new Category();
+                    category.setName(categoryString);
+                    category.setSlug(SlugUtil.toSlug(categoryString));
+                    persistedCategory = categoryRepository.save(category);
+                }
+                categories.add(persistedCategory);
             }
-            categories.add(persistedCategory);
         }
-        post.setCategories(categories);
+
 
         Set<Tag> tags = new LinkedHashSet<>();
-        for (String tagString : postDTO.getTags().split(COMMA)) {
-            Tag persistedTag = tagRepository.findByName(tagString);
-            if (persistedTag == null) {
-                Tag tag = new Tag();
-                tag.setName(tagString);
-                tag.setSlug(SlugUtil.toSlug(tagString));
-                persistedTag = tagRepository.save(tag);
-            }
-            tags.add(persistedTag);
-        }
-        post.setTags(tags);
 
-        post.setPermalink(SlugUtil.toSlug(post.getTitle()));
+        if (postDTO.getTags() != null && postDTO.getTags().length() > 0) {
+
+            for (String tagString : postDTO.getTags().split(COMMA)) {
+                Tag persistedTag = tagRepository.findByName(tagString);
+                if (persistedTag == null) {
+                    Tag tag = new Tag();
+                    tag.setName(tagString);
+                    tag.setSlug(SlugUtil.toSlug(tagString));
+                    persistedTag = tagRepository.save(tag);
+                }
+                tags.add(persistedTag);
+            }
+        }
 
         if (postDTO.getId() == null) {
 
             if (PostActionDTO.DRAFT == postDTO.getAction()) {
 
-                DraftPost draftPost = modelMapper.map(post, DraftPost.class);
+                DraftPost draftPost = modelMapper.map(postDTO, DraftPost.class);
+                draftPost.setCategories(categories);
+                draftPost.setTags(tags);
+
+                if (draftPost.getPermalink() == null || draftPost.getPermalink().length() == 0) {
+                    draftPost.setPermalink(SlugUtil.toSlug(draftPost.getTitle()));
+                }
+
                 draftPost = draftPostRepository.save(draftPost);
 
                 return new PostIdentityDTO(draftPost.getId(), PostStatusDTO.DRAFT);
 
             } else if (PostActionDTO.PUBLISH == postDTO.getAction()) {
 
-                PublishedPost publishedPost = modelMapper.map(post, PublishedPost.class);
+                PublishedPost publishedPost = modelMapper.map(postDTO, PublishedPost.class);
                 publishedPost.setPublishDate(dateUtility.getCurrentDate());
+                publishedPost.setCategories(categories);
+                publishedPost.setTags(tags);
+
+                if (publishedPost.getPermalink() == null || publishedPost.getPermalink().length() == 0) {
+                    publishedPost.setPermalink(SlugUtil.toSlug(publishedPost.getTitle()));
+                }
+
                 publishedPost = publishedPostRepository.save(publishedPost);
 
                 return new PostIdentityDTO(publishedPost.getId(), PostStatusDTO.PUBLISHED);
@@ -115,7 +133,14 @@ public class PostService {
                     }
 
                     DraftPost draftPost = draftOptional.get();
-                    modelMapper.map(post, draftPost);
+                    modelMapper.map(postDTO, draftPost);
+                    draftPost.setCategories(categories);
+                    draftPost.setTags(tags);
+
+                    if (draftPost.getPermalink() == null || draftPost.getPermalink().length() == 0) {
+                        draftPost.setPermalink(SlugUtil.toSlug(draftPost.getTitle()));
+                    }
+
                     draftPost = draftPostRepository.save(draftPost);
 
                     return new PostIdentityDTO(draftPost.getId(), PostStatusDTO.DRAFT);
@@ -127,9 +152,17 @@ public class PostService {
                         // TODO: Throw exception
                     }
 
-                    DraftPost draftPost = modelMapper.map(post, DraftPost.class);
+                    DraftPost draftPost = modelMapper.map(postDTO, DraftPost.class);
+                    draftPost.setId(null);
                     draftPost.setPublishedPost(publishedPostOptional.get());
-                    draftPostRepository.save(draftPost);
+                    draftPost.setCategories(categories);
+                    draftPost.setTags(tags);
+
+                    if (draftPost.getPermalink() == null || draftPost.getPermalink().length() == 0) {
+                        draftPost.setPermalink(SlugUtil.toSlug(draftPost.getTitle()));
+                    }
+
+                    draftPost = draftPostRepository.save(draftPost);
 
                     return new PostIdentityDTO(draftPost.getId(), PostStatusDTO.DRAFT);
 
@@ -146,13 +179,25 @@ public class PostService {
                         // TODO: Throw exception
                     }
 
+
                     PublishedPost publishedPost = draftOptional.get().getPublishedPost();
+                    Long publishedPostId = null;
                     if (publishedPost == null) {
                         publishedPost = new PublishedPost();
                         publishedPost.setPublishDate(dateUtility.getCurrentDate());
+                    } else {
+                        publishedPostId = publishedPost.getId();
                     }
-                    modelMapper.map(post, publishedPost);
-                    publishedPostRepository.save(publishedPost);
+                    modelMapper.map(postDTO, publishedPost);
+                    publishedPost.setId(publishedPostId);
+                    publishedPost.setCategories(categories);
+                    publishedPost.setTags(tags);
+
+                    if (publishedPost.getPermalink() == null || publishedPost.getPermalink().length() == 0) {
+                        publishedPost.setPermalink(SlugUtil.toSlug(publishedPost.getTitle()));
+                    }
+
+                    publishedPost = publishedPostRepository.save(publishedPost);
                     draftPostRepository.deleteById(postDTO.getId());
 
                     return new PostIdentityDTO(publishedPost.getId(), PostStatusDTO.PUBLISHED);
@@ -165,9 +210,16 @@ public class PostService {
                     }
 
                     PublishedPost publishedPost = publishedPostOptional.get();
-                    modelMapper.map(post, publishedPost);
+                    modelMapper.map(postDTO, publishedPost);
                     publishedPost.setPublishDate(dateUtility.getCurrentDate());
-                    publishedPostRepository.save(publishedPost);
+                    publishedPost.setCategories(categories);
+                    publishedPost.setTags(tags);
+
+                    if (publishedPost.getPermalink() == null || publishedPost.getPermalink().length() == 0) {
+                        publishedPost.setPermalink(SlugUtil.toSlug(publishedPost.getTitle()));
+                    }
+
+                    publishedPost = publishedPostRepository.save(publishedPost);
 
                     return new PostIdentityDTO(publishedPost.getId(), PostStatusDTO.PUBLISHED);
 
@@ -179,9 +231,33 @@ public class PostService {
 
         }
 
+
+
+
+
         // TODO: Add custom exception
         throw new IllegalStateException("Invalid post creation state.");
 
+    }
+
+    public PostDTO getPost(Long id, PostStatusDTO status) {
+
+        if(status == PostStatusDTO.DRAFT) {
+            Optional<DraftPost> draftPostOptional = draftPostRepository.findById(id);
+            if (draftPostOptional.isPresent()) {
+                DraftPost draftPost = draftPostOptional.get();
+                return modelMapper.map(draftPost, PostDTO.class);
+            }
+        } else {
+            Optional<PublishedPost> publishedPostOptional = publishedPostRepository.findById(id);
+            if (publishedPostOptional.isPresent()) {
+                PublishedPost publishedPost = publishedPostOptional.get();
+                return modelMapper.map(publishedPost, PostDTO.class);
+            }
+        }
+
+        // TODO: Add custom exception
+        throw new IllegalStateException("Could not find the post.");
     }
 
 }

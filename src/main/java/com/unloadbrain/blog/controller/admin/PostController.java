@@ -6,6 +6,7 @@ import com.unloadbrain.blog.dto.PostIdentityDTO;
 import com.unloadbrain.blog.dto.PostStatusDTO;
 import com.unloadbrain.blog.service.PostService;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.InitBinder;
@@ -29,7 +30,13 @@ public class PostController {
 
     @GetMapping("/admin/post")
     public String showPostCreateEditPage(@RequestParam(required = false) Long id,
-                                         @RequestParam(required = false)  PostStatusDTO status) {
+                                         @RequestParam(required = false)  PostStatusDTO status,
+                                         Model model) {
+
+        if (id != null && status != null) {
+            model.addAttribute("post", postService.getPost(id, status));
+        }
+
         return "admin/post";
     }
 
