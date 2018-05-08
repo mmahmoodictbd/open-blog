@@ -1,15 +1,11 @@
 package com.unloadbrain.blog.config;
 
-import com.unloadbrain.blog.domain.model.Category;
 import com.unloadbrain.blog.domain.model.Post;
-import com.unloadbrain.blog.domain.model.Tag;
 import com.unloadbrain.blog.dto.PostDTO;
 import com.unloadbrain.blog.helper.ObjectFactory;
 import org.junit.Before;
 import org.junit.Test;
 import org.modelmapper.ModelMapper;
-
-import java.util.stream.Collectors;
 
 import static org.junit.Assert.assertEquals;
 
