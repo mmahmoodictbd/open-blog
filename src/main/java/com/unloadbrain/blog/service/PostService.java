@@ -53,8 +53,6 @@ public class PostService {
     @Transactional
     public PostIdentityDTO createUpdatePost(PostDTO postDTO) {
 
-        //Post post = modelMapper.map(postDTO, Post.class);
-
         Set<Category> categories = new LinkedHashSet<>();
 
         if (postDTO.getCategories() != null && postDTO.getCategories().length() > 0) {
@@ -231,10 +229,6 @@ public class PostService {
 
         }
 
-
-
-
-
         // TODO: Add custom exception
         throw new IllegalStateException("Invalid post creation state.");
 
@@ -242,7 +236,7 @@ public class PostService {
 
     public PostDTO getPost(Long id, PostStatusDTO status) {
 
-        if(status == PostStatusDTO.DRAFT) {
+        if (status == PostStatusDTO.DRAFT) {
             Optional<DraftPost> draftPostOptional = draftPostRepository.findById(id);
             if (draftPostOptional.isPresent()) {
                 DraftPost draftPost = draftPostOptional.get();

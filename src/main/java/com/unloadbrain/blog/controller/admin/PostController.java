@@ -30,7 +30,7 @@ public class PostController {
 
     @GetMapping("/admin/post")
     public String showPostCreateEditPage(@RequestParam(required = false) Long id,
-                                         @RequestParam(required = false)  PostStatusDTO status,
+                                         @RequestParam(required = false) PostStatusDTO status,
                                          Model model) {
 
         if (id != null && status != null) {

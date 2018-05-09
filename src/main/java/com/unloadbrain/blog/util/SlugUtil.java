@@ -18,7 +18,7 @@ public class SlugUtil {
         String normalizedString = Normalizer.normalize(noWhitespaceString, Normalizer.Form.NFD);
         String onlyLatinString = NON_LATIN.matcher(normalizedString).replaceAll("");
 
-        if (onlyLatinString.length() > 0 &&  onlyLatinString.charAt(onlyLatinString.length() - 1) == '-') {
+        if (onlyLatinString.length() > 0 && onlyLatinString.charAt(onlyLatinString.length() - 1) == '-') {
             onlyLatinString = onlyLatinString.substring(0, onlyLatinString.length() - 1);
         }
 
