@@ -3,8 +3,11 @@ package com.unloadbrain.blog.controller.admin;
 import com.unloadbrain.blog.converter.PostStatusConverter;
 import com.unloadbrain.blog.dto.PostDTO;
 import com.unloadbrain.blog.dto.PostIdentityDTO;
+import com.unloadbrain.blog.dto.PostListDTO;
 import com.unloadbrain.blog.dto.PostStatusDTO;
 import com.unloadbrain.blog.service.PostService;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.WebDataBinder;
@@ -13,6 +16,7 @@ import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+
 
 @Controller
 public class PostController {
@@ -26,6 +30,14 @@ public class PostController {
     @InitBinder
     public void initBinder(final WebDataBinder webdataBinder) {
         webdataBinder.registerCustomEditor(PostStatusDTO.class, new PostStatusConverter());
+    }
+
+    @GetMapping("/admin/posts")
+    public String showPostListPage(Model model, Pageable pageable) {
+
+        Page<PostListDTO> postListDTOPage = postService.getPosts(pageable);
+        model.addAttribute("posts", postListDTOPage.getContent());
+        return "admin/post-list";
     }
 
     @GetMapping("/admin/post")

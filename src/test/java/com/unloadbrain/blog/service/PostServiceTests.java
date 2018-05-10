@@ -5,6 +5,7 @@ import com.unloadbrain.blog.domain.model.DraftPost;
 import com.unloadbrain.blog.domain.model.PublishedPost;
 import com.unloadbrain.blog.domain.repository.CategoryRepository;
 import com.unloadbrain.blog.domain.repository.DraftPostRepository;
+import com.unloadbrain.blog.domain.repository.PostRepository;
 import com.unloadbrain.blog.domain.repository.PublishedPostRepository;
 import com.unloadbrain.blog.domain.repository.TagRepository;
 import com.unloadbrain.blog.dto.PostActionDTO;
@@ -41,6 +42,7 @@ public class PostServiceTests {
     private DraftPostRepository draftPostRepository;
     private CategoryRepository categoryRepositoryMock;
     private TagRepository tagRepositoryMock;
+    private PostRepository postRepositoryMock;
     private DateUtility dateUtility;
     private ModelMapper modelMapper;
 
@@ -52,13 +54,14 @@ public class PostServiceTests {
         this.draftPostRepository = mock(DraftPostRepository.class);
         this.categoryRepositoryMock = mock(CategoryRepository.class);
         this.tagRepositoryMock = mock(TagRepository.class);
+        this.postRepositoryMock = mock(PostRepository.class);
         this.dateUtility = mock(DateUtility.class);
         this.modelMapper = new MappingConfig().createModelMapper();
 
         this.postService = new PostService(
                 publishedPostRepository, draftPostRepository,
                 categoryRepositoryMock, tagRepositoryMock,
-                dateUtility, modelMapper);
+                postRepositoryMock, dateUtility, modelMapper);
     }
 
     @Test

@@ -6,19 +6,27 @@ import com.unloadbrain.blog.domain.model.PublishedPost;
 import com.unloadbrain.blog.domain.model.Tag;
 import com.unloadbrain.blog.domain.repository.CategoryRepository;
 import com.unloadbrain.blog.domain.repository.DraftPostRepository;
+import com.unloadbrain.blog.domain.repository.PostRepository;
 import com.unloadbrain.blog.domain.repository.PublishedPostRepository;
 import com.unloadbrain.blog.domain.repository.TagRepository;
 import com.unloadbrain.blog.dto.PostActionDTO;
 import com.unloadbrain.blog.dto.PostDTO;
 import com.unloadbrain.blog.dto.PostIdentityDTO;
+import com.unloadbrain.blog.dto.PostListDTO;
 import com.unloadbrain.blog.dto.PostStatusDTO;
 import com.unloadbrain.blog.util.DateUtility;
 import com.unloadbrain.blog.util.SlugUtil;
 import org.modelmapper.ModelMapper;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.LinkedHashSet;
+import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 
@@ -32,20 +40,23 @@ public class PostService {
     private DraftPostRepository draftPostRepository;
     private CategoryRepository categoryRepository;
     private TagRepository tagRepository;
+    private PostRepository postRepository;
 
     private DateUtility dateUtility;
     private ModelMapper modelMapper;
 
-    public PostService(PublishedPostRepository postRepository,
+    public PostService(PublishedPostRepository publishedPostRepository,
                        DraftPostRepository draftPostRepository,
                        CategoryRepository categoryRepository,
                        TagRepository tagRepository,
+                       PostRepository postRepository,
                        DateUtility dateUtility,
                        ModelMapper modelMapper) {
-        this.publishedPostRepository = postRepository;
+        this.publishedPostRepository = publishedPostRepository;
         this.draftPostRepository = draftPostRepository;
         this.categoryRepository = categoryRepository;
         this.tagRepository = tagRepository;
+        this.postRepository = postRepository;
         this.dateUtility = dateUtility;
         this.modelMapper = modelMapper;
     }
@@ -254,4 +265,22 @@ public class PostService {
         throw new IllegalStateException("Could not find the post.");
     }
 
+    public Page<PostListDTO> getPosts(Pageable pageable) {
+
+        List<PostListDTO> postListDTOList = new ArrayList<>();
+        Page<Map<String, Object>> postPage = postRepository.getPostListAsAdmin(pageable);
+        List<Map<String, Object>> posts = postPage.getContent();
+
+        for (Map<String, Object> post : posts) {
+            postListDTOList.add(new PostListDTO(
+                    post.get("id").toString(),
+                    (String) post.get("title"),
+                    (String) post.get("status"),
+                    (post.get("updated_at")).toString()
+            ));
+        }
+
+        return new PageImpl<PostListDTO>(postListDTOList, pageable, postPage.getTotalElements());
+
+    }
 }
