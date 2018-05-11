@@ -13,9 +13,8 @@ image:https://sonarcloud.io/api/project_badges/measure?project=com.unloadbrain%3
 image:https://sonarcloud.io/api/project_badges/measure?project=com.unloadbrain%3Aopenblog&metric=sqale_rating["Maintainability", link="https://sonarcloud.io/dashboard?id=com.unloadbrain%3Aopenblog"]
 
 
-
-
 *ATTENTION:* Project still in a very early alpha version, the API may and will change frequently. Please, use it at your own risk, until release version 1.0.
+
 
 ### Why OpenBlog
  - Small footprint.
@@ -23,6 +22,7 @@ image:https://sonarcloud.io/api/project_badges/measure?project=com.unloadbrain%3
  - Standard Spring project.
  - You can write your own feature.
  - Not a tons of extra features.
+
 
 ### Background
 I want to write blog, so I brought UnloadBrain.com. I liked Wordpress, but I want have my own template and custom features. So...here it is.
@@ -51,6 +51,17 @@ The version format is as follows:
 
 ```
 <major>.<minor>.<patch>-<label>
+```
+
+
+### How to run pitest
+
+To run the mutation tests, execute the following commands
+
+```
+mvn clean install
+mvn test
+mvn org.pitest:pitest-maven:mutationCoverage
 ```
 
 
