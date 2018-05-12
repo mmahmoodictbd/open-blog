@@ -10,6 +10,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
 
 
@@ -33,6 +34,14 @@ public class CategoryService {
             category = new Category();
         }
 
+        if (category.getName()!= null && !categoryDTO.getName().equals(category.getName())) {
+            List<Category> categoriesUsingThisCategoryAsParent =
+                    categoryRepository.findCategoriesByParent(category.getName());
+            for(Category cat : categoriesUsingThisCategoryAsParent) {
+                cat.setParent(categoryDTO.getName());
+                categoryRepository.save(cat);
+            }
+        }
         category.setName(categoryDTO.getName());
 
         if (categoryDTO.getSlug() == null || categoryDTO.getSlug().trim().length() == 0)  {
