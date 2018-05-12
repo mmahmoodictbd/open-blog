@@ -22,32 +22,22 @@
             <div class="form-group">
                 <table class="table">
                     <thead>
-                    <tr>
-                        <th scope="col">#</th>
-                        <th scope="col">First</th>
-                        <th scope="col">Last</th>
-                        <th scope="col">Handle</th>
-                    </tr>
+                        <tr>
+                            <th scope="col">Name</th>
+                            <th scope="col">Slug</th>
+                            <th scope="col">Parent</th>
+                            <th scope="col"></th>
+                        </tr>
                     </thead>
                     <tbody>
-                    <tr>
-                        <th scope="row">1</th>
-                        <td>Mark</td>
-                        <td>Otto</td>
-                        <td>@mdo</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">2</th>
-                        <td>Jacob</td>
-                        <td>Thornton</td>
-                        <td>@fat</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">3</th>
-                        <td>Larry</td>
-                        <td>the Bird</td>
-                        <td>@twitter</td>
-                    </tr>
+                    <#list categories as category>
+                        <tr>
+                            <td>${category.name}</td>
+                            <td>${category.slug}</td>
+                            <td>${(category.parent)!}</td>
+                            <td><a href="/admin/categories?id=${category.id}">edit</a></td>
+                        </tr>
+                    </#list>
                     </tbody>
                 </table>
             </div>
@@ -59,25 +49,39 @@
             <form action="/admin/categories" method="post">
 
                 <div class="form-group">
-                    <select class="form-control">
-                        <option>Parent category</option>
+                    <select name="parent" class="form-control">
+                        <option>ROOT</option>
+                        <#list categories as cat>
+
+                            <#if cat.name == (category.parent)!"">
+                                <option value="${cat.name}" selected="selected">${cat.name}</option>
+                            <#else>
+                                <option value="${cat.name}">${cat.name}</option>
+                            </#if>
+
+                        </#list>
                     </select>
                 </div>
 
-                <input type="hidden" id="id" name="id" value=""/>
+                <input type="hidden" id="id" name="id" value="${(category.id)!}"/>
 
                 <div class="form-group">
-                    <input type="text" class="form-control" id="category-name" name="name" placeholder="Category name">
+                    <input type="text" class="form-control" id="category-name" name="name"
+                           placeholder="Category name" value="${(category.name)!}">
                 </div>
 
                 <div class="form-group">
-                    <input type="text" class="form-control" id="category-slug" name="slug" placeholder="Category slug">
+                    <input type="text" class="form-control" id="category-slug" name="slug"
+                           placeholder="Category slug" value="${(category.slug)!}">
                 </div>
 
                 <div class="form-group">
-                    <button type="submit" class="btn btn-primary btn-sm float-right">Create</button>
 
-                    <button type="submit" class="btn btn-primary btn-sm float-right">Update</button>
+                    <#if (category.id)??>
+                        <button type="submit" class="btn btn-primary btn-sm float-right">Create</button>
+                    <#else>
+                        <button type="submit" class="btn btn-primary btn-sm float-right">Update</button>
+                    </#if>
 
                 </div>
 

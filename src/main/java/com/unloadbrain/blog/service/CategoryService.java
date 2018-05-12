@@ -5,8 +5,12 @@ import com.unloadbrain.blog.domain.repository.CategoryRepository;
 import com.unloadbrain.blog.dto.CategoryDTO;
 import com.unloadbrain.blog.dto.IdentityDTO;
 import com.unloadbrain.blog.util.SlugUtil;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.Optional;
 
 
 @Service
@@ -45,4 +49,24 @@ public class CategoryService {
     }
 
 
+    public Page<CategoryDTO> getCategories(Pageable pageable) {
+        return categoryRepository.findAll(pageable).map(this::convertToCategoryDTO);
+    }
+
+    private CategoryDTO convertToCategoryDTO(final Category category) {
+        return new CategoryDTO(category.getId(), category.getName(), category.getSlug(), category.getParent());
+    }
+
+    public CategoryDTO getCategory(Long id) {
+
+        Optional<Category> categoryOptional = categoryRepository.findById(id);
+
+        if (categoryOptional.isPresent()) {
+            return convertToCategoryDTO(categoryOptional.get());
+        } else {
+            // TODO:: Throw proper custom exception
+            throw new IllegalArgumentException("Invalid category id");
+        }
+
+    }
 }
