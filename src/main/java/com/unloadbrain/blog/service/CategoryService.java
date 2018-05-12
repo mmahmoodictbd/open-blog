@@ -31,7 +31,7 @@ public class CategoryService {
 
         category.setName(categoryDTO.getName());
 
-        if (categoryDTO.getSlug() == null)  {
+        if (categoryDTO.getSlug() == null || categoryDTO.getSlug().trim().length() == 0)  {
             category.setSlug(SlugUtil.toSlug(categoryDTO.getName()));
         } else {
             category.setSlug(categoryDTO.getSlug());

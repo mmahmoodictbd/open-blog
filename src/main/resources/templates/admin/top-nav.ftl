@@ -23,7 +23,7 @@
                     </li>
 
                     <li class="nav-item">
-                        <a class="nav-link" href="/admin/category">Categories</a>
+                        <a class="nav-link" href="/admin/categories">Categories</a>
                     </li>
 
                     <li class="nav-item">

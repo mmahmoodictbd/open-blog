@@ -56,19 +56,33 @@
 
         <div class="col-md-3">
 
-            <div class="form-group">
-                <select class="form-control">
-                    <option>Parent category</option>
-                </select>
-            </div>
+            <form action="/admin/categories" method="post">
 
-            <div class="form-group">
-                <input type="text" class="form-control" id="category-name" placeholder="Category name">
-            </div>
+                <div class="form-group">
+                    <select class="form-control">
+                        <option>Parent category</option>
+                    </select>
+                </div>
 
-            <div class="form-group">
-                <button type="button" class="btn btn-primary btn-sm float-right">Create</button>
-            </div>
+                <input type="hidden" id="id" name="id" value=""/>
+
+                <div class="form-group">
+                    <input type="text" class="form-control" id="category-name" name="name" placeholder="Category name">
+                </div>
+
+                <div class="form-group">
+                    <input type="text" class="form-control" id="category-slug" name="slug" placeholder="Category slug">
+                </div>
+
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary btn-sm float-right">Create</button>
+
+                    <button type="submit" class="btn btn-primary btn-sm float-right">Update</button>
+
+                </div>
+
+            </form>
+
         </div>
 
     </div>
