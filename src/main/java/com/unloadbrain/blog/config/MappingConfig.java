@@ -8,14 +8,12 @@ import com.unloadbrain.blog.domain.model.Tag;
 import com.unloadbrain.blog.dto.PostDTO;
 import com.unloadbrain.blog.dto.PostStatusDTO;
 import org.apache.commons.lang3.StringUtils;
-
 import org.modelmapper.Converter;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.PropertyMap;
 import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-
 
 import java.util.List;
 import java.util.Set;
