@@ -36,7 +36,7 @@
                             <td title="${post.id}">${post.title}</td>
                         </#if>
 
-                        <td><a href="/admin/post?id=${post.id}&status=${post.status}" target="_blank">edit</a></td>
+                        <td><a href="/admin/post?id=${post.id}&status=${post.status}">edit</a></td>
                     </tr>
                     </#list>
 

@@ -3,10 +3,10 @@ package com.unloadbrain.blog.controller.admin;
 import com.unloadbrain.blog.converter.PostStatusConverter;
 import com.unloadbrain.blog.dto.PostDTO;
 import com.unloadbrain.blog.dto.PostIdentityDTO;
-import com.unloadbrain.blog.dto.PostListDTO;
 import com.unloadbrain.blog.dto.PostStatusDTO;
+import com.unloadbrain.blog.service.CategoryService;
 import com.unloadbrain.blog.service.PostService;
-import org.springframework.data.domain.Page;
+import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,15 +17,12 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-
+@AllArgsConstructor
 @Controller
 public class PostController {
 
     private PostService postService;
-
-    public PostController(PostService postService) {
-        this.postService = postService;
-    }
+    private CategoryService categoryService;
 
     @InitBinder
     public void initBinder(final WebDataBinder webdataBinder) {
@@ -35,8 +32,8 @@ public class PostController {
     @GetMapping("/admin/posts")
     public String showPostListPage(Model model, Pageable pageable) {
 
-        Page<PostListDTO> postListDTOPage = postService.getPosts(pageable);
-        model.addAttribute("posts", postListDTOPage.getContent());
+        model.addAttribute("posts", postService.getPosts(pageable).getContent());
+
         return "admin/post-list";
     }
 
@@ -48,6 +45,8 @@ public class PostController {
         if (id != null && status != null) {
             model.addAttribute("post", postService.getPost(id, status));
         }
+
+        model.addAttribute("categories", categoryService.getCategories());
 
         return "admin/post";
     }

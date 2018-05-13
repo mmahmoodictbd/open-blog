@@ -22,21 +22,21 @@
             <div class="form-group">
                 <table class="table">
                     <thead>
-                        <tr>
-                            <th scope="col">Name</th>
-                            <th scope="col">Slug</th>
-                            <th scope="col">Parent</th>
-                            <th scope="col"></th>
-                        </tr>
+                    <tr>
+                        <th scope="col">Name</th>
+                        <th scope="col">Slug</th>
+                        <th scope="col">Parent</th>
+                        <th scope="col"></th>
+                    </tr>
                     </thead>
                     <tbody>
                     <#list categories as category>
-                        <tr>
-                            <td>${category.name}</td>
-                            <td>${category.slug}</td>
-                            <td>${(category.parent)!}</td>
-                            <td><a href="/admin/categories?id=${category.id}">edit</a></td>
-                        </tr>
+                    <tr>
+                        <td>${category.name}</td>
+                        <td>${category.slug}</td>
+                        <td>${(category.parent)!}</td>
+                        <td><a href="/admin/categories?id=${category.id}">edit</a></td>
+                    </tr>
                     </#list>
                     </tbody>
                 </table>

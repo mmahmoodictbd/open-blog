@@ -42,6 +42,26 @@
             <div class="col-md-3">
 
                 <div class="form-group">
+                    <select name="categories" class="form-control">
+                        <option>ROOT</option>
+                        <#list categories as cat>
+                            <!-- TODO:: split comma separated post.categories and check with cat.name -->
+                            <#if cat.name == (post.categories)!"">
+                                <option value="${cat.name}" selected="selected">${cat.name}</option>
+                            <#else>
+                                <option value="${cat.name}">${cat.name}</option>
+                            </#if>
+                        </#list>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <input name="tags" type="text" class="form-control" value="" data-role="tagsinput"
+                           placeholder="Add tags"/>
+                </div>
+
+
+                <div class="form-group">
                     <button name="action" value="DRAFT" type="submit" class="btn btn-secondary btn-sm">Save draft
                     </button>
                     <!--<button name="action" value="preview" type="submit" class="btn btn-secondary
@@ -49,25 +69,6 @@
                     <button name="action" value="PUBLISH" type="submit" class="btn btn-primary btn-sm">Publish</button>
                 </div>
 
-                <div id="categoryDropdown" class="form-group">
-                    <div class="dropdown show">
-                        <a id="categoryDropdownBtn" class="btn btn-light btn-sm dropdown-toggle w-100"
-                           href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Categories</a>
-
-                        <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                            <a class="dropdown-item" href="#" data-value="programming">Programming</a>
-                            <a class="dropdown-item" href="#" data-value="java">-Java</a>
-                            <a class="dropdown-item" href="#" data-value="spring-boot">--Spring Boot</a>
-                        </div>
-
-                        <input type="hidden" id="categories" name="categories"/>
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <input name="tags" type="text" class="form-control" value="" data-role="tagsinput"
-                           placeholder="Add tags"/>
-                </div>
             </div>
 
         </div>
@@ -103,12 +104,6 @@
                 ['insert', ['link', 'picture', 'video', 'hr']],
                 ['view', ['fullscreen', 'codeview']]
             ]
-        });
-
-        $('#categoryDropdown .dropdown-menu a').click(function () {
-            var selectedOption = $(this).attr('data-value');
-            $('#categories').val(selectedOption);
-            $('#categoryDropdownBtn').text(selectedOption);
         });
 
         function uploadImage(image) {

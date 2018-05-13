@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 
 @Service
@@ -34,17 +35,17 @@ public class CategoryService {
             category = new Category();
         }
 
-        if (category.getName()!= null && !categoryDTO.getName().equals(category.getName())) {
+        if (category.getName() != null && !categoryDTO.getName().equals(category.getName())) {
             List<Category> categoriesUsingThisCategoryAsParent =
                     categoryRepository.findCategoriesByParent(category.getName());
-            for(Category cat : categoriesUsingThisCategoryAsParent) {
+            for (Category cat : categoriesUsingThisCategoryAsParent) {
                 cat.setParent(categoryDTO.getName());
                 categoryRepository.save(cat);
             }
         }
         category.setName(categoryDTO.getName());
 
-        if (categoryDTO.getSlug() == null || categoryDTO.getSlug().trim().length() == 0)  {
+        if (categoryDTO.getSlug() == null || categoryDTO.getSlug().trim().length() == 0) {
             category.setSlug(SlugUtil.toSlug(categoryDTO.getName()));
         } else {
             category.setSlug(categoryDTO.getSlug());
@@ -57,6 +58,9 @@ public class CategoryService {
         return new IdentityDTO(category.getId());
     }
 
+    public List<CategoryDTO> getCategories() {
+        return categoryRepository.findAll().stream().map(this::convertToCategoryDTO).collect(Collectors.toList());
+    }
 
     public Page<CategoryDTO> getCategories(Pageable pageable) {
         return categoryRepository.findAll(pageable).map(this::convertToCategoryDTO);
