@@ -34,10 +34,8 @@ public class MappingConfigTest {
         assertEquals(post.getPermalink(), postDTO.getPermalink());
         assertEquals(post.getFeatureImageLink(), postDTO.getFeatureImageLink());
 
-        // FIXME: Somehow Category Set is not converting to comma separated string
-        // assertEquals("Programming", postDTO.getCategories());
-        // assertEquals("Java,Spring", postDTO.getTags());
-
+        assertEquals("Programming", postDTO.getCategories());
+        assertEquals("Java,Spring", postDTO.getTags());
     }
 
     @Test

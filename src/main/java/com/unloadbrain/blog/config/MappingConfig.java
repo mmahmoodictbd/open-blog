@@ -7,6 +7,8 @@ import com.unloadbrain.blog.domain.model.PublishedPost;
 import com.unloadbrain.blog.domain.model.Tag;
 import com.unloadbrain.blog.dto.PostDTO;
 import com.unloadbrain.blog.dto.PostStatusDTO;
+import org.apache.commons.lang3.StringUtils;
+
 import org.modelmapper.Converter;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.PropertyMap;
@@ -14,6 +16,8 @@ import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+
+import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -34,22 +38,41 @@ public class MappingConfig {
 
     private ModelMapper addMappingPostToPostDTO(ModelMapper mapper) {
 
+        // TODO:: Find better solution
+        Converter<Set, String> convertCategoriesAndTags = mappingContext -> {
+
+            Set<Category> categories = null;
+            Set<Tag> tags = null;
+
+            Set categoriesOrTags = mappingContext.getSource();
+            for (Object obj : categoriesOrTags) {
+                if (obj instanceof Category) {
+                    categories = (Set<Category>) categoriesOrTags;
+                    break;
+                } else if (obj instanceof Tag) {
+                    tags = (Set<Tag>) categoriesOrTags;
+                    break;
+                }
+            }
+
+            if (categories != null) {
+                List<String> catStringList = categories.stream().map(Category::getName).collect(Collectors.toList());
+                return StringUtils.join(catStringList, ",");
+            }
+
+            if (tags != null) {
+                List<String> tagStringList = tags.stream().map(Tag::getName).collect(Collectors.toList());
+                return StringUtils.join(tagStringList, ",");
+            }
+
+            return null;
+        };
+
+
         PropertyMap propertyMap = new PropertyMap<Post, PostDTO>() {
-
-            Converter<Set<Category>, String> convertCategories = ctx ->
-                    ctx.getSource() == null ? null :
-                            ctx.getSource().stream().map(Category::getName).collect(Collectors.joining(","));
-
-            Converter<Set<Tag>, String> convertTags = ctx ->
-                    ctx.getSource() == null ? null :
-                            ctx.getSource().stream().map(Tag::getName).collect(Collectors.joining(","));
 
             @Override
             protected void configure() {
-
-                using(convertCategories).map(source.getCategories(), destination.getCategories());
-                using(convertTags).map(source.getTags(), destination.getTags());
-
                 skip(destination.getAction());
                 skip(destination.getStatus());
             }
@@ -62,6 +85,10 @@ public class MappingConfig {
                 .addMapping(source -> source.getPermalink(), PostDTO::setPermalink)
                 .addMapping(source -> source.getFeatureImageLink(), PostDTO::setFeatureImageLink)
                 .addMappings(propertyMap);
+
+
+        mapper.createTypeMap(Set.class, String.class)
+                .setConverter(convertCategoriesAndTags);
 
         mapper.createTypeMap(DraftPost.class, PostDTO.class)
                 .addMappings(new PropertyMap<DraftPost, PostDTO>() {
