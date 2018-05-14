@@ -24,10 +24,4 @@ public class HomeController {
         return "site/home/main";
     }
 
-    @RequestMapping(path = "/post", method = RequestMethod.GET)
-    public String showPostPage(@RequestParam long id, Model model) {
-        model.addAttribute("posts", null);
-        return "site/post/main";
-    }
-
 }

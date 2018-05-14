@@ -265,6 +265,25 @@ public class PostService {
         throw new IllegalStateException("Could not find the post.");
     }
 
+
+    public PostDTO getPublishedPost(Long id) {
+
+
+        Optional<PublishedPost> publishedPostOptional = publishedPostRepository.findById(id);
+        if (!publishedPostOptional.isPresent()) {
+            // TODO: Use custom exception
+            throw new IllegalArgumentException("Post id not found.");
+        }
+
+        PublishedPost publishedPost = publishedPostOptional.get();
+        return modelMapper.map(publishedPost, PostDTO.class);
+
+    }
+
+    public String getPublishedPostPermalink(Long postId) {
+        return publishedPostRepository.getPermalinkById(postId);
+    }
+
     public Page<PostListDTO> getPosts(Pageable pageable) {
 
         List<PostListDTO> postListDTOList = new ArrayList<>();
