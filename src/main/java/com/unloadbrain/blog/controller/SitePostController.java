@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 @AllArgsConstructor
 @Controller
-public class PostController {
+public class SitePostController {
 
     private PostService postService;
 
