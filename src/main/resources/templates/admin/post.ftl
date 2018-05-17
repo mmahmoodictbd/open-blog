@@ -108,9 +108,9 @@
 
         function uploadImage(image) {
             var data = new FormData();
-            data.append("image", image);
+            data.append("file", image);
             $.ajax({
-                url: '/admin/post',
+                url: '/admin/files',
                 cache: false,
                 contentType: false,
                 processData: false,
