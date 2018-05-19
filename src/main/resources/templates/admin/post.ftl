@@ -116,9 +116,8 @@
                 processData: false,
                 data: data,
                 type: "post",
-                success: function (url) {
-                    url = 'www.w3schools.com/howto/img_fjords.jpg'
-                    var image = $('<img>').attr('src', 'https://' + url);
+                success: function (uploadResponse) {
+                    var image = $('<img>').attr('src', 'http://' + uploadResponse.url);
                     $('.summernote').summernote("insertNode", image[0]);
                     console.log('hellO!')
                 },
