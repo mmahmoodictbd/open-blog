@@ -27,6 +27,10 @@ public class Post extends BaseEntity {
     @Lob
     private String content;
 
+    @Column
+    @Lob
+    private String summary;
+
     @OneToMany(cascade = CascadeType.ALL)
     private Set<Category> categories = new LinkedHashSet<>();
 

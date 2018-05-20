@@ -20,6 +20,9 @@ databaseChangeLog:
               constraints:
                 nullable: false
           - column:
+              name: summary
+              type: longtext
+          - column:
               name: content
               type: longtext
           - column:

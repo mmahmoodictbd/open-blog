@@ -102,6 +102,14 @@ public class PostService {
             }
         }
 
+        if (postDTO.getSummary() == null || postDTO.getSummary().trim().length() == 0) {
+            Document content = Jsoup.parse(postDTO.getContent());
+            Element firstParagraph = content.getElementsByTag("p").first();
+            if (firstParagraph != null) {
+                postDTO.setSummary(firstParagraph.text());
+            }
+        }
+
         if (postDTO.getId() == null) {
 
             if (PostActionDTO.DRAFT == postDTO.getAction()) {

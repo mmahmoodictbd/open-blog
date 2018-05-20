@@ -17,6 +17,8 @@ public class PostDTO {
     @NotNull
     private String content;
 
+    private String summary;
+
     private String categories;
 
     private String tags;

@@ -24,6 +24,11 @@
                 </div>
 
                 <div class="form-group">
+                    <input name="summary" type="text" class="form-control" id="summary"
+                           placeholder="Summary" value="${(post.summary)!}">
+                </div>
+
+                <div class="form-group">
                     <textarea name="content" class="form-control summernote"
                               data-toolbar="full">${(post.content)!}</textarea>
                 </div>
