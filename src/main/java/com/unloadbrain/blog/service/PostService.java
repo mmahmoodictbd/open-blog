@@ -33,6 +33,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @AllArgsConstructor
 @Service
@@ -90,9 +91,14 @@ public class PostService {
             Document content = Jsoup.parse(postDTO.getContent());
             Element firstImage = content.getElementsByTag("img").first();
             if (firstImage != null) {
-                String absUrl = firstImage.absUrl("src");
-                String relativeUrl = absUrl.substring(absUrl.indexOf("/files/"));
-                postDTO.setFeatureImageLink(relativeUrl);
+                String absUrl = firstImage.attr("src");
+                if(absUrl != null && absUrl.trim().length() > 0) {
+                    int index = absUrl.indexOf("/files/");
+                    if (index > 0) {
+                        String relativeUrl = absUrl.substring(index);
+                        postDTO.setFeatureImageLink(relativeUrl);
+                    }
+                }
             }
         }
 
@@ -299,5 +305,15 @@ public class PostService {
 
         return new PageImpl<>(postListDTOList, pageable, postPage.getTotalElements());
 
+    }
+
+    public Page<PostDTO> getPublishedPosts(Pageable pageable) {
+
+        Page<PublishedPost> postsPage = publishedPostRepository.findAll(pageable);
+        List<PostDTO> postDTOList = postsPage.getContent().stream()
+                .map(post -> modelMapper.map(post, PostDTO.class))
+                .collect(Collectors.toCollection(ArrayList::new));
+
+        return new PageImpl<>(postDTOList, pageable, postsPage.getTotalElements());
     }
 }

@@ -1,25 +1,22 @@
 package com.unloadbrain.blog.controller;
 
+import com.unloadbrain.blog.service.PostService;
+import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import java.util.ArrayList;
-import java.util.List;
-
+@AllArgsConstructor
 @Controller
 public class HomeController {
 
-    @RequestMapping(path = "/", method = RequestMethod.GET)
-    public String showHomePage(Model model) {
-        List<String> posts = new ArrayList<>();
-        posts.add("1");
-        posts.add("2");
-        posts.add("3");
-        posts.add("4");
+    private PostService postService;
 
-        model.addAttribute("posts", posts);
+    @RequestMapping(path = "/", method = RequestMethod.GET)
+    public String showHomePage(Pageable pageable, Model model) {
+        model.addAttribute("postsPage", postService.getPublishedPosts(pageable));
         return "site/home/main";
     }
 
