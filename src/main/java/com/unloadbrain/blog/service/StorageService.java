@@ -67,8 +67,7 @@ public class StorageService {
             throw new IllegalStateException("Could not write file");
         }
 
-        return new FileIdentityDTO(String.format("%s/%s/%d/%d/%d/%s",
-                "localhost:8080",
+        return new FileIdentityDTO(String.format("%s/%d/%d/%d/%s",
                 "files",
                 calendar.get(Calendar.YEAR),
                 calendar.get(Calendar.MONTH),

@@ -17,6 +17,9 @@ import com.unloadbrain.blog.dto.PostStatusDTO;
 import com.unloadbrain.blog.util.DateUtility;
 import com.unloadbrain.blog.util.SlugUtil;
 import lombok.AllArgsConstructor;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
 import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -80,6 +83,16 @@ public class PostService {
                     persistedTag = tagRepository.save(tag);
                 }
                 tags.add(persistedTag);
+            }
+        }
+
+        if (postDTO.getFeatureImageLink() == null || postDTO.getFeatureImageLink().trim().length() == 0) {
+            Document content = Jsoup.parse(postDTO.getContent());
+            Element firstImage = content.getElementsByTag("img").first();
+            if (firstImage != null) {
+                String absUrl = firstImage.absUrl("src");
+                String relativeUrl = absUrl.substring(absUrl.indexOf("/files/"));
+                postDTO.setFeatureImageLink(relativeUrl);
             }
         }
 
@@ -284,7 +297,7 @@ public class PostService {
             ));
         }
 
-        return new PageImpl<PostListDTO>(postListDTOList, pageable, postPage.getTotalElements());
+        return new PageImpl<>(postListDTOList, pageable, postPage.getTotalElements());
 
     }
 }

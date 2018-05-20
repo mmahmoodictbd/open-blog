@@ -117,9 +117,8 @@
                 data: data,
                 type: "post",
                 success: function (uploadResponse) {
-                    var image = $('<img>').attr('src', 'http://' + uploadResponse.url);
+                    var image = $('<img>').attr('src', '../' + uploadResponse.url);
                     $('.summernote').summernote("insertNode", image[0]);
-                    console.log('hellO!')
                 },
                 error: function (data) {
                     console.log(data);
