@@ -1,6 +1,7 @@
 package com.unloadbrain.blog.service;
 
 import com.unloadbrain.blog.dto.FileIdentityDTO;
+import com.unloadbrain.blog.util.SlugUtil;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
 import org.springframework.stereotype.Service;
@@ -57,7 +58,9 @@ public class StorageService {
             }
         }
 
-        Path path = Paths.get(uploadPath.toString(), file.getOriginalFilename());
+        String newFileName = SlugUtil.toSlug(file.getOriginalFilename());
+
+        Path path = Paths.get(uploadPath.toString(), newFileName);
 
         try {
             byte[] bytes = file.getBytes();
@@ -72,7 +75,7 @@ public class StorageService {
                 calendar.get(Calendar.YEAR),
                 calendar.get(Calendar.MONTH),
                 calendar.get(Calendar.DATE),
-                file.getOriginalFilename())
+                newFileName)
         );
     }
 }
