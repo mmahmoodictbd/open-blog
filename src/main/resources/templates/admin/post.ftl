@@ -56,7 +56,7 @@
                 </div>
 
                 <div class="form-group">
-                    <input name="tags" type="text" class="form-control" value="" data-role="tagsinput"
+                    <input name="tags" type="text" class="form-control" value="${(post.tags)!}" data-role="tagsinput"
                            placeholder="Add tags"/>
                 </div>
 
