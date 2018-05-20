@@ -5,6 +5,7 @@ import com.unloadbrain.blog.domain.repository.CategoryRepository;
 import com.unloadbrain.blog.dto.CategoryDTO;
 import com.unloadbrain.blog.dto.IdentityDTO;
 import com.unloadbrain.blog.util.SlugUtil;
+import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -14,15 +15,11 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-
+@AllArgsConstructor
 @Service
 public class CategoryService {
 
     private CategoryRepository categoryRepository;
-
-    public CategoryService(CategoryRepository categoryRepository) {
-        this.categoryRepository = categoryRepository;
-    }
 
     @Transactional
     public IdentityDTO createUpdateCategory(CategoryDTO categoryDTO) {

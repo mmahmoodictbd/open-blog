@@ -16,6 +16,7 @@ import com.unloadbrain.blog.dto.PostListDTO;
 import com.unloadbrain.blog.dto.PostStatusDTO;
 import com.unloadbrain.blog.util.DateUtility;
 import com.unloadbrain.blog.util.SlugUtil;
+import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -30,7 +31,7 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 
-
+@AllArgsConstructor
 @Service
 public class PostService {
 
@@ -44,22 +45,6 @@ public class PostService {
 
     private DateUtility dateUtility;
     private ModelMapper modelMapper;
-
-    public PostService(PublishedPostRepository publishedPostRepository,
-                       DraftPostRepository draftPostRepository,
-                       CategoryRepository categoryRepository,
-                       TagRepository tagRepository,
-                       PostRepository postRepository,
-                       DateUtility dateUtility,
-                       ModelMapper modelMapper) {
-        this.publishedPostRepository = publishedPostRepository;
-        this.draftPostRepository = draftPostRepository;
-        this.categoryRepository = categoryRepository;
-        this.tagRepository = tagRepository;
-        this.postRepository = postRepository;
-        this.dateUtility = dateUtility;
-        this.modelMapper = modelMapper;
-    }
 
     @Transactional
     public PostIdentityDTO createUpdatePost(PostDTO postDTO) {
