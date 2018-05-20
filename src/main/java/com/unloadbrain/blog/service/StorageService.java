@@ -24,7 +24,7 @@ public class StorageService {
 
         try {
             Resource resource = new UrlResource(filePath.toUri());
-            if(resource.exists()) {
+            if (resource.exists()) {
                 return resource;
             } else {
                 // TODO: Use custom exception
