@@ -1,21 +1,39 @@
 <!-- Sidebar Widgets Column -->
 
+<#if categories?has_content>
 
-<div class="container categories d-none d-sm-block" style="line-height: 1.7em;">
+    <div class="container categories d-none d-sm-block" style="line-height: 1.7em;">
 
-    <h5 class="">Categories</h5>
+        <h5 class="">Categories</h5>
 
-    <ul class="list-unstyled mb-0">
-        <li>
-            <a href="#">Web Design</a>
-        </li>
-        <li>
-            <a href="#">HTML</a>
-        </li>
-        <li>
-            <a href="#">Freebies</a>
-        </li>
-    </ul>
+        <ul class="list-inline mb-0">
+            <#list categories as category>
+                <li class="list-inline-item">
+                    <a href="?category=${(category.name)!}">${(category.name)!}</a>
+                </li>
+            </#list>
+        </ul>
 
-</div>
+    </div>
 
+</#if>
+
+<div class="row"></div>
+
+<#if tags?has_content>
+
+    <div class="container categories d-none d-sm-block" style="line-height: 1.7em;">
+
+        <h5 class="">Tags</h5>
+
+        <ul class="list-inline mb-0">
+            <#list tags as tag>
+                <li class="list-inline-item">
+                    <a href="?tag=${(tag)!}">${(tag)!}</a>
+                </li>
+            </#list>
+        </ul>
+
+    </div>
+
+</#if>
