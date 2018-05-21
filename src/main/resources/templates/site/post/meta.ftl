@@ -8,7 +8,7 @@
     <div class="d-inline">
         <i class="far fa-folder-open fa-fw" style="font-size:16px"></i>
         <#list post.categories?split(",") as category>
-            <a href="?category=${(category)!}">${(category)!}</a>
+            <a href="../?category=${(category)!}">${(category)!}</a>
         </#list>
     </div>
 </#if>
@@ -19,7 +19,7 @@
     <div class="d-inline">
         <i class="fas fa-tags fa-fw" style="font-size:16px"></i>
         <#list post.tags?split(",") as tag>
-            <a href="?category=${(tag)!}">${(tag)!}</a>
+            <a href="../?category=${(tag)!}">${(tag)!}</a>
         </#list>
     </div>
 </#if>
