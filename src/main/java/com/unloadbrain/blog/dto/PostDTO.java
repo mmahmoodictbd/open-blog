@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.validation.constraints.NotNull;
+import java.util.Date;
 
 @Getter
 @Setter
@@ -28,6 +29,10 @@ public class PostDTO {
     private String permalink;
 
     private String featureImageLink;
+
+    private Date createdAt;
+
+    private Date updatedAt;
 
     @NotNull
     private PostActionDTO action;

@@ -1,18 +1,25 @@
 <div class="d-inline">
-    <i class="far fa-clock fa-fw" style="font-size:16px"></i>&nbsp;June 22, 2017
+    <i class="far fa-clock fa-fw" style="font-size:16px"></i>&nbsp;${post.createdAt?datetime?string('MMM dd yyyy')}
 </div>
 
 &nbsp;&nbsp;
 
-<div class="d-inline">
-    <i class="far fa-folder-open fa-fw" style="font-size:16px"></i>
-    <a href="http://www.linkedin.com/pub/mossaddeque-mahmood/39/50/702">Programming</a>
-</div>
+<#if post.categories?has_content>
+    <div class="d-inline">
+        <i class="far fa-folder-open fa-fw" style="font-size:16px"></i>
+        <#list post.categories?split(",") as category>
+            <a href="?category=${(category)!}">${(category)!}</a>
+        </#list>
+    </div>
+</#if>
 
 &nbsp;&nbsp;
 
-<div class="d-inline">
-    <i class="fas fa-tags fa-fw" style="font-size:16px"></i>
-    <a href="https://www.facebook.com/mmahmood.ict.bd">Java</a>,
-    <a href="https://www.facebook.com/mmahmood.ict.bd">Spring Boot</a>
-</div>
+<#if post.tags?has_content>
+    <div class="d-inline">
+        <i class="fas fa-tags fa-fw" style="font-size:16px"></i>
+        <#list post.tags?split(",") as tag>
+            <a href="?category=${(tag)!}">${(tag)!}</a>
+        </#list>
+    </div>
+</#if>

@@ -83,6 +83,8 @@ public class MappingConfig {
                 .addMapping(source -> source.getContent(), PostDTO::setContent)
                 .addMapping(source -> source.getPermalink(), PostDTO::setPermalink)
                 .addMapping(source -> source.getFeatureImageLink(), PostDTO::setFeatureImageLink)
+                .addMapping(source -> source.getCreatedAt(), PostDTO::setCreatedAt)
+                .addMapping(source -> source.getUpdatedAt(), PostDTO::setUpdatedAt)
                 .addMappings(propertyMap);
 
 

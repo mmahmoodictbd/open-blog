@@ -96,19 +96,63 @@
             callbacks: {
                 onImageUpload: function (image) {
                     uploadImage(image[0]);
+                },
+                onInit: function() {
+
+                    var fileGroup = '<button id="codeblockButton" type="button" ' +
+                            'class="note-btn btn btn-light btn-sm"><i class="far fa-file-code"></i></button>';
+                    $(fileGroup).prependTo($('.note-codebutton'));
+
+
+                },
+                onPaste: function (e) {
+                    var bufferText = ((e.originalEvent || e).clipboardData || window.clipboardData).getData('Text');
+                    e.preventDefault();
+                    document.execCommand('insertText', false, bufferText);
                 }
             },
             toolbar: [
                 ['style', ['bold', 'italic', 'underline', 'clear']],
-                ['font', ['fontname']],
+                // ['font', ['fontname']],
                 ['fontsize', ['fontsize']],
                 ['color', ['color']],
                 ['para', ['ul', 'ol', 'paragraph']],
                 ['table', ['table']],
                 ['height', ['height']],
                 ['insert', ['link', 'picture', 'video', 'hr']],
-                ['view', ['fullscreen', 'codeview']]
-            ]
+                ['view', ['fullscreen', 'codeview']],
+                ['codebutton', ['codeblock']]
+            ],
+            buttons: {
+                codeblock: CodeBlockButton
+            }
+
+        });
+
+        var CodeBlockButton = function (context) {
+            var ui = $.summernote.ui;
+            var button = ui.button({
+                contents: '<i class="fa fa-css3"\/> hello',
+                tooltip: 'add code block',
+                click: function () {
+                    console.log('hello!');
+                    context.invoke('editor.insertText', 'hello');
+                }
+            });
+            return button.render();
+        };
+
+        $('#codeblockButton').click(function(event) {
+            var demoCode = document.createTextNode("Hello World");
+            var codeNode = document.createElement('code');
+            codeNode.className = 'language-java';
+            codeNode.appendChild(demoCode);
+            var preNode = document.createElement('pre');
+            preNode.appendChild(codeNode);
+            preNode.className = 'line-numbers';
+            var pNode = document.createElement('p');
+            pNode.appendChild(preNode);
+            $('.summernote').summernote("editor.insertNode", pNode);
         });
 
         function uploadImage(image) {
