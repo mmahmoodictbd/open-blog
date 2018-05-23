@@ -12,6 +12,9 @@ image:https://sonarcloud.io/api/project_badges/measure?project=com.unloadbrain%3
 image:https://sonarcloud.io/api/project_badges/measure?project=com.unloadbrain%3Aopenblog&metric=security_rating["Security rating", link="https://sonarcloud.io/dashboard?id=com.unloadbrain%3Aopenblog"]
 image:https://sonarcloud.io/api/project_badges/measure?project=com.unloadbrain%3Aopenblog&metric=sqale_rating["Maintainability", link="https://sonarcloud.io/dashboard?id=com.unloadbrain%3Aopenblog"]
 
+image:https://img.shields.io/github/license/mmahmoodictbd/OpenBlog.svg["LICENSE", link="https://github.com/mmahmoodictbd/OpenBlog/blob/master/LICENSE"]
+
+
 
 *ATTENTION:* Project still in a very early alpha version, the API may and will change frequently. Please, use it at your own risk, until release version 1.0.
 
