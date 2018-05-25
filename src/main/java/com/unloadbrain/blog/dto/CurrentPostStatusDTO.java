@@ -2,15 +2,14 @@ package com.unloadbrain.blog.dto;
 
 import java.util.Arrays;
 
-@Deprecated
-public enum PostStatusDTO {
+public enum CurrentPostStatusDTO {
 
     DRAFT, PUBLISHED;
 
     private static final String EXCEPTION_MESSAGE_TEMPLATE = "Unknown enum type %s, Allowed values are %s";
 
-    public static PostStatusDTO fromValue(String value) {
-        for (PostStatusDTO status : values()) {
+    public static CurrentPostStatusDTO fromValue(String value) {
+        for (CurrentPostStatusDTO status : values()) {
             if (status.name().equalsIgnoreCase(value)) {
                 return status;
             }

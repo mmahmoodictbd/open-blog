@@ -4,6 +4,7 @@ import com.unloadbrain.blog.domain.model.Category;
 import com.unloadbrain.blog.domain.repository.CategoryRepository;
 import com.unloadbrain.blog.dto.CategoryDTO;
 import com.unloadbrain.blog.dto.IdentityDTO;
+import com.unloadbrain.blog.exception.InvalidPostCategoryException;
 import com.unloadbrain.blog.util.SlugUtil;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -11,13 +12,17 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @AllArgsConstructor
 @Service
 public class CategoryService {
+
+    private static final String COMMA = ",";
 
     private CategoryRepository categoryRepository;
 
@@ -78,5 +83,25 @@ public class CategoryService {
             throw new IllegalArgumentException("Invalid category id");
         }
 
+    }
+
+    public Set<Category> getCategories(String postCategories) {
+
+        Set<Category> categories = new LinkedHashSet<>();
+
+        if (postCategories == null && postCategories.trim().length() == 0) {
+            return categories;
+        }
+
+        for (String categoryString : postCategories.split(COMMA)) {
+            Category persistedCategory = categoryRepository.findByName(categoryString);
+            if (persistedCategory == null) {
+                throw new InvalidPostCategoryException(
+                        String.format("Could not found category: %s in database.", categoryString));
+            }
+            categories.add(persistedCategory);
+        }
+
+        return categories;
     }
 }

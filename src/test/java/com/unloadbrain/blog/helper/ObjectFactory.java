@@ -4,8 +4,8 @@ import com.unloadbrain.blog.domain.model.Category;
 import com.unloadbrain.blog.domain.model.DraftPost;
 import com.unloadbrain.blog.domain.model.PublishedPost;
 import com.unloadbrain.blog.domain.model.Tag;
+import com.unloadbrain.blog.dto.CurrentPostStatusDTO;
 import com.unloadbrain.blog.dto.PostDTO;
-import com.unloadbrain.blog.dto.PostStatusDTO;
 import org.mockito.internal.util.collections.Sets;
 
 import java.util.Collections;
@@ -68,7 +68,7 @@ public class ObjectFactory {
     public static PostDTO createDraftPostDTO() {
 
         PostDTO postDTO = createPostDTO();
-        postDTO.setStatus(PostStatusDTO.DRAFT);
+        postDTO.setStatus(CurrentPostStatusDTO.DRAFT);
         postDTO.setPermalink("sample-post");
 
         return postDTO;
@@ -77,7 +77,7 @@ public class ObjectFactory {
     public static PostDTO createPublishedPostDTO() {
 
         PostDTO postDTO = createPostDTO();
-        postDTO.setStatus(PostStatusDTO.PUBLISHED);
+        postDTO.setStatus(CurrentPostStatusDTO.PUBLISHED);
 
         return postDTO;
     }

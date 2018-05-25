@@ -1,12 +1,18 @@
 package com.unloadbrain.blog.controller.admin;
 
 import com.unloadbrain.blog.converter.PostStatusConverter;
+import com.unloadbrain.blog.dto.CreateUpdatePostRequest;
+import com.unloadbrain.blog.dto.PostActionDTO;
 import com.unloadbrain.blog.dto.PostDTO;
 import com.unloadbrain.blog.dto.PostIdentityDTO;
 import com.unloadbrain.blog.dto.PostStatusDTO;
+import com.unloadbrain.blog.exception.InvalidPostCreationActionException;
 import com.unloadbrain.blog.service.CategoryService;
+import com.unloadbrain.blog.service.DraftPostService;
 import com.unloadbrain.blog.service.PostService;
+import com.unloadbrain.blog.service.PublishPostService;
 import lombok.AllArgsConstructor;
+import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,7 +28,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class PostController {
 
     private PostService postService;
+
+    private PublishPostService publishPostService;
+    private DraftPostService draftPostService;
+
     private CategoryService categoryService;
+    private ModelMapper modelMapper;
 
     @InitBinder
     public void initBinder(final WebDataBinder webdataBinder) {
@@ -52,9 +63,23 @@ public class PostController {
     }
 
     @PostMapping("/admin/post")
-    public String createPost(@ModelAttribute PostDTO postDTO) {
+    public String createPost(@ModelAttribute CreateUpdatePostRequest createUpdatePostRequest) {
 
-        PostIdentityDTO postIdentityDTO = postService.createUpdatePost(postDTO);
+        PostIdentityDTO postIdentityDTO;
+        PostActionDTO postActionDTO = createUpdatePostRequest.getAction();
+
+        PostDTO postDTO = modelMapper.map(createUpdatePostRequest, PostDTO.class);
+
+        if (postActionDTO == PostActionDTO.PUBLISH) {
+            postIdentityDTO = publishPostService.publishPost(postDTO);
+        } else if (postActionDTO == PostActionDTO.DRAFT) {
+            postIdentityDTO = draftPostService.draftPost(postDTO);
+        } else {
+            throw new InvalidPostCreationActionException(
+                    String.format("%s is not a valid action for post creation.", createUpdatePostRequest.getAction()));
+
+        }
+
         return String.format("redirect:/admin/post?id=%d&status=%s",
                 postIdentityDTO.getId(), postIdentityDTO.getStatus());
     }

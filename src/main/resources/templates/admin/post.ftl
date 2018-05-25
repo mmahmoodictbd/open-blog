@@ -97,7 +97,7 @@
                 onImageUpload: function (image) {
                     uploadImage(image[0]);
                 },
-                onInit: function() {
+                onInit: function () {
 
                     var fileGroup = '<button id="codeblockButton" type="button" ' +
                             'class="note-btn btn btn-light btn-sm"><i class="far fa-file-code"></i></button>';
@@ -142,7 +142,7 @@
             return button.render();
         };
 
-        $('#codeblockButton').click(function(event) {
+        $('#codeblockButton').click(function (event) {
             var demoCode = document.createTextNode("Hello World");
             var codeNode = document.createElement('code');
             codeNode.className = 'language-java';
