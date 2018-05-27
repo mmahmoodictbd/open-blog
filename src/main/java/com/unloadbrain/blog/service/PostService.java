@@ -19,7 +19,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @AllArgsConstructor
 @Service
@@ -72,8 +71,6 @@ public class PostService {
         return new PageImpl<>(postListDTOList, pageable, postPage.getTotalElements());
 
     }
-
-
 
 
 }

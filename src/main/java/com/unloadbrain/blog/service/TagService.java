@@ -2,12 +2,15 @@ package com.unloadbrain.blog.service;
 
 import com.unloadbrain.blog.domain.model.Tag;
 import com.unloadbrain.blog.domain.repository.TagRepository;
+import com.unloadbrain.blog.dto.TagDTO;
 import com.unloadbrain.blog.util.SlugUtil;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.LinkedHashSet;
+import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @AllArgsConstructor
 @Service
@@ -39,4 +42,11 @@ public class TagService {
         return tags;
     }
 
+    public List<TagDTO> getTags() {
+        return tagRepository.findAll().stream().map(this::convertToTagDTO).collect(Collectors.toList());
+    }
+
+    private TagDTO convertToTagDTO(final Tag tag) {
+        return new TagDTO(tag.getId(), tag.getName(), tag.getSlug());
+    }
 }
