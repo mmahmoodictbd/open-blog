@@ -16,11 +16,17 @@ import com.unloadbrain.blog.util.DateUtility;
 import com.unloadbrain.blog.util.SlugUtil;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @AllArgsConstructor
 @Service
@@ -112,13 +118,39 @@ public class PublishPostService extends AbstractPostService {
             throw new InvalidPostStatusException("Post current status should be either PUBLISHED or DRAFT.");
         }
 
-
     }
 
     private void setDefaultPermalink(PublishedPost publishedPost) {
         if (publishedPost.getPermalink() == null || publishedPost.getPermalink().length() == 0) {
             publishedPost.setPermalink(SlugUtil.toSlug(publishedPost.getTitle()));
         }
+    }
+
+    public PostDTO getPublishedPost(Long id) {
+
+        Optional<PublishedPost> publishedPostOptional = publishedPostRepository.findById(id);
+        if (!publishedPostOptional.isPresent()) {
+            // TODO: Use custom exception
+            throw new IllegalArgumentException("Post id not found.");
+        }
+
+        PublishedPost publishedPost = publishedPostOptional.get();
+        return modelMapper.map(publishedPost, PostDTO.class);
+
+    }
+
+    public String getPublishedPostPermalink(Long postId) {
+        return publishedPostRepository.getPermalinkById(postId);
+    }
+
+    public Page<PostDTO> getPublishedPosts(Pageable pageable) {
+
+        Page<PublishedPost> postsPage = publishedPostRepository.findAll(pageable);
+        List<PostDTO> postDTOList = postsPage.getContent().stream()
+                .map(post -> modelMapper.map(post, PostDTO.class))
+                .collect(Collectors.toCollection(ArrayList::new));
+
+        return new PageImpl<>(postDTOList, pageable, postsPage.getTotalElements());
     }
 
 

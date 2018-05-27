@@ -54,24 +54,6 @@ public class PostService {
     }
 
 
-    public PostDTO getPublishedPost(Long id) {
-
-
-        Optional<PublishedPost> publishedPostOptional = publishedPostRepository.findById(id);
-        if (!publishedPostOptional.isPresent()) {
-            // TODO: Use custom exception
-            throw new IllegalArgumentException("Post id not found.");
-        }
-
-        PublishedPost publishedPost = publishedPostOptional.get();
-        return modelMapper.map(publishedPost, PostDTO.class);
-
-    }
-
-    public String getPublishedPostPermalink(Long postId) {
-        return publishedPostRepository.getPermalinkById(postId);
-    }
-
     public Page<PostListDTO> getPosts(Pageable pageable) {
 
         List<PostListDTO> postListDTOList = new ArrayList<>();
@@ -91,15 +73,7 @@ public class PostService {
 
     }
 
-    public Page<PostDTO> getPublishedPosts(Pageable pageable) {
 
-        Page<PublishedPost> postsPage = publishedPostRepository.findAll(pageable);
-        List<PostDTO> postDTOList = postsPage.getContent().stream()
-                .map(post -> modelMapper.map(post, PostDTO.class))
-                .collect(Collectors.toCollection(ArrayList::new));
-
-        return new PageImpl<>(postDTOList, pageable, postsPage.getTotalElements());
-    }
 
 
 }
