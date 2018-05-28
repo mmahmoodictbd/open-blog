@@ -2,10 +2,10 @@ package com.unloadbrain.blog.controller.admin;
 
 import com.unloadbrain.blog.converter.PostStatusConverter;
 import com.unloadbrain.blog.dto.CreateUpdatePostRequest;
+import com.unloadbrain.blog.dto.CurrentPostStatus;
 import com.unloadbrain.blog.dto.PostActionDTO;
 import com.unloadbrain.blog.dto.PostDTO;
 import com.unloadbrain.blog.dto.PostIdentityDTO;
-import com.unloadbrain.blog.dto.CurrentPostStatus;
 import com.unloadbrain.blog.exception.InvalidPostCreationActionException;
 import com.unloadbrain.blog.service.CategoryService;
 import com.unloadbrain.blog.service.DraftPostService;
