@@ -7,7 +7,7 @@ import com.unloadbrain.blog.domain.repository.PostRepository;
 import com.unloadbrain.blog.domain.repository.PublishedPostRepository;
 import com.unloadbrain.blog.dto.PostDTO;
 import com.unloadbrain.blog.dto.PostListDTO;
-import com.unloadbrain.blog.dto.PostStatusDTO;
+import com.unloadbrain.blog.dto.CurrentPostStatus;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
@@ -32,9 +32,9 @@ public class PostService {
     private ModelMapper modelMapper;
 
 
-    public PostDTO getPost(Long id, PostStatusDTO status) {
+    public PostDTO getPost(Long id, CurrentPostStatus status) {
 
-        if (status == PostStatusDTO.DRAFT) {
+        if (status == CurrentPostStatus.DRAFT) {
             Optional<DraftPost> draftPostOptional = draftPostRepository.findById(id);
             if (draftPostOptional.isPresent()) {
                 DraftPost draftPost = draftPostOptional.get();

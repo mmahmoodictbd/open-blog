@@ -5,7 +5,7 @@ import com.unloadbrain.blog.domain.repository.DraftPostRepository;
 import com.unloadbrain.blog.domain.repository.PostRepository;
 import com.unloadbrain.blog.domain.repository.PublishedPostRepository;
 import com.unloadbrain.blog.dto.PostDTO;
-import com.unloadbrain.blog.dto.PostStatusDTO;
+import com.unloadbrain.blog.dto.CurrentPostStatus;
 import com.unloadbrain.blog.helper.ObjectFactory;
 import org.junit.Rule;
 import org.junit.Test;
@@ -53,7 +53,7 @@ public class PostServiceTests {
         when(draftPostRepository.findById(any())).thenReturn(Optional.of(ObjectFactory.createDraftPost()));
 
         // When
-        PostDTO postDTO = postService.getPost(1L, PostStatusDTO.DRAFT);
+        PostDTO postDTO = postService.getPost(1L, CurrentPostStatus.DRAFT);
 
         // Then
         assertEquals(1, postDTO.getId().longValue());
@@ -67,7 +67,7 @@ public class PostServiceTests {
         when(publishedPostRepository.findById(any())).thenReturn(Optional.of(ObjectFactory.createPublishedPost()));
 
         // When
-        PostDTO postDTO = postService.getPost(1L, PostStatusDTO.PUBLISHED);
+        PostDTO postDTO = postService.getPost(1L, CurrentPostStatus.PUBLISHED);
 
         // Then
         assertEquals(1, postDTO.getId().longValue());
@@ -85,7 +85,7 @@ public class PostServiceTests {
         when(publishedPostRepository.findById(any())).thenReturn(Optional.empty());
 
         // When
-        PostDTO postDTO = postService.getPost(1L, PostStatusDTO.PUBLISHED);
+        PostDTO postDTO = postService.getPost(1L, CurrentPostStatus.PUBLISHED);
 
         // Then
         // Expect test to be passed.

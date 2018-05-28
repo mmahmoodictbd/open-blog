@@ -5,7 +5,7 @@ import com.unloadbrain.blog.domain.model.DraftPost;
 import com.unloadbrain.blog.domain.model.PublishedPost;
 import com.unloadbrain.blog.domain.model.Tag;
 import com.unloadbrain.blog.dto.CreateUpdatePostRequest;
-import com.unloadbrain.blog.dto.CurrentPostStatusDTO;
+import com.unloadbrain.blog.dto.CurrentPostStatus;
 import com.unloadbrain.blog.dto.PostDTO;
 import org.apache.commons.lang3.StringUtils;
 import org.modelmapper.Converter;
@@ -59,7 +59,7 @@ public class MappingConfig {
 
             @Override
             protected void configure() {
-                map().setStatus(CurrentPostStatusDTO.PUBLISHED);
+                map().setStatus(CurrentPostStatus.PUBLISHED);
             }
         };
 
@@ -86,7 +86,7 @@ public class MappingConfig {
 
             @Override
             protected void configure() {
-                map().setStatus(CurrentPostStatusDTO.DRAFT);
+                map().setStatus(CurrentPostStatus.DRAFT);
             }
         };
 

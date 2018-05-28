@@ -6,7 +6,7 @@ import com.unloadbrain.blog.domain.model.PublishedPost;
 import com.unloadbrain.blog.domain.model.Tag;
 import com.unloadbrain.blog.domain.repository.DraftPostRepository;
 import com.unloadbrain.blog.domain.repository.PublishedPostRepository;
-import com.unloadbrain.blog.dto.CurrentPostStatusDTO;
+import com.unloadbrain.blog.dto.CurrentPostStatus;
 import com.unloadbrain.blog.dto.PostDTO;
 import com.unloadbrain.blog.dto.PostIdentityDTO;
 import com.unloadbrain.blog.exception.DraftPostNotFoundException;
@@ -62,10 +62,10 @@ public class PublishPostService extends AbstractPostService {
 
             publishedPost = publishedPostRepository.save(publishedPost);
 
-            return new PostIdentityDTO(publishedPost.getId(), CurrentPostStatusDTO.PUBLISHED);
+            return new PostIdentityDTO(publishedPost.getId(), CurrentPostStatus.PUBLISHED);
         }
 
-        if (postDTO.getStatus() == CurrentPostStatusDTO.DRAFT) {
+        if (postDTO.getStatus() == CurrentPostStatus.DRAFT) {
 
             Optional<DraftPost> draftOptional = draftPostRepository.findById(postDTO.getId());
             if (!draftOptional.isPresent()) {
@@ -92,9 +92,9 @@ public class PublishPostService extends AbstractPostService {
             publishedPost = publishedPostRepository.save(publishedPost);
             draftPostRepository.deleteById(postDTO.getId());
 
-            return new PostIdentityDTO(publishedPost.getId(), CurrentPostStatusDTO.PUBLISHED);
+            return new PostIdentityDTO(publishedPost.getId(), CurrentPostStatus.PUBLISHED);
 
-        } else if (postDTO.getStatus() == CurrentPostStatusDTO.PUBLISHED) {
+        } else if (postDTO.getStatus() == CurrentPostStatus.PUBLISHED) {
 
             Optional<PublishedPost> publishedPostOptional = publishedPostRepository.findById(postDTO.getId());
             if (!publishedPostOptional.isPresent()) {
@@ -112,7 +112,7 @@ public class PublishPostService extends AbstractPostService {
 
             publishedPost = publishedPostRepository.save(publishedPost);
 
-            return new PostIdentityDTO(publishedPost.getId(), CurrentPostStatusDTO.PUBLISHED);
+            return new PostIdentityDTO(publishedPost.getId(), CurrentPostStatus.PUBLISHED);
 
         } else {
             throw new InvalidPostStatusException("Post current status should be either PUBLISHED or DRAFT.");

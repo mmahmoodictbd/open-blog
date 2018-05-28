@@ -15,6 +15,6 @@ public class PostIdentityDTO {
     private Long id;
 
     @NotNull
-    private CurrentPostStatusDTO status;
+    private CurrentPostStatus status;
 
 }

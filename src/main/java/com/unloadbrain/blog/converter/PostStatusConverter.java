@@ -1,6 +1,6 @@
 package com.unloadbrain.blog.converter;
 
-import com.unloadbrain.blog.dto.PostStatusDTO;
+import com.unloadbrain.blog.dto.CurrentPostStatus;
 
 import java.beans.PropertyEditorSupport;
 
@@ -8,7 +8,7 @@ public class PostStatusConverter extends PropertyEditorSupport {
 
     @Override
     public void setAsText(final String text) throws IllegalArgumentException {
-        setValue(PostStatusDTO.fromValue(text));
+        setValue(CurrentPostStatus.fromValue(text));
     }
 
 }

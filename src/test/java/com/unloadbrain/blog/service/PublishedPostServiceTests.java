@@ -5,7 +5,7 @@ import com.unloadbrain.blog.domain.model.DraftPost;
 import com.unloadbrain.blog.domain.model.PublishedPost;
 import com.unloadbrain.blog.domain.repository.DraftPostRepository;
 import com.unloadbrain.blog.domain.repository.PublishedPostRepository;
-import com.unloadbrain.blog.dto.CurrentPostStatusDTO;
+import com.unloadbrain.blog.dto.CurrentPostStatus;
 import com.unloadbrain.blog.dto.PostDTO;
 import com.unloadbrain.blog.dto.PostIdentityDTO;
 import com.unloadbrain.blog.helper.ObjectFactory;
@@ -81,7 +81,7 @@ public class PublishedPostServiceTests {
 
         assertNotNull("Should have id of created post.", postIdentityDTO.getId());
         assertNotNull("Should have status of created post.", postIdentityDTO.getStatus());
-        assertEquals(CurrentPostStatusDTO.PUBLISHED, postIdentityDTO.getStatus());
+        assertEquals(CurrentPostStatus.PUBLISHED, postIdentityDTO.getStatus());
 
         verify(publishedPostRepository).save(publishedPostRepoSaveArg.capture());
         assertEquals(now.getTime(), publishedPostRepoSaveArg.getValue().getPublishDate().getTime());
@@ -113,7 +113,7 @@ public class PublishedPostServiceTests {
         // Then
 
         assertEquals(1, postIdentityDTO.getId().longValue());
-        assertEquals(CurrentPostStatusDTO.PUBLISHED, postIdentityDTO.getStatus());
+        assertEquals(CurrentPostStatus.PUBLISHED, postIdentityDTO.getStatus());
 
         verify(publishedPostRepository).save(publishedPostArgCaptor.capture());
         assertEquals("NewPublishedTitle", publishedPostArgCaptor.getValue().getTitle());
@@ -144,7 +144,7 @@ public class PublishedPostServiceTests {
         // Then
 
         assertEquals(1, postIdentityDTO.getId().longValue());
-        assertEquals(CurrentPostStatusDTO.PUBLISHED, postIdentityDTO.getStatus());
+        assertEquals(CurrentPostStatus.PUBLISHED, postIdentityDTO.getStatus());
 
         verify(publishedPostRepository).save(publishedPostArgCaptor.capture());
         assertEquals("NewPublishedTitle", publishedPostArgCaptor.getValue().getTitle());
@@ -171,7 +171,7 @@ public class PublishedPostServiceTests {
         // Then
 
         assertEquals(1, postIdentityDTO.getId().longValue());
-        assertEquals(CurrentPostStatusDTO.PUBLISHED, postIdentityDTO.getStatus());
+        assertEquals(CurrentPostStatus.PUBLISHED, postIdentityDTO.getStatus());
 
         verify(publishedPostRepository).save(publishedPostArgCaptor.capture());
         assertEquals("NewPublishedTitle", publishedPostArgCaptor.getValue().getTitle());

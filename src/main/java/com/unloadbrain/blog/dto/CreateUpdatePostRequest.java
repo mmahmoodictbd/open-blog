@@ -23,7 +23,7 @@ public class CreateUpdatePostRequest {
 
     private String tags;
 
-    private CurrentPostStatusDTO status;
+    private CurrentPostStatus status;
 
     private String permalink;
 

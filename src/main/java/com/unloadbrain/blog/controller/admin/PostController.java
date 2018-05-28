@@ -5,7 +5,7 @@ import com.unloadbrain.blog.dto.CreateUpdatePostRequest;
 import com.unloadbrain.blog.dto.PostActionDTO;
 import com.unloadbrain.blog.dto.PostDTO;
 import com.unloadbrain.blog.dto.PostIdentityDTO;
-import com.unloadbrain.blog.dto.PostStatusDTO;
+import com.unloadbrain.blog.dto.CurrentPostStatus;
 import com.unloadbrain.blog.exception.InvalidPostCreationActionException;
 import com.unloadbrain.blog.service.CategoryService;
 import com.unloadbrain.blog.service.DraftPostService;
@@ -37,7 +37,7 @@ public class PostController {
 
     @InitBinder
     public void initBinder(final WebDataBinder webdataBinder) {
-        webdataBinder.registerCustomEditor(PostStatusDTO.class, new PostStatusConverter());
+        webdataBinder.registerCustomEditor(CurrentPostStatus.class, new PostStatusConverter());
     }
 
     @GetMapping("/admin/posts")
@@ -50,7 +50,7 @@ public class PostController {
 
     @GetMapping("/admin/post")
     public String showPostCreateEditPage(@RequestParam(required = false) Long id,
-                                         @RequestParam(required = false) PostStatusDTO status,
+                                         @RequestParam(required = false) CurrentPostStatus status,
                                          Model model) {
 
         if (id != null && status != null) {

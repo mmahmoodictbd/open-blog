@@ -4,7 +4,7 @@ import com.unloadbrain.blog.config.MappingConfig;
 import com.unloadbrain.blog.domain.model.DraftPost;
 import com.unloadbrain.blog.domain.repository.DraftPostRepository;
 import com.unloadbrain.blog.domain.repository.PublishedPostRepository;
-import com.unloadbrain.blog.dto.CurrentPostStatusDTO;
+import com.unloadbrain.blog.dto.CurrentPostStatus;
 import com.unloadbrain.blog.dto.PostDTO;
 import com.unloadbrain.blog.dto.PostIdentityDTO;
 import com.unloadbrain.blog.helper.ObjectFactory;
@@ -68,7 +68,7 @@ public class DraftPostServiceTests {
         // Then
         assertNotNull("Should have id of created post.", postIdentityDTO.getId());
         assertNotNull("Should have status of created post.", postIdentityDTO.getStatus());
-        assertEquals(CurrentPostStatusDTO.DRAFT, postIdentityDTO.getStatus());
+        assertEquals(CurrentPostStatus.DRAFT, postIdentityDTO.getStatus());
     }
 
     @Test
@@ -91,7 +91,7 @@ public class DraftPostServiceTests {
         // Then
 
         assertEquals(1, postIdentityDTO.getId().longValue());
-        assertEquals(CurrentPostStatusDTO.DRAFT, postIdentityDTO.getStatus());
+        assertEquals(CurrentPostStatus.DRAFT, postIdentityDTO.getStatus());
 
         verify(draftPostRepository).save(draftPostRepoSaveArg.capture());
         assertEquals("SamplePostUpdated", draftPostRepoSaveArg.getValue().getTitle());
@@ -118,7 +118,7 @@ public class DraftPostServiceTests {
         // Then
 
         assertEquals(1, postIdentityDTO.getId().longValue());
-        assertEquals(CurrentPostStatusDTO.DRAFT, postIdentityDTO.getStatus());
+        assertEquals(CurrentPostStatus.DRAFT, postIdentityDTO.getStatus());
 
         verify(draftPostRepository).save(draftPostRepoSaveArg.capture());
         assertEquals("NewDraftTitle", draftPostRepoSaveArg.getValue().getTitle());
