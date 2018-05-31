@@ -7,6 +7,8 @@ spring:
     active: dev
   jpa:
     generate-ddl: false
+    hibernate:
+      ddl-auto: validate
   resources:
     add-mappings: false
   liquibase:
@@ -60,3 +62,14 @@ logging:
   level:
     com.unloadbrain: DEBUG
 
+
+---
+
+### MySQL profile
+
+spring:
+  profiles: mysql
+  datasource:
+    url: ${DB_URL:jdbc:mysql://localhost:3306/openblog?createDatabaseIfNotExist=true}
+    username: ${DB_USERNAME:root}
+    password: ${DB_PASSWORD:root}
