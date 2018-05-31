@@ -1,4 +1,4 @@
-package com.unloadbrain.blog.controller;
+package com.unloadbrain.blog.controller.site;
 
 import com.unloadbrain.blog.service.StorageService;
 import lombok.AllArgsConstructor;
