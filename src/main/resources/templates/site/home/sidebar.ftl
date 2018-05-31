@@ -29,7 +29,7 @@
         <ul class="list-inline mb-0">
             <#list tags as tag>
                 <li class="list-inline-item">
-                    <a href="?tag=${(tag)!}">${(tag)!}</a>
+                    <a href="?tag=${(tag.name)!}">${(tag.name)!}</a>
                 </li>
             </#list>
         </ul>
