@@ -14,11 +14,11 @@ import javax.persistence.Entity;
 @Entity
 public class Category extends BaseEntity {
 
-    @Column
+    @Column(unique = true)
     @Length(min = 1, max = 255)
     private String name;
 
-    @Column
+    @Column(unique = true)
     @Length(min = 1, max = 255)
     private String slug;
 
