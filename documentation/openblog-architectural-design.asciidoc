@@ -1,0 +1,5 @@
+# OpenBlog Architectural Design
+
+Architectural design followed following concept:
+
+* DDD concepts - CQRS
