@@ -19,11 +19,13 @@ databaseChangeLog:
               type: varchar(255)
               constraints:
                 nullable: false
+                unique: true
           - column:
               name: slug
               type: varchar(255)
               constraints:
                 nullable: false
+                unique: true
           - column:
               name: created_at
               type: datetime(6)
