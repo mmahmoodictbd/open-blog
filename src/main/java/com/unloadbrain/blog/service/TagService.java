@@ -28,6 +28,8 @@ public class TagService {
             return tags;
         }
 
+        // FIXME:: Bad design, violating command query separation
+
         for (String tagString : tagsString.split(COMMA)) {
             Tag persistedTag = tagRepository.findByName(tagString);
             if (persistedTag == null) {

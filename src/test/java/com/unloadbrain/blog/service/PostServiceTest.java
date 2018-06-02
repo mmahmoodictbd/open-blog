@@ -20,7 +20,7 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 
-public class PostServiceTests {
+public class PostServiceTest {
 
     @Rule
     public ExpectedException thrown = ExpectedException.none();
@@ -33,7 +33,7 @@ public class PostServiceTests {
 
     private PostService postService;
 
-    public PostServiceTests() {
+    public PostServiceTest() {
 
         this.publishedPostRepository = mock(PublishedPostRepository.class);
         this.draftPostRepository = mock(DraftPostRepository.class);

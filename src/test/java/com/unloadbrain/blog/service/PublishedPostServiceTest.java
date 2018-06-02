@@ -29,7 +29,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 
-public class PublishedPostServiceTests {
+public class PublishedPostServiceTest {
 
     @Rule
     public ExpectedException thrown = ExpectedException.none();
@@ -45,7 +45,7 @@ public class PublishedPostServiceTests {
 
     private PublishPostService publishPostService;
 
-    public PublishedPostServiceTests() {
+    public PublishedPostServiceTest() {
 
         this.categoryService = mock(CategoryService.class);
         this.tagService = mock(TagService.class);
