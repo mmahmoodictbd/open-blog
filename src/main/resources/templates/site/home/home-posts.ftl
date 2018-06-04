@@ -3,9 +3,11 @@
 
     <div class="raw post">
 
-        <a href="/posts/${(post.id)!}/${(post.permalink)!}" class="post-image"">
-        <img class="img-fluid" src="${(post.featureImageLink)!}" alt="Card image cap">
-        </a>
+        <#if post.featureImageLink?has_content>
+            <a href="/posts/${(post.id)!}/${(post.permalink)!}" class="post-image"">
+                <img class="img-fluid" src="${(post.featureImageLink)!}" alt="Card image cap">
+            </a>
+        </#if>
 
         <h2 class="post-title"><a href="/posts/${(post.id)!}/${(post.permalink)!}">${(post.title)!}</a></h2>
 
