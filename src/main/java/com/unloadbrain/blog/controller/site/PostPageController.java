@@ -2,6 +2,7 @@ package com.unloadbrain.blog.controller.site;
 
 import com.unloadbrain.blog.dto.PostDTO;
 import com.unloadbrain.blog.service.PublishPostService;
+import com.unloadbrain.blog.service.SiteService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 @Controller
 public class PostPageController {
 
+    private SiteService siteService;
     private PublishPostService publishPostService;
 
     @GetMapping(path = "/posts/{id}")
@@ -27,6 +29,8 @@ public class PostPageController {
         if (!postPermalink.equals(permalink)) {
             return String.format("redirect:/posts/%d/%s", id, postPermalink);
         }
+
+        model.addAttribute("site", siteService.getSite());
 
         PostDTO postDTO = publishPostService.getPublishedPost(id);
         model.addAttribute("post", postDTO);
