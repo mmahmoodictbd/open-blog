@@ -19,6 +19,10 @@
                     </li>
 
                     <li class="nav-item">
+                        <a class="nav-link" href="/admin/site">Site</a>
+                    </li>
+
+                    <li class="nav-item">
                         <a class="nav-link" href="/admin/posts">Posts</a>
                     </li>
 

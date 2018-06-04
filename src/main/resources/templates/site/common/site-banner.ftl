@@ -1,7 +1,8 @@
 <header id="masthead" class="container" role="banner">
 
     <div class="home-link">
-        <div class="site-title"><a href="${(site.homeUrl)!}" title="${(site.name)!}" rel="home">${(site.name)!}</a></div>
+        <div class="site-title"><a href="${(site.homeUrl)!}" title="${(site.name)!}" rel="home">${(site.name)!}</a>
+        </div>
         <div class="site-description">${(site.description)!}</div>
 
         <div class="social">
