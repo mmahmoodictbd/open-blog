@@ -17,3 +17,16 @@ databaseChangeLog:
   - include:
       file: "classpath:/db/changelog/create-table-site.yml"
 
+  # Sample data
+
+  - include:
+      file: "classpath:/db/changelog/create-sample-category-hello-world.yml"
+
+  - include:
+      file: "classpath:/db/changelog/create-sample-tag-hello-world.yml"
+
+  - include:
+      file: "classpath:/db/changelog/create-sample-published-post-hello-world.yml"
+
+  - include:
+      file: "classpath:/db/changelog/create-sample-site-hello-world.yml"

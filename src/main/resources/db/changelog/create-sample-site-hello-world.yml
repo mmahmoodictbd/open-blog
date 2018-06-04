@@ -1,0 +1,27 @@
+databaseChangeLog:
+
+  - changeSet:
+      id: create-sample-site-hello-world
+      author: mahmood
+      changes:
+      - insert:
+          tableName: site
+          columns:
+              - column:
+                  name: name
+                  value: Hello World
+              - column:
+                  name: description
+                  value: Lets discuss ideas with Hello World.
+              - column:
+                  name: site_url
+                  value: localhost:8080
+              - column:
+                  name: home_url
+                  value: localhost:8080
+              - column:
+                  name: created_at
+                  valueDate: now()
+              - column:
+                  name: updated_at
+                  valueDate: now()

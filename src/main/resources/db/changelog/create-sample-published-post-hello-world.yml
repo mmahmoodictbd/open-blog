@@ -1,0 +1,30 @@
+databaseChangeLog:
+
+  - changeSet:
+      id: create-sample-published-post-hello-world
+      author: mahmood
+      changes:
+      - insert:
+          tableName: published_post
+          columns:
+              - column:
+                  name: title
+                  value: Welcome to OpenBlog!
+              - column:
+                  name: summary
+                  value: Lot of easy to use blogging platform / framework already exist. Why yet another?
+              - column:
+                  name: content
+                  value: "//TODO:: Write long content here"
+              - column:
+                  name: permalink
+                  value: welcome-to-openblog
+              - column:
+                  name: publish_date
+                  valueDate: now()
+              - column:
+                  name: created_at
+                  valueDate: now()
+              - column:
+                  name: updated_at
+                  valueDate: now()

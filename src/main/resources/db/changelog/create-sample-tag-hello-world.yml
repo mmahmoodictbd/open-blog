@@ -1,0 +1,21 @@
+databaseChangeLog:
+
+  - changeSet:
+      id: create-sample-tag-hello-world
+      author: mahmood
+      changes:
+      - insert:
+          tableName: tag
+          columns:
+              - column:
+                  name: name
+                  value: Hello World
+              - column:
+                  name: slug
+                  value: hello-world
+              - column:
+                  name: created_at
+                  valueDate: now()
+              - column:
+                  name: updated_at
+                  valueDate: now()
