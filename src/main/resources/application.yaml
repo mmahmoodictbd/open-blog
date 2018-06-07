@@ -27,7 +27,7 @@ logging:
 spring:
   profiles: prod
   datasource:
-    url: ${DB_URL:jdbc:mysql://localhost:3306/openblog}
+    url: ${DB_URL:jdbc:mysql://localhost:3306/openblog?createDatabaseIfNotExist=true}
     username: ${DB_USERNAME:root}
     password: ${DB_PASSWORD:root}
   jpa:
