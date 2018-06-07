@@ -8,8 +8,8 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-@ActiveProfiles("it")
-public class ApplicationIT {
+@ActiveProfiles("it, mysql")
+public class ContextLoadMySqlIT {
 
     @Test
     public void contextLoads() {
