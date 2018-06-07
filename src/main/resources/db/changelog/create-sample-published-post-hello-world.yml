@@ -15,7 +15,14 @@ databaseChangeLog:
                   value: Lot of easy to use blogging platform / framework already exist. Why yet another?
               - column:
                   name: content
-                  value: "//TODO:: Write long content here"
+                  value: |
+                    <pre class="line-numbers"><code class="language-java">
+                    class HelloWorldApp {
+                        public static void main(String[] args) {
+                            System.out.println("Hello World!"); // Prints the string to the console.
+                        }
+                    }
+                    </code></pre>
               - column:
                   name: permalink
                   value: welcome-to-openblog
