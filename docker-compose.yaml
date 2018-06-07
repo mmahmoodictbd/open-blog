@@ -1,0 +1,45 @@
+version: '3'
+
+services:
+
+  openblog-nginx:
+    image: nginx:latest
+    restart: always
+    ports:
+      - 80:80
+      - 443:443
+    volumes:
+      - ./files/nginx/conf.d:/etc/nginx/conf.d
+
+  openblog-mysql:
+    image: mysql:5.7
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: "root"
+      MYSQL_DATABASE: "openblog"
+      MYSQL_USER: "app"
+      MYSQL_PASSWORD: "app"
+    volumes:
+      - mysqltest:/var/lib/mysql
+    restart: always
+
+  openblog:
+    build: .
+    restart: always
+    volumes:
+      - ~/.openblog:/root/.openblog
+      - ~/.m2:/root/.m2
+    expose:
+      - "8080"
+    depends_on:
+      - openblog-nginx
+      - openblog-mysql
+    environment:
+      DB_URL: jdbc:mysql://openblog-mysql:3306/openblog?createDatabaseIfNotExist=true
+      DATABASE_USER: app
+      DATABASE_PASSWORD: app
+
+volumes:
+  mysqltest:
+    driver: "local"

@@ -209,6 +209,7 @@
     </dependencies>
 
     <build>
+        <finalName>openblog</finalName>
         <plugins>
 
             <plugin>
