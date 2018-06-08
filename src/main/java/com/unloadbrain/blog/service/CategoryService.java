@@ -89,7 +89,7 @@ public class CategoryService {
 
         Set<Category> categories = new LinkedHashSet<>();
 
-        if (postCategories == null && postCategories.trim().length() == 0) {
+        if (postCategories == null || postCategories.trim().length() == 0) {
             return categories;
         }
 
