@@ -1,0 +1,20 @@
+# How to run application in Docker
+
+Docker compose include nginx, MySQL and the OpenBlog app. OpenBlog app runs on 8080, nginx runs on 80 and forward the
+ calls to port 8080.
+
+*Prerequisite:* You have to have docker installed in your machine.
+
+Go to the project directory and run following command -
+```
+docker-compose up
+```
+
+Check docker-machine IP -
+```
+docker-machine ip
+```
+In my case, it's 192.168.99.100
+
+Go to the above IP address using browser - `http://192.168.99.100`
+

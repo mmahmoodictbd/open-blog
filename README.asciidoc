@@ -18,6 +18,9 @@ image:https://img.shields.io/github/license/mmahmoodictbd/OpenBlog.svg["LICENSE"
 
 *ATTENTION:* Project still in a very early alpha version, the API may and will change frequently. Please, use it at your own risk, until release version 1.0.
 
+### Current project status
+At this very early stage, everything is hardcoded. Plan is to make a MVP first. Once MVP is done, version will start from 1.0.0-RELEASE.
+
 
 ### Why OpenBlog
  - Small footprint.
@@ -31,10 +34,6 @@ image:https://img.shields.io/github/license/mmahmoodictbd/OpenBlog.svg["LICENSE"
 I want to write blog, so I brought UnloadBrain.com. I liked Wordpress, but I want have my own template and custom features. So...here it is.
 
 
-### Current project status
-At this very early stage, everything is hardcoded. Plan is to make a MVP first. Once MVP is done, version will start from 1.0.0-RELEASE.
-
-
 ### Technologies
 * Java 8
 * Spring Boot
@@ -45,27 +44,23 @@ At this very early stage, everything is hardcoded. Plan is to make a MVP first. 
 * Maven
 
 
-### Versioning
-
-This project follow http://semver.org[Semantic Versioning] to maintain an
-understandable backwards compatibility strategy.
-
-The version format is as follows:
-
+### How to run:
+Pretty standard Spring Boot stuff.
 ```
-<major>.<minor>.<patch>-<label>
+mvn clean compile
+mvn spring-boot:run
 ```
+Go to the browser and open `localhost:8080`
 
 
-### How to run pitest
+### Documentations:
 
-To run the mutation tests, execute the following commands
+* https://github.com/mmahmoodictbd/OpenBlog/blob/master/documentation/versioning-strategy.asciidoc[Versioning Strategy]
 
-```
-mvn clean install
-mvn test
-mvn org.pitest:pitest-maven:mutationCoverage
-```
+* https://github.com/mmahmoodictbd/OpenBlog/blob/master/documentation/how-to-run-tests.asciidoc[How to run tests]
+
+* https://github.com/mmahmoodictbd/OpenBlog/blob/master/documentation/run-application-in-docker.asciidoc[Run
+application in Docker]
 
 
 ### Copyright & License
