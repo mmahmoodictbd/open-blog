@@ -41,6 +41,7 @@
         <rest-assured.version>3.0.6</rest-assured.version>
         <hamcrest-library.version>1.3</hamcrest-library.version>
         <jacoco-maven-plugin.version>0.8.1</jacoco-maven-plugin.version>
+        <itCoverageAgent></itCoverageAgent>
         <pitest-maven.version>1.4.0</pitest-maven.version>
 
         <bootstrap.version>4.0.0-2</bootstrap.version>
@@ -230,6 +231,15 @@
                         </goals>
                     </execution>
                     <execution>
+                        <id>pre-integration-test</id>
+                        <goals>
+                            <goal>prepare-agent-integration</goal>
+                        </goals>
+                        <configuration>
+                            <propertyName>itCoverageAgent</propertyName>
+                        </configuration>
+                    </execution>
+                    <execution>
                         <id>report</id>
                         <phase>test</phase>
                         <goals>
@@ -304,6 +314,7 @@
                 </executions>
                 <configuration>
                     <skipTests>${skip.failsafe.tests}</skipTests>
+                    <argLine>${itCoverageAgent}</argLine>
                 </configuration>
             </plugin>
 
