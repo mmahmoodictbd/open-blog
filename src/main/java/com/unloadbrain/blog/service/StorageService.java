@@ -49,7 +49,7 @@ public class StorageService {
                 calendar.get(Calendar.MONTH),
                 calendar.get(Calendar.DATE)));
 
-        if (!Files.exists(uploadPath)) {
+        if (!uploadPath.toFile().exists()) {
             try {
                 Files.createDirectories(uploadPath);
             } catch (IOException e) {
