@@ -44,7 +44,7 @@ I want to write blog, so I brought UnloadBrain.com. I liked Wordpress, but I wan
 * Maven
 
 
-### How to run:
+### How to run
 Pretty standard Spring Boot stuff.
 ```
 mvn clean compile
@@ -53,7 +53,7 @@ mvn spring-boot:run
 Go to the browser and open `localhost:8080`
 
 
-### Documentations:
+### Documentations
 
 * https://github.com/mmahmoodictbd/OpenBlog/blob/master/documentation/versioning-strategy.asciidoc[Versioning Strategy]
 
