@@ -90,3 +90,14 @@ spring:
     driver-class: org.h2.Driver
     jpa:
       show-sql: true
+
+---
+
+spring:
+  profiles: debug
+
+logging:
+  level:
+    org.hibernate:
+      SQL: DEBUG
+      type.descriptor.sql.BasicBinder: TRACE
