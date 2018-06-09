@@ -120,4 +120,37 @@ databaseChangeLog:
               type: BIGINT
 
 
+  - changeSet:
+      id: create-table-published_post_additional_properties
+      author: mahmood
+      changes:
+      - createTable:
+          tableName: published_post_additional_properties
+          columns:
+          - column:
+              name: published_post_id
+              type: BIGINT
+              constraints:
+                nullable: false
+          - column:
+              name: property_key
+              type: varchar(255)
+              constraints:
+                nullable: false
+          - column:
+              name: property_value
+              type: varchar(255)
+              constraints:
+                nullable: true
+      - createIndex:
+          indexName: idx_pub_post_post_id_prop_key
+          tableName: published_post_additional_properties
+          unique: true
+          columns:
+          - column:
+              name: published_post_id
+              type: BIGINT
+          - column:
+              name: property_key
+              type: varchar(255)
 
