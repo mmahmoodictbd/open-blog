@@ -10,7 +10,7 @@ import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
-import javax.persistence.MapKeyJoinColumn;
+import javax.persistence.MapKeyColumn;
 import javax.persistence.OneToOne;
 import java.util.HashMap;
 import java.util.Map;
@@ -26,7 +26,7 @@ public class DraftPost extends Post {
 
     @ElementCollection(fetch = FetchType.EAGER)
     @CollectionTable(name="draft_post_additional_properties", joinColumns=@JoinColumn(name="draft_post_id"))
-    @MapKeyJoinColumn(name="property_key")
+    @MapKeyColumn(name="property_key")
     @Column(name="property_value")
     private Map<String, String> additionalProperties = new HashMap<>();
 }
