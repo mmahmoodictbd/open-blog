@@ -4,6 +4,8 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.validation.constraints.NotNull;
+import java.util.HashMap;
+import java.util.Map;
 
 @Getter
 @Setter
@@ -28,6 +30,8 @@ public class CreateUpdatePostRequest {
     private String permalink;
 
     private String featureImageLink;
+
+    private Map<String, String> additionalProperties = new HashMap<>();
 
     @NotNull
     private PostActionDTO action;

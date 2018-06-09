@@ -155,6 +155,7 @@ public class MappingConfig {
                 // Handled by Data JPA audit
                 skip(destination.getCreatedAt());
                 skip(destination.getUpdatedAt());
+
             }
         };
 
@@ -165,6 +166,7 @@ public class MappingConfig {
                 .addMapping(source -> source.getContent(), PublishedPost::setContent)
                 .addMapping(source -> source.getPermalink(), PublishedPost::setPermalink)
                 .addMapping(source -> source.getFeatureImageLink(), PublishedPost::setFeatureImageLink)
+                .addMapping(source -> source.getAdditionalProperties(), PublishedPost::setAdditionalProperties)
                 .addMappings(propertyMap);
 
         mapper.validate();
@@ -188,6 +190,7 @@ public class MappingConfig {
                 // Handled by Data JPA audit
                 skip(destination.getCreatedAt());
                 skip(destination.getUpdatedAt());
+
             }
         };
 
@@ -198,6 +201,7 @@ public class MappingConfig {
                 .addMapping(source -> source.getContent(), DraftPost::setContent)
                 .addMapping(source -> source.getPermalink(), DraftPost::setPermalink)
                 .addMapping(source -> source.getFeatureImageLink(), DraftPost::setFeatureImageLink)
+                .addMapping(source -> source.getAdditionalProperties(), DraftPost::setAdditionalProperties)
                 .addMappings(propertyMap);
 
         mapper.validate();

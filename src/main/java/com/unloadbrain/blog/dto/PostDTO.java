@@ -5,6 +5,8 @@ import lombok.Setter;
 
 import javax.validation.constraints.NotNull;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 @Getter
 @Setter
@@ -29,6 +31,8 @@ public class PostDTO {
     private String permalink;
 
     private String featureImageLink;
+
+    private Map<String, String> additionalProperties = new HashMap<>();
 
     private Date createdAt;
 

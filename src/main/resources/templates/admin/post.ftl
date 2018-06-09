@@ -33,6 +33,26 @@
                               data-toolbar="full">${(post.content)!}</textarea>
                 </div>
 
+                <div class="form-group">
+                    <input name="additionalProperties['seoTitle']" type="text" class="form-control" id="seoTitle"
+                           placeholder="SEO Title" value="${(post.additionalProperties['seoTitle'])!}">
+                </div>
+
+                <div class="form-group">
+                    <input name="additionalProperties['seoSlug']" type="text" class="form-control" id="seoSlug"
+                           placeholder="SEO Slug" value="${(post.additionalProperties['seoSlug'])!}">
+                </div>
+
+                <div class="form-group">
+                    <input name="additionalProperties['seoDescription']" type="text" class="form-control" id="seoDescription"
+                           placeholder="SEO Description" value="${(post.additionalProperties['seoDescription'])!}">
+                </div>
+
+                <div class="form-group">
+                    <input name="additionalProperties['seoTags']" type="text" class="form-control" id="seoTags"
+                           placeholder="SEO Tags" value="${(post.additionalProperties['seoTags'])!}">
+                </div>
+
                 <input type="hidden" id="id" name="id" value="${(post.id)!}"/>
 
                 <#if (post.status)! == "DRAFT">
