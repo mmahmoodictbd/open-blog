@@ -31,9 +31,13 @@
                     <#list posts as post>
                     <tr>
                         <#if (post.status)! == "DRAFT">
-                            <td title="${post.id}" class="text-warning">${post.title}</td>
+                            <td title="${post.id}">
+                                <a href="/admin/post?id=${post.id}&status=${post.status}" class="text-warning">${post.title}</a>
+                            </td>
                         <#else>
-                            <td title="${post.id}">${post.title}</td>
+                            <td title="${post.id}">
+                                <a href="/admin/post?id=${post.id}&status=${post.status}">${post.title}</a>
+                            </td>
                         </#if>
 
                         <td><a href="/admin/post?id=${post.id}&status=${post.status}">edit</a></td>
