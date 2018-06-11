@@ -46,6 +46,9 @@ public class User extends BaseEntity {
     @Column
     private String displayName;
 
+    @Column
+    private boolean enabled;
+
     @OneToMany(cascade = CascadeType.ALL)
     private Set<Role> roles = new HashSet<>();
 

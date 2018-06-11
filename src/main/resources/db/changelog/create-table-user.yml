@@ -36,6 +36,9 @@ databaseChangeLog:
               name: display_name
               type: varchar(255)
           - column:
+              name: enabled
+              type: BOOLEAN
+          - column:
               name: created_at
               type: datetime(6)
               constraints:
