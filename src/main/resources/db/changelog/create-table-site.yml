@@ -42,3 +42,38 @@ databaseChangeLog:
               type: datetime(6)
               constraints:
                 nullable: false
+
+
+  - changeSet:
+      id: create-table-site_additional_properties
+      author: mahmood
+      changes:
+      - createTable:
+          tableName: site_additional_properties
+          columns:
+          - column:
+              name: site_id
+              type: BIGINT
+              constraints:
+                nullable: false
+          - column:
+              name: property_key
+              type: varchar(255)
+              constraints:
+                nullable: false
+          - column:
+              name: property_value
+              type: varchar(255)
+              constraints:
+                nullable: true
+      - createIndex:
+          indexName: idx_site_site_id_prop_key
+          tableName: site_additional_properties
+          unique: true
+          columns:
+          - column:
+              name: site_id
+              type: BIGINT
+          - column:
+              name: property_key
+              type: varchar(255)
