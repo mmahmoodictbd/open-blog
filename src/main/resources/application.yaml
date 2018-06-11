@@ -57,6 +57,8 @@ spring:
     driver-class: org.h2.Driver
     jpa:
       show-sql: true
+  freemarker:
+    cache: false
 
 logging:
   level:
