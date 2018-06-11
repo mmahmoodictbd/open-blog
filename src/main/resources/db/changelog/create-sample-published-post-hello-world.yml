@@ -35,3 +35,40 @@ databaseChangeLog:
               - column:
                   name: updated_at
                   valueDate: now()
+
+  - changeSet:
+      id: add-category-in-sample-published-post
+      author: mahmood
+      changes:
+      - insert:
+          tableName: published_post_categories
+          columns:
+              - column:
+                  name: published_post_id
+                  # Braces around the SQL is necessary, liquibase could not generate proper MySQL SQL.
+                  # MySQL expects braces around SELECT query in INSERT VALUES.
+                  valueComputed: "(SELECT id FROM published_post LIMIT 1)"
+              - column:
+                  name: categories_id
+                  # Braces around the SQL is necessary, liquibase could not generate proper MySQL SQL.
+                  # MySQL expects braces around SELECT query in INSERT VALUES.
+                  valueComputed: "(SELECT id FROM category LIMIT 1)"
+
+  - changeSet:
+      id: add-tags-in-sample-published-post
+      author: mahmood
+      changes:
+      - insert:
+          tableName: published_post_tags
+          columns:
+              - column:
+                  name: published_post_id
+                  # Braces around the SQL is necessary, liquibase could not generate proper MySQL SQL.
+                  # MySQL expects braces around SELECT query in INSERT VALUES.
+                  valueComputed: "(SELECT id FROM published_post LIMIT 1)"
+              - column:
+                  name: tags_id
+                  # Braces around the SQL is necessary, liquibase could not generate proper MySQL SQL.
+                  # MySQL expects braces around SELECT query in INSERT VALUES.
+                  valueComputed: "(SELECT id FROM tag LIMIT 1)"
+
