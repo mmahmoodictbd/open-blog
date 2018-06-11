@@ -17,6 +17,15 @@ databaseChangeLog:
   - include:
       file: "classpath:/db/changelog/create-table-site.yml"
 
+  - include:
+      file: "classpath:/db/changelog/create-table-user.yml"
+
+  - include:
+      file: "classpath:/db/changelog/create-table-role.yml"
+
+  - include:
+      file: "classpath:/db/changelog/create-table-user-roles.yml"
+
   # Sample data
 
   - include:

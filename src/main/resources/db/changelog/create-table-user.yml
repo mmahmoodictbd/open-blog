@@ -1,0 +1,82 @@
+
+databaseChangeLog:
+
+  - changeSet:
+      id: create-table-user
+      author: mahmood
+      changes:
+      - createTable:
+          tableName: user
+          columns:
+          - column:
+              name: id
+              type: BIGINT
+              autoIncrement: true
+              constraints:
+                primaryKey: true
+                primaryKeyName: pk_user
+                nullable: false
+          - column:
+              name: email
+              type: varchar(255)
+              constraints:
+                nullable: false
+          - column:
+              name: password
+              type: varchar(255)
+              constraints:
+                nullable: false
+          - column:
+              name: first_name
+              type: varchar(255)
+          - column:
+              name: last_name
+              type: varchar(255)
+          - column:
+              name: display_name
+              type: varchar(255)
+          - column:
+              name: created_at
+              type: datetime(6)
+              constraints:
+                nullable: false
+          - column:
+              name: updated_at
+              type: datetime(6)
+              constraints:
+                nullable: false
+
+
+  - changeSet:
+      id: create-table-user_additional_properties
+      author: mahmood
+      changes:
+      - createTable:
+          tableName: user_additional_properties
+          columns:
+          - column:
+              name: user_id
+              type: BIGINT
+              constraints:
+                nullable: false
+          - column:
+              name: property_key
+              type: varchar(255)
+              constraints:
+                nullable: false
+          - column:
+              name: property_value
+              type: varchar(255)
+              constraints:
+                nullable: true
+      - createIndex:
+          indexName: idx_user_user_id_prop_key
+          tableName: user_additional_properties
+          unique: true
+          columns:
+          - column:
+              name: user_id
+              type: BIGINT
+          - column:
+              name: property_key
+              type: varchar(255)
