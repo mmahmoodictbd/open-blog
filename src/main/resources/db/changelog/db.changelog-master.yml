@@ -39,3 +39,12 @@ databaseChangeLog:
 
   - include:
       file: "classpath:/db/changelog/create-sample-site-hello-world.yml"
+
+  - include:
+      file: "classpath:/db/changelog/create-basic-roles.yml"
+
+  - include:
+      file: "classpath:/db/changelog/create-admin-user.yml"
+
+  - include:
+      file: "classpath:/db/changelog/create-admin-user-roles.yml"
