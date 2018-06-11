@@ -75,7 +75,7 @@ public class PublishedPostServiceTest {
         postDTO.setId(null);
 
         // When
-        PostIdentityDTO postIdentityDTO = publishPostService.publishPost(postDTO);
+        PostIdentityDTO postIdentityDTO = publishPostService.createUpdatePost(postDTO);
 
         // Then
 
@@ -108,7 +108,7 @@ public class PublishedPostServiceTest {
         postDTO.setTitle("NewPublishedTitle");
 
         // When
-        PostIdentityDTO postIdentityDTO = publishPostService.publishPost(postDTO);
+        PostIdentityDTO postIdentityDTO = publishPostService.createUpdatePost(postDTO);
 
         // Then
 
@@ -139,7 +139,7 @@ public class PublishedPostServiceTest {
         postDTO.setTitle("NewPublishedTitle");
 
         // When
-        PostIdentityDTO postIdentityDTO = publishPostService.publishPost(postDTO);
+        PostIdentityDTO postIdentityDTO = publishPostService.createUpdatePost(postDTO);
 
         // Then
 
@@ -166,7 +166,7 @@ public class PublishedPostServiceTest {
         postDTO.setTitle("NewPublishedTitle");
 
         // When
-        PostIdentityDTO postIdentityDTO = publishPostService.publishPost(postDTO);
+        PostIdentityDTO postIdentityDTO = publishPostService.createUpdatePost(postDTO);
 
         // Then
 

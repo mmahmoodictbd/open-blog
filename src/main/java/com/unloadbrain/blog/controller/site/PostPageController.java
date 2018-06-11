@@ -18,21 +18,21 @@ public class PostPageController {
 
     @GetMapping(path = "/posts/{id}")
     public String redirectWithPostPermalink(@PathVariable long id, Model model) {
-        return String.format("redirect:/posts/%d/%s", id, publishPostService.getPublishedPostPermalink(id));
+        return String.format("redirect:/posts/%d/%s", id, publishPostService.getPermalink(id));
 
     }
 
     @GetMapping(path = "/posts/{id}/{permalink}")
     public String showPostPage(@PathVariable long id, @PathVariable String permalink, Model model) {
 
-        String postPermalink = publishPostService.getPublishedPostPermalink(id);
+        String postPermalink = publishPostService.getPermalink(id);
         if (!postPermalink.equals(permalink)) {
             return String.format("redirect:/posts/%d/%s", id, postPermalink);
         }
 
         model.addAttribute("site", siteService.getSite());
 
-        PostDTO postDTO = publishPostService.getPublishedPost(id);
+        PostDTO postDTO = publishPostService.getPost(id);
         model.addAttribute("post", postDTO);
         return "site/post/main";
     }

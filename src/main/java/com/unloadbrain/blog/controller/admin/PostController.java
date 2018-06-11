@@ -71,7 +71,7 @@ public class PostController {
         PostDTO postDTO = modelMapper.map(createUpdatePostRequest, PostDTO.class);
 
         if (postActionDTO == PostActionDTO.PUBLISH) {
-            postIdentityDTO = publishPostService.publishPost(postDTO);
+            postIdentityDTO = publishPostService.createUpdatePost(postDTO);
         } else if (postActionDTO == PostActionDTO.DRAFT) {
             postIdentityDTO = draftPostService.draftPost(postDTO);
         } else {

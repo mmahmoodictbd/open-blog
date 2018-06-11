@@ -43,7 +43,7 @@ public class PublishPostService extends AbstractPostService {
     private ModelMapper modelMapper;
 
 
-    public PostIdentityDTO publishPost(PostDTO postDTO) {
+    public PostIdentityDTO createUpdatePost(PostDTO postDTO) {
 
         Set<Category> categories = categoryService.getCategories(postDTO.getCategories());
         Set<Tag> tags = tagService.getTags(postDTO.getTags());
@@ -126,7 +126,7 @@ public class PublishPostService extends AbstractPostService {
         }
     }
 
-    public PostDTO getPublishedPost(Long id) {
+    public PostDTO getPost(Long id) {
 
         Optional<PublishedPost> publishedPostOptional = publishedPostRepository.findById(id);
         if (!publishedPostOptional.isPresent()) {
@@ -139,11 +139,11 @@ public class PublishPostService extends AbstractPostService {
 
     }
 
-    public String getPublishedPostPermalink(Long postId) {
+    public String getPermalink(Long postId) {
         return publishedPostRepository.getPermalinkById(postId);
     }
 
-    public Page<PostDTO> getPublishedPosts(Pageable pageable) {
+    public Page<PostDTO> getPosts(Pageable pageable) {
 
         Page<PublishedPost> postsPage = publishedPostRepository.findAll(pageable);
         List<PostDTO> postDTOList = postsPage.getContent().stream()

@@ -26,7 +26,7 @@ public class HomePageController {
         model.addAttribute("site", siteService.getSite());
         model.addAttribute("categories", categoryService.getCategories());
         model.addAttribute("tags", tagService.getTags());
-        model.addAttribute("postsPage", publishPostService.getPublishedPosts(pageable));
+        model.addAttribute("postsPage", publishPostService.getPosts(pageable));
 
         return "site/home/main";
     }
