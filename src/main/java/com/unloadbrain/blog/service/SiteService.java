@@ -43,6 +43,7 @@ public class SiteService {
         site.setDescription(updateSiteRequest.getDescription());
         site.setHomeUrl(updateSiteRequest.getHomeUrl());
         site.setSiteUrl(updateSiteRequest.getSiteUrl());
+        site.setAdditionalProperties(updateSiteRequest.getAdditionalProperties());
 
         siteRepository.save(site);
     }

@@ -42,6 +42,10 @@
                            placeholder="homeUrl" value="${(site.homeUrl)!}">
                 </div>
 
+                <div class="form-group">
+                    <input name="additionalProperties['keywords']" type="text" class="form-control" id="keywords"
+                           placeholder="Keywords" value="${(site.additionalProperties['keywords'])!}">
+                </div>
             </div>
 
             <div class="col-md-3">
