@@ -41,6 +41,9 @@ databaseChangeLog:
       file: "classpath:/db/changelog/create-sample-site-hello-world.yml"
 
   - include:
+      file: "classpath:/db/changelog/create-sample-site-additional-props.yml"
+
+  - include:
       file: "classpath:/db/changelog/create-basic-roles.yml"
 
   - include:

@@ -1,0 +1,20 @@
+databaseChangeLog:
+
+  - changeSet:
+      id: create-sample-site-additional-props
+      author: mahmood
+      changes:
+      - insert:
+          tableName: site_additional_properties
+          columns:
+              - column:
+                  name: site_id
+                  # Braces around the SQL is necessary, liquibase could not generate proper MySQL SQL.
+                  # MySQL expects braces around SELECT query in INSERT VALUES.
+                  valueComputed: "(SELECT id FROM site LIMIT 1)"
+              - column:
+                  name: property_key
+                  value: keywords
+              - column:
+                  name: property_value
+                  value: Hello World, Ideas
