@@ -14,6 +14,12 @@ spring:
   liquibase:
     change-log: "classpath:/db/changelog/db.changelog-master.yml"
     enabled: true
+  queries:
+    users-query: SELECT email, password, enabled FROM user WHERE email = ?
+    roles-query: SELECT u.email, r.role FROM user u
+      INNER JOIN user_roles ur ON(u.id = ur.user_id)
+      INNER JOIN role r ON(r.id = ur.roles_id)
+      WHERE u.email = ?
 
 logging:
   level:

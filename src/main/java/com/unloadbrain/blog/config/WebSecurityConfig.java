@@ -1,44 +1,61 @@
 package com.unloadbrain.blog.config;
 
-import org.springframework.context.annotation.Bean;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.provisioning.InMemoryUserDetailsManager;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+
+import javax.sql.DataSource;
 
 @Configuration
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
+    private DataSource dataSource;
+
+    @Value("${spring.queries.users-query}")
+    private String usersQuery;
+
+    @Value("${spring.queries.roles-query}")
+    private String rolesQuery;
+
+    public WebSecurityConfig(BCryptPasswordEncoder bCryptPasswordEncoder, DataSource dataSource) {
+        this.bCryptPasswordEncoder = bCryptPasswordEncoder;
+        this.dataSource = dataSource;
+    }
+
+    @Override
+    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+        auth.jdbcAuthentication()
+                .usersByUsernameQuery(usersQuery)
+                .authoritiesByUsernameQuery(rolesQuery)
+                .dataSource(dataSource)
+                .passwordEncoder(bCryptPasswordEncoder);
+    }
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
 
-        http.authorizeRequests()
-//                .antMatchers("/admin/**").hasRole("ADMIN")
-                .antMatchers("/**").permitAll().and()
+        http.csrf().disable()
+                .authorizeRequests()
+                    .antMatchers("/admin/**").hasRole("ADMIN")
+                    .antMatchers("/**").permitAll().and()
                 .formLogin()
-                .loginPage("/login")
-                .defaultSuccessUrl("/")
-                .failureUrl("/login?error=true")
-                .permitAll()
-                .and()
+                    .loginPage("/login")
+                    .defaultSuccessUrl("/")
+                    .failureUrl("/login?error=true")
+                    .permitAll()
+                    .and()
                 .logout()
-                .logoutUrl("/logout")
-                .logoutSuccessUrl("/")
-                .permitAll().and()
-                .csrf().disable()
+                    .logoutUrl("/logout")
+                    .logoutSuccessUrl("/")
+                    .permitAll()
+                    .and()
                 .headers().frameOptions().disable();
     }
 
-    @Override
-    @Bean
-    protected UserDetailsService userDetailsService() {
-        InMemoryUserDetailsManager manager = new InMemoryUserDetailsManager();
-        manager.createUser(User.withDefaultPasswordEncoder().username("1").
-                password("1").roles("ADMIN").build());
-        return manager;
-    }
 }
