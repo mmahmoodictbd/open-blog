@@ -3,9 +3,6 @@
 
 <head>
     <#include "../common/header.ftl">
-    <title>Unload Brain</title>
-    <meta name="description" content="">
-    <meta name="author" content="">
 </head>
 
 <body>
