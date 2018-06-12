@@ -23,28 +23,34 @@
             <div class="col-md-9">
 
                 <div class="form-group">
+                    <label for="name">Site Name</label>
                     <input name="name" type="text" class="form-control" id="name"
                            placeholder="name" value="${(site.name)!}">
                 </div>
 
                 <div class="form-group">
+                    <label for="description">Site Description</label>
                     <textarea name="description" class="form-control summernote"
                               data-toolbar="full">${(site.description)!}</textarea>
                 </div>
 
                 <div class="form-group">
+                    <label for="siteUrl">Site URL</label>
                     <input name="siteUrl" type="text" class="form-control" id="siteUrl"
                            placeholder="siteUrl" value="${(site.siteUrl)!}">
                 </div>
 
                 <div class="form-group">
+                    <label for="homeUrl">Home URL</label>
                     <input name="homeUrl" type="text" class="form-control" id="homeUrl"
                            placeholder="homeUrl" value="${(site.homeUrl)!}">
                 </div>
 
                 <div class="form-group">
+                    <label for="additionalProperties['keywords']">Keywords</label>
                     <input name="additionalProperties['keywords']" type="text" class="form-control" id="keywords"
                            placeholder="Keywords" value="${(site.additionalProperties['keywords'])!}">
+                    <small id="additionalPropertiesKeywordsHelp" class="form-text text-muted">Used in meta tags.</small>
                 </div>
 
 
