@@ -15,10 +15,10 @@ databaseChangeLog:
                   value: Lets discuss ideas with Hello World.
               - column:
                   name: site_url
-                  value: localhost:8080
+                  value: http://localhost:8080
               - column:
                   name: home_url
-                  value: localhost:8080
+                  value: http://localhost:8080
               - column:
                   name: created_at
                   valueDate: now()
