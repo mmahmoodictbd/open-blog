@@ -12,46 +12,109 @@
 
 <div class="container">
 
-    <div class="row mt-5">
-        <h2>Update site info</h2>
-    </div>
-
     <form action="/admin/site" method="post">
 
         <div class="row mt-5 pt-5">
 
             <div class="col-md-9">
 
-                <div class="form-group">
-                    <label for="name">Site Name</label>
-                    <input name="name" type="text" class="form-control" id="name"
-                           placeholder="name" value="${(site.name)!}">
+                <ul class="nav nav-tabs" role="tablist">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#basicTab" role="tab" data-toggle="tab">Basic</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#metaTab" role="tab" data-toggle="tab">Meta</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#socialTab" role="tab" data-toggle="tab">Social</a>
+                    </li>
+                </ul>
+
+                <!-- Tab panes -->
+                <div class="tab-content">
+
+                    <div role="tabpanel" class="tab-pane fade active show" id="basicTab">
+
+                        <div class="form-group">
+                            <label for="name">Site Name</label>
+                            <input name="name" type="text" class="form-control" id="name" value="${(site.name)!}">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="description">Site Description</label>
+                            <input name="description" class="form-control" id="description" value="${(site.description)!}">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="siteUrl">Site URL</label>
+                            <input name="siteUrl" type="text" class="form-control" id="siteUrl" value="${(site.siteUrl)!}">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="homeUrl">Home URL</label>
+                            <input name="homeUrl" type="text" class="form-control" id="homeUrl" value="${(site.homeUrl)!}">
+                        </div>
+
+                    </div>
+
+                    <div role="tabpanel" class="tab-pane fade" id="metaTab">
+
+                        <div class="form-group">
+                            <label for="additionalProperties['keywords']">Keywords</label>
+                            <input name="additionalProperties['keywords']" type="text" class="form-control" id="keywords"
+                                   value="${(site.additionalProperties['keywords'])!}">
+                            <small id="additionalPropertiesKeywordsHelp" class="form-text text-muted">Used in meta tags.</small>
+                        </div>
+
+                    </div>
+
+                    <div role="tabpanel" class="tab-pane fade" id="socialTab">
+
+                        <div class="form-group">
+                            <label for="additionalProperties['socialLinkedIn']">LinkedIn URL</label>
+                            <input name="additionalProperties['socialLinkedIn']" type="text" class="form-control"
+                                   id="socialLinkedIn" value="${(site.additionalProperties['socialLinkedIn'])!}">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="additionalProperties['socialGithub']">Github URL</label>
+                            <input name="additionalProperties['socialGithub']" type="text" class="form-control"
+                                   id="socialGithub" value="${(site.additionalProperties['socialGithub'])!}">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="additionalProperties['socialFB']">FB URL</label>
+                            <input name="additionalProperties['socialFB']" type="text" class="form-control"
+                                   id="socialFB" value="${(site.additionalProperties['socialFB'])!}">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="additionalProperties['socialTwitter']">Twitter URL</label>
+                            <input name="additionalProperties['socialTwitter']" type="text" class="form-control"
+                                   id="socialTwitter" value="${(site.additionalProperties['socialTwitter'])!}">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="additionalProperties['socialGooglePlus']">Google Plus URL</label>
+                            <input name="additionalProperties['socialGooglePlus']" type="text" class="form-control"
+                                   id="socialGooglePlus" value="${(site.additionalProperties['socialGooglePlus'])!}">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="additionalProperties['socialWikiPage']">Wiki URL</label>
+                            <input name="additionalProperties['socialWikiPage']" type="text" class="form-control"
+                                   id="socialWikiPage" value="${(site.additionalProperties['socialWikiPage'])!}">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="additionalProperties['socialEmailMe']">Email Me</label>
+                            <input name="additionalProperties['socialEmailMe']" type="text" class="form-control"
+                                   id="socialEmailMe" value="${(site.additionalProperties['socialEmailMe'])!}">
+                        </div>
+
+                    </div>
                 </div>
 
-                <div class="form-group">
-                    <label for="description">Site Description</label>
-                    <textarea name="description" class="form-control summernote"
-                              data-toolbar="full">${(site.description)!}</textarea>
-                </div>
-
-                <div class="form-group">
-                    <label for="siteUrl">Site URL</label>
-                    <input name="siteUrl" type="text" class="form-control" id="siteUrl"
-                           placeholder="siteUrl" value="${(site.siteUrl)!}">
-                </div>
-
-                <div class="form-group">
-                    <label for="homeUrl">Home URL</label>
-                    <input name="homeUrl" type="text" class="form-control" id="homeUrl"
-                           placeholder="homeUrl" value="${(site.homeUrl)!}">
-                </div>
-
-                <div class="form-group">
-                    <label for="additionalProperties['keywords']">Keywords</label>
-                    <input name="additionalProperties['keywords']" type="text" class="form-control" id="keywords"
-                           placeholder="Keywords" value="${(site.additionalProperties['keywords'])!}">
-                    <small id="additionalPropertiesKeywordsHelp" class="form-text text-muted">Used in meta tags.</small>
-                </div>
 
 
             </div>
@@ -72,31 +135,6 @@
 <script src="/webjars/jquery/jquery.min.js"></script>
 <script src="/webjars/bootstrap/js/bootstrap.bundle.min.js"></script>
 <script src="/webjars/bootstrap-tagsinput/bootstrap-tagsinput.min.js"></script>
-<script src="/webjars/summernote/dist/summernote-bs4.min.js"></script>
-
-<script>
-
-    $(document).ready(function () {
-
-        $('.summernote').summernote({
-            placeholder: 'description',
-            height: 100,
-            callbacks: {
-                onPaste: function (e) {
-                    var bufferText = ((e.originalEvent || e).clipboardData || window.clipboardData).getData('Text');
-                    e.preventDefault();
-                    document.execCommand('insertText', false, bufferText);
-                }
-            },
-            toolbar: [
-                ['view', ['fullscreen', 'codeview']],
-            ]
-
-        });
-    });
-
-
-</script>
 
 </body>
 
