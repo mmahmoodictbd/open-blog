@@ -18,3 +18,101 @@ databaseChangeLog:
               - column:
                   name: property_value
                   value: Hello World, Ideas
+      - insert:
+          tableName: site_additional_properties
+          columns:
+              - column:
+                  name: site_id
+                  # Braces around the SQL is necessary, liquibase could not generate proper MySQL SQL.
+                  # MySQL expects braces around SELECT query in INSERT VALUES.
+                  valueComputed: "(SELECT id FROM site LIMIT 1)"
+              - column:
+                  name: property_key
+                  value: socialLinkedIn
+              - column:
+                  name: property_value
+                  value: http://www.linkedin.com/pub/mossaddeque-mahmood/39/50/702
+      - insert:
+          tableName: site_additional_properties
+          columns:
+              - column:
+                  name: site_id
+                  # Braces around the SQL is necessary, liquibase could not generate proper MySQL SQL.
+                  # MySQL expects braces around SELECT query in INSERT VALUES.
+                  valueComputed: "(SELECT id FROM site LIMIT 1)"
+              - column:
+                  name: property_key
+                  value: socialGithub
+              - column:
+                  name: property_value
+                  value: https://github.com/mmahmoodictbd
+      - insert:
+          tableName: site_additional_properties
+          columns:
+              - column:
+                  name: site_id
+                  # Braces around the SQL is necessary, liquibase could not generate proper MySQL SQL.
+                  # MySQL expects braces around SELECT query in INSERT VALUES.
+                  valueComputed: "(SELECT id FROM site LIMIT 1)"
+              - column:
+                  name: property_key
+                  value: socialFB
+              - column:
+                  name: property_value
+                  value: https://www.facebook.com/mmahmood.ict.bd
+      - insert:
+          tableName: site_additional_properties
+          columns:
+              - column:
+                  name: site_id
+                  # Braces around the SQL is necessary, liquibase could not generate proper MySQL SQL.
+                  # MySQL expects braces around SELECT query in INSERT VALUES.
+                  valueComputed: "(SELECT id FROM site LIMIT 1)"
+              - column:
+                  name: property_key
+                  value: socialTwitter
+              - column:
+                  name: property_value
+                  value: https://twitter.com/mmahmood_ict_bd
+      - insert:
+          tableName: site_additional_properties
+          columns:
+              - column:
+                  name: site_id
+                  # Braces around the SQL is necessary, liquibase could not generate proper MySQL SQL.
+                  # MySQL expects braces around SELECT query in INSERT VALUES.
+                  valueComputed: "(SELECT id FROM site LIMIT 1)"
+              - column:
+                  name: property_key
+                  value: socialGooglePlus
+              - column:
+                  name: property_value
+                  value: https://plus.google.com/115803378661601558710
+      - insert:
+          tableName: site_additional_properties
+          columns:
+              - column:
+                  name: site_id
+                  # Braces around the SQL is necessary, liquibase could not generate proper MySQL SQL.
+                  # MySQL expects braces around SELECT query in INSERT VALUES.
+                  valueComputed: "(SELECT id FROM site LIMIT 1)"
+              - column:
+                  name: property_key
+                  value: socialWikiPage
+              - column:
+                  name: property_value
+                  value: http://mmahmoodict.wikidot.com/
+      - insert:
+          tableName: site_additional_properties
+          columns:
+              - column:
+                  name: site_id
+                  # Braces around the SQL is necessary, liquibase could not generate proper MySQL SQL.
+                  # MySQL expects braces around SELECT query in INSERT VALUES.
+                  valueComputed: "(SELECT id FROM site LIMIT 1)"
+              - column:
+                  name: property_key
+                  value: socialEmailMe
+              - column:
+                  name: property_value
+                  value: mahmood@unloadbrain.com
