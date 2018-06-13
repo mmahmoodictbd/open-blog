@@ -85,3 +85,11 @@ a.post-image {
 .post-text {
     color: #344151;
 }
+
+.footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 60px;
+    line-height: 60px;
+}
