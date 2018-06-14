@@ -1,0 +1,9 @@
+# Contribution Guidelines
+
+Please ensure your pull request adheres to the following guidelines:
+
+- Clean Code.
+- Have unit tests and integrations coverage.
+- Proper documentation.
+
+Thank you for your suggestions!
