@@ -2,14 +2,21 @@ version: '3'
 
 services:
 
-  openblog-nginx:
-    image: nginx:latest
+  openblog-apache:
+    build: files/apache
     restart: always
     ports:
       - 80:80
       - 443:443
-    volumes:
-      - ./files/nginx/conf.d:/etc/nginx/conf.d
+
+#  openblog-nginx:
+#    image: nginx:latest
+#    restart: always
+#    ports:
+#      - 80:80
+#      - 443:443
+#    volumes:
+#      - ./files/nginx/conf.d:/etc/nginx/conf.d
 
   openblog-mysql:
     image: mysql:5.7
@@ -30,10 +37,13 @@ services:
     volumes:
       - ~/.openblog:/root/.openblog
       - ~/.m2:/root/.m2
+    ports:
+      - 8080:8080
     expose:
       - "8080"
     depends_on:
-      - openblog-nginx
+#      - openblog-nginx
+      - openblog-apache
       - openblog-mysql
     environment:
       DB_URL: jdbc:mysql://openblog-mysql:3306/openblog?createDatabaseIfNotExist=true
