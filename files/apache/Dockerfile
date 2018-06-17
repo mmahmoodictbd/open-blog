@@ -23,11 +23,18 @@ RUN cd /tmp \
     && dpkg -i /tmp/mod-pagespeed.deb \
     && apt-get -f install
 
-RUN a2enmod proxy proxy_http headers expires
+RUN openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /etc/ssl/private/ssl-cert-snakeoil.key \
+ -out /etc/ssl/certs/ssl-cert-snakeoil.pem -subj "/C=NL/ST=Amsterdam/L=Amsterdam/O=MM/OU=Development/CN=unloadbrain.com"
+
+RUN a2enmod proxy proxy_http headers expires ssl
 RUN service apache2 stop
 
 RUN echo "ServerName localhost" >> /etc/apache2/apache2.conf
 COPY vhost-default.conf /etc/apache2/sites-available/000-default.conf
+COPY vhost-default-ssl.conf /etc/apache2/sites-available/default-ssl.conf
+
+RUN a2ensite default-ssl
+RUN a2enmod ssl
 
 RUN service apache2 start
 
