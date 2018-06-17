@@ -12,7 +12,11 @@ RUN apt-get update \
     curl \
     ca-certificates \
     libapache2-mod-evasive \
+    libapache2-mod-security2 \
+    modsecurity-crs \
     libapache2-mod-jk
+
+RUN mv /etc/modsecurity/modsecurity.conf-recommended /etc/modsecurity/modsecurity.conf
 
 RUN cd /tmp \
     && curl -o /tmp/mod-pagespeed.deb https://dl-ssl.google.com/dl/linux/direct/mod-pagespeed-beta_current_amd64.deb \
