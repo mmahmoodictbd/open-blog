@@ -11,6 +11,7 @@ RUN apt-get update \
     nano \
     curl \
     ca-certificates \
+    libapache2-mod-evasive \
     libapache2-mod-jk
 
 RUN cd /tmp \
