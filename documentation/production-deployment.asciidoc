@@ -1,0 +1,8 @@
+# Production Deployment
+
+DDos test
+ab -v 4 -n 100 -c 100 http://192.168.99.100/
+
+Mod Security test
+curl 'http://192.168.99.100/?q="><script>alert(1)</script>'
+curl "http://192.168.1.10/?q='1 OR 1=1"
