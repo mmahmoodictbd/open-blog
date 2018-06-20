@@ -1,0 +1,33 @@
+@startuml
+
+title Production Deployment Topology
+
+actor "HTTP Client\n(aka Browser)" as HC
+control "Apache Web Server\n(as Reverse Proxy Server)" as APACHE
+participant "OpenBlog Java Apps" as OPENBLOG
+
+
+
+group Valid calls
+    HC -> APACHE : HTTP calls
+    ||10||
+    APACHE -> OPENBLOG : Reverse Proxying HTTP calls
+    ||10||
+    OPENBLOG --> APACHE : Request response
+    ||10||
+    APACHE --> HC : Processed request response\n(Enabled PageSpeed Module, \nCached, Optimized)
+    ||10||
+end
+
+group DDos attacks / Security related attacks
+    HC ->x APACHE : HTTP calls blocked by Apache
+    ||10||
+end
+
+
+
+hide footbox
+
+
+
+@enduml

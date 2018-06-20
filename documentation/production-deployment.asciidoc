@@ -1,8 +1,40 @@
 # Production Deployment
 
-DDos test
-ab -v 4 -n 100 -c 100 http://192.168.99.100/
+### Topology
 
-Mod Security test
+Network topology is very straight forward. Checkout the image below -
+
+image:images/production-deployment-topology.png[]
+
+* Apache server
+** Work as Reverse Proxy Server.
+** Could act as load balancer.
+** Take care of Security, HTTP response optimization and caching.
+** link:../files/apache/Dockerfile[Example configurations].
+** nginx could do the same trick).
+* One or multiple instance of OpenBlog App.
+
+// TODO: ### JVM Options
+
+
+### Security Measures
+
+#### How to test DDos Attacks
+
+```
+ab -v 4 -n 100 -c 100 http://192.168.99.100/
+```
+*note:* Change `192.168.99.100` to proper IP address.
+
+
+#### How to test if Mod Security working
+
+```
 curl 'http://192.168.99.100/?q="><script>alert(1)</script>'
+```
+```
 curl "http://192.168.1.10/?q='1 OR 1=1"
+```
+*note:* Change `192.168.99.100` to proper IP address.
+
+

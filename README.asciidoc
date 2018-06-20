@@ -15,8 +15,6 @@ image:https://sonarcloud.io/api/project_badges/measure?project=com.unloadbrain%3
 
 
 
-
-
 *ATTENTION:* Project still in a very early alpha version, the API may and will change frequently. Please, use it at your own risk, until release version 1.0.
 
 ### Current project status
@@ -66,9 +64,9 @@ application in Docker]
 * https://github.com/mmahmoodictbd/OpenBlog/blob/master/documentation/production-deployment.asciidoc[Production
 Deployment]
 
+
 ### Contribute
 Contributions are always welcome! Please read the link:https://github.com/mmahmoodictbd/OpenBlog/blob/master/documentation/contribution-guidelines.asciidoc[contribution guidelines] first.
-
 
 
 ### Copyright & License
