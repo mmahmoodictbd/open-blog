@@ -1,6 +1,9 @@
 # How to run application in Docker
 
-Docker compose include nginx, MySQL and the OpenBlog app. OpenBlog app runs on 8080, nginx runs on 80 and forward the
+Docker compose include Apache (nginx, commented out), MySQL and the OpenBlog app. OpenBlog app runs on 8080, nginx runs
+on 80
+ and
+forward the
  calls to port 8080.
 
 *Prerequisite:* You have to have docker installed in your machine.
