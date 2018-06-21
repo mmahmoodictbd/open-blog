@@ -25,8 +25,8 @@ public class DraftPost extends Post {
     private PublishedPost publishedPost;
 
     @ElementCollection(fetch = FetchType.EAGER)
-    @CollectionTable(name="draft_post_additional_properties", joinColumns=@JoinColumn(name="draft_post_id"))
-    @MapKeyColumn(name="property_key")
-    @Column(name="property_value")
+    @CollectionTable(name = "draft_post_additional_properties", joinColumns = @JoinColumn(name = "draft_post_id"))
+    @MapKeyColumn(name = "property_key")
+    @Column(name = "property_value")
     private Map<String, String> additionalProperties = new HashMap<>();
 }

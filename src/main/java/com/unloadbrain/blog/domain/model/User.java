@@ -53,8 +53,8 @@ public class User extends BaseEntity {
     private Set<Role> roles = new HashSet<>();
 
     @ElementCollection(fetch = FetchType.EAGER)
-    @CollectionTable(name="user_additional_properties", joinColumns=@JoinColumn(name="user_id"))
-    @MapKeyColumn(name="property_key")
-    @Column(name="property_value")
+    @CollectionTable(name = "user_additional_properties", joinColumns = @JoinColumn(name = "user_id"))
+    @MapKeyColumn(name = "property_key")
+    @Column(name = "property_value")
     private Map<String, String> additionalProperties = new HashMap<>();
 }

@@ -32,7 +32,8 @@
                     <tr>
                         <#if (post.status)! == "DRAFT">
                             <td title="${post.id}">
-                                <a href="/admin/post?id=${post.id}&status=${post.status}" class="text-warning">${post.title}</a>
+                                <a href="/admin/post?id=${post.id}&status=${post.status}"
+                                   class="text-warning">${post.title}</a>
                             </td>
                         <#else>
                             <td title="${post.id}">

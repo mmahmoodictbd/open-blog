@@ -25,9 +25,9 @@ public class PublishedPost extends Post {
     private Date publishDate;
 
     @ElementCollection(fetch = FetchType.EAGER)
-    @CollectionTable(name="published_post_additional_properties", joinColumns=@JoinColumn(name="published_post_id"))
-    @MapKeyColumn(name="property_key")
-    @Column(name="property_value")
+    @CollectionTable(name = "published_post_additional_properties", joinColumns = @JoinColumn(name = "published_post_id"))
+    @MapKeyColumn(name = "property_key")
+    @Column(name = "property_value")
     private Map<String, String> additionalProperties = new HashMap<>();
 
 }

@@ -42,17 +42,20 @@
 
                         <div class="form-group">
                             <label for="description">Site Description</label>
-                            <input name="description" class="form-control" id="description" value="${(site.description)!}">
+                            <input name="description" class="form-control" id="description"
+                                   value="${(site.description)!}">
                         </div>
 
                         <div class="form-group">
                             <label for="siteUrl">Site URL</label>
-                            <input name="siteUrl" type="text" class="form-control" id="siteUrl" value="${(site.siteUrl)!}">
+                            <input name="siteUrl" type="text" class="form-control" id="siteUrl"
+                                   value="${(site.siteUrl)!}">
                         </div>
 
                         <div class="form-group">
                             <label for="homeUrl">Home URL</label>
-                            <input name="homeUrl" type="text" class="form-control" id="homeUrl" value="${(site.homeUrl)!}">
+                            <input name="homeUrl" type="text" class="form-control" id="homeUrl"
+                                   value="${(site.homeUrl)!}">
                         </div>
 
                     </div>
@@ -61,9 +64,12 @@
 
                         <div class="form-group">
                             <label for="additionalProperties['keywords']">Keywords</label>
-                            <input name="additionalProperties['keywords']" type="text" class="form-control" id="keywords"
+                            <input name="additionalProperties['keywords']" type="text" class="form-control"
+                                   id="keywords"
                                    value="${(site.additionalProperties['keywords'])!}">
-                            <small id="additionalPropertiesKeywordsHelp" class="form-text text-muted">Used in meta tags.</small>
+                            <small id="additionalPropertiesKeywordsHelp" class="form-text text-muted">Used in meta
+                                tags.
+                            </small>
                         </div>
 
                     </div>
@@ -114,7 +120,6 @@
 
                     </div>
                 </div>
-
 
 
             </div>

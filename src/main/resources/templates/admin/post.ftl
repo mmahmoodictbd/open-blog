@@ -44,7 +44,8 @@
                 </div>
 
                 <div class="form-group">
-                    <input name="additionalProperties['seoDescription']" type="text" class="form-control" id="seoDescription"
+                    <input name="additionalProperties['seoDescription']" type="text" class="form-control"
+                           id="seoDescription"
                            placeholder="SEO Description" value="${(post.additionalProperties['seoDescription'])!}">
                 </div>
 

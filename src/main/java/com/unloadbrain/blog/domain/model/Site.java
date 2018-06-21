@@ -37,9 +37,9 @@ public class Site extends BaseEntity {
     private String homeUrl;
 
     @ElementCollection(fetch = FetchType.EAGER)
-    @CollectionTable(name="site_additional_properties", joinColumns=@JoinColumn(name="site_id"))
-    @MapKeyColumn(name="property_key")
-    @Column(name="property_value")
+    @CollectionTable(name = "site_additional_properties", joinColumns = @JoinColumn(name = "site_id"))
+    @MapKeyColumn(name = "property_key")
+    @Column(name = "property_value")
     private Map<String, String> additionalProperties = new HashMap<>();
 
 }
