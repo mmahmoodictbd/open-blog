@@ -116,3 +116,17 @@ databaseChangeLog:
               - column:
                   name: property_value
                   value: mahmood@unloadbrain.com
+      - insert:
+          tableName: site_additional_properties
+          columns:
+              - column:
+                  name: site_id
+                  # Braces around the SQL is necessary, liquibase could not generate proper MySQL SQL.
+                  # MySQL expects braces around SELECT query in INSERT VALUES.
+                  valueComputed: "(SELECT id FROM site LIMIT 1)"
+              - column:
+                  name: property_key
+                  value: googleAnalyticsAccountId
+              - column:
+                  name: property_value
+                  value: UA-121247298-1
