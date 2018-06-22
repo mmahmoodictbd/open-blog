@@ -28,6 +28,9 @@
                     <li class="nav-item">
                         <a class="nav-link" href="#socialTab" role="tab" data-toggle="tab">Social</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#analyticsTab" role="tab" data-toggle="tab">Analytics</a>
+                    </li>
                 </ul>
 
                 <!-- Tab panes -->
@@ -119,8 +122,21 @@
                         </div>
 
                     </div>
-                </div>
 
+                    <div role="tabpanel" class="tab-pane fade" id="analyticsTab">
+
+                        <div class="form-group">
+                            <label for="additionalProperties['googleAnalyticsAccountId']">
+                                Google Analytics Account Id
+                            </label>
+                            <input name="additionalProperties['googleAnalyticsAccountId']" type="text" class="form-control"
+                                   id="googleAnalyticsAccountId"
+                                   value="${(site.additionalProperties['googleAnalyticsAccountId'])!}">
+                        </div>
+
+                    </div>
+
+                </div>
 
             </div>
 
