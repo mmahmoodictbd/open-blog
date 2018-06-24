@@ -18,7 +18,7 @@
 
 </#if>
 
-<div class="row"></div>
+<div class="row">&nbsp;</div>
 
 <#if tags?has_content>
 
