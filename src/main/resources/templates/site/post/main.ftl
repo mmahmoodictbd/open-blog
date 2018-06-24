@@ -41,6 +41,7 @@
 
     <#include "../common/footer.ftl">
     <#include "../common/scripts.ftl">
+    <#include "../common/google-analytics.ftl">
 
 </body>
 
