@@ -31,12 +31,19 @@
                     <li class="nav-item">
                         <a class="nav-link" href="#analyticsTab" role="tab" data-toggle="tab">Analytics</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#siteVerificationTab" role="tab" data-toggle="tab">
+                            Site Verification
+                        </a>
+                    </li>
                 </ul>
 
                 <!-- Tab panes -->
                 <div class="tab-content">
 
                     <div role="tabpanel" class="tab-pane fade active show" id="basicTab">
+
+                        <div class="row">&nbsp;</div>
 
                         <div class="form-group">
                             <label for="name">Site Name</label>
@@ -65,6 +72,8 @@
 
                     <div role="tabpanel" class="tab-pane fade" id="metaTab">
 
+                        <div class="row">&nbsp;</div>
+
                         <div class="form-group">
                             <label for="additionalProperties['keywords']">Keywords</label>
                             <input name="additionalProperties['keywords']" type="text" class="form-control"
@@ -78,6 +87,8 @@
                     </div>
 
                     <div role="tabpanel" class="tab-pane fade" id="socialTab">
+
+                        <div class="row">&nbsp;</div>
 
                         <div class="form-group">
                             <label for="additionalProperties['socialLinkedIn']">LinkedIn URL</label>
@@ -125,6 +136,8 @@
 
                     <div role="tabpanel" class="tab-pane fade" id="analyticsTab">
 
+                        <div class="row">&nbsp;</div>
+
                         <div class="form-group">
                             <label for="additionalProperties['googleAnalyticsAccountId']">
                                 Google Analytics Account Id
@@ -132,6 +145,30 @@
                             <input name="additionalProperties['googleAnalyticsAccountId']" type="text" class="form-control"
                                    id="googleAnalyticsAccountId"
                                    value="${(site.additionalProperties['googleAnalyticsAccountId'])!}">
+                        </div>
+
+                    </div>
+
+                    <div role="tabpanel" class="tab-pane fade" id="siteVerificationTab">
+
+                        <div class="row">&nbsp;</div>
+
+                        <div class="form-group">
+                            <label for="additionalProperties['googleSiteVerificationId']">
+                                Google Site Verification Id
+                            </label>
+                            <input name="additionalProperties['googleSiteVerificationId']" type="text"
+                                   class="form-control" id="googleSiteVerificationId"
+                                   value="${(site.additionalProperties['googleSiteVerificationId'])!}">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="additionalProperties['bingSiteVerificationId']">
+                                Bing Site Verification Id
+                            </label>
+                            <input name="additionalProperties['bingSiteVerificationId']" type="text"
+                                   class="form-control" id="bingSiteVerificationId"
+                                   value="${(site.additionalProperties['bingSiteVerificationId'])!}">
                         </div>
 
                     </div>
