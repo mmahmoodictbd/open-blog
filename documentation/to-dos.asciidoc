@@ -1,0 +1,4 @@
+# // TODO::
+
+* Add load test with Gatling.
+* Add caching in forward proxy server Apache configuration.

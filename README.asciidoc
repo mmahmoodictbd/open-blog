@@ -64,6 +64,10 @@ application in Docker]
 * https://github.com/mmahmoodictbd/OpenBlog/blob/master/documentation/production-deployment.asciidoc[Production
 Deployment]
 
+### // TODO:
+Things are far from perfect. Here is the https://github.com/mmahmoodictbd/OpenBlog/blob/master/documentation/to-dos
+.asciidoc[list].
+
 
 ### Contribute
 Contributions are always welcome! Please read the link:https://github.com/mmahmoodictbd/OpenBlog/blob/master/documentation/contribution-guidelines.asciidoc[contribution guidelines] first.
