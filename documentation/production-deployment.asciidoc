@@ -17,6 +17,15 @@ image:images/production-deployment-topology.png[]
 // TODO: ### JVM Options
 
 
+### How to deploy in production
+```
+git clone https://github.com/mmahmoodictbd/OpenBlog.git && cd OpenBlog
+mvn clean install -Dmaven.test.skip=true
+nohup java -server -Xmx350m -Xss228k -XX:+UseG1GC -Dspring.profiles.active=prod -jar target/openblog.jar > openblog.log
+ 2>&1 &
+```
+**note:** Xmx350m is subject to improve.
+
 ### Security Measures
 
 #### How to test DDos Attacks
