@@ -56,6 +56,8 @@ Go to the browser and open `localhost:8080`
 
 * https://github.com/mmahmoodictbd/OpenBlog/blob/master/documentation/versioning-strategy.asciidoc[Versioning Strategy]
 
+* https://github.com/mmahmoodictbd/OpenBlog/blob/master/documentation/how-to-run-in-ide.asciidoc[How to run in IDE]
+
 * https://github.com/mmahmoodictbd/OpenBlog/blob/master/documentation/how-to-run-tests.asciidoc[How to run tests]
 
 * https://github.com/mmahmoodictbd/OpenBlog/blob/master/documentation/run-application-in-docker.asciidoc[Run
@@ -63,6 +65,8 @@ application in Docker]
 
 * https://github.com/mmahmoodictbd/OpenBlog/blob/master/documentation/production-deployment.asciidoc[Production
 Deployment]
+
+
 
 ### // TODO:
 Things are far from perfect. Here is the https://github.com/mmahmoodictbd/OpenBlog/blob/master/documentation/to-dos
