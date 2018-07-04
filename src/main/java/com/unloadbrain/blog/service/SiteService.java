@@ -38,6 +38,7 @@ public class SiteService {
 
         throwExceptionWhenSiteNotFound(siteOptional);
 
+        // TODO: use mapper
         Site site = siteOptional.get();
         site.setName(updateSiteRequest.getName());
         site.setDescription(updateSiteRequest.getDescription());
