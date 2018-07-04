@@ -23,6 +23,9 @@ public class UpdateSiteRequest {
     @NotNull
     private String homeUrl;
 
+    // TODO: Remove map and put specific fields
     private Map<String, String> additionalProperties = new HashMap<>();
+
+    private String googleAnalyticsAccountId;
 
 }
