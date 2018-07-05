@@ -2,9 +2,11 @@ package com.unloadbrain.blog.service;
 
 import com.unloadbrain.blog.domain.model.Site;
 import com.unloadbrain.blog.domain.repository.SiteRepository;
-import com.unloadbrain.blog.dto.UpdateSiteRequest;
+import com.unloadbrain.blog.dto.SiteQueryDTO;
+import com.unloadbrain.blog.dto.SiteUpdateCommandDTO;
 import com.unloadbrain.blog.exception.SiteNotFoundException;
 import lombok.AllArgsConstructor;
+import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -16,13 +18,15 @@ public class SiteService {
 
     private SiteRepository siteRepository;
 
-    public Site getSite() {
+    private ModelMapper modelMapper;
+
+    public SiteQueryDTO getSite() {
 
         Optional<Site> site = getFirstSite();
 
         throwExceptionWhenSiteNotFound(site);
 
-        return site.get();
+        return modelMapper.map(site.get(), SiteQueryDTO.class);
 
     }
 
@@ -32,19 +36,14 @@ public class SiteService {
         }
     }
 
-    public void updateSite(UpdateSiteRequest updateSiteRequest) {
+    public void updateSite(SiteUpdateCommandDTO siteUpdateCommandDTO) {
 
         Optional<Site> siteOptional = getFirstSite();
 
         throwExceptionWhenSiteNotFound(siteOptional);
 
-        // TODO: use mapper
         Site site = siteOptional.get();
-        site.setName(updateSiteRequest.getName());
-        site.setDescription(updateSiteRequest.getDescription());
-        site.setHomeUrl(updateSiteRequest.getHomeUrl());
-        site.setSiteUrl(updateSiteRequest.getSiteUrl());
-        site.setAdditionalProperties(updateSiteRequest.getAdditionalProperties());
+        modelMapper.map(siteUpdateCommandDTO, site);
 
         siteRepository.save(site);
     }

@@ -14,7 +14,7 @@ databaseChangeLog:
                   valueComputed: "(SELECT id FROM site LIMIT 1)"
               - column:
                   name: property_key
-                  value: keywords
+                  value: metaKeywords
               - column:
                   name: property_value
                   value: Hello World, Ideas
@@ -28,7 +28,7 @@ databaseChangeLog:
                   valueComputed: "(SELECT id FROM site LIMIT 1)"
               - column:
                   name: property_key
-                  value: socialLinkedIn
+                  value: socialLinkedInUrl
               - column:
                   name: property_value
                   value: http://www.linkedin.com/pub/mossaddeque-mahmood/39/50/702
@@ -42,7 +42,7 @@ databaseChangeLog:
                   valueComputed: "(SELECT id FROM site LIMIT 1)"
               - column:
                   name: property_key
-                  value: socialGithub
+                  value: socialGithubUrl
               - column:
                   name: property_value
                   value: https://github.com/mmahmoodictbd
@@ -56,7 +56,7 @@ databaseChangeLog:
                   valueComputed: "(SELECT id FROM site LIMIT 1)"
               - column:
                   name: property_key
-                  value: socialFB
+                  value: socialFBUrl
               - column:
                   name: property_value
                   value: https://www.facebook.com/mmahmood.ict.bd
@@ -70,7 +70,7 @@ databaseChangeLog:
                   valueComputed: "(SELECT id FROM site LIMIT 1)"
               - column:
                   name: property_key
-                  value: socialTwitter
+                  value: socialTwitterUrl
               - column:
                   name: property_value
                   value: https://twitter.com/mmahmood_ict_bd
@@ -84,7 +84,7 @@ databaseChangeLog:
                   valueComputed: "(SELECT id FROM site LIMIT 1)"
               - column:
                   name: property_key
-                  value: socialGooglePlus
+                  value: socialGooglePlusUrl
               - column:
                   name: property_value
                   value: https://plus.google.com/115803378661601558710
@@ -98,7 +98,7 @@ databaseChangeLog:
                   valueComputed: "(SELECT id FROM site LIMIT 1)"
               - column:
                   name: property_key
-                  value: socialWikiPage
+                  value: socialWikiPageUrl
               - column:
                   name: property_value
                   value: http://mmahmoodict.wikidot.com/

@@ -1,6 +1,6 @@
 package com.unloadbrain.blog.controller.admin;
 
-import com.unloadbrain.blog.dto.UpdateSiteRequest;
+import com.unloadbrain.blog.dto.SiteUpdateCommandDTO;
 import com.unloadbrain.blog.service.SiteService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -22,8 +22,8 @@ public class SiteController {
     }
 
     @PostMapping("/admin/site")
-    public String updateSite(@ModelAttribute UpdateSiteRequest updateSiteRequest) {
-        siteService.updateSite(updateSiteRequest);
+    public String updateSite(@ModelAttribute SiteUpdateCommandDTO siteUpdateCommandDTO) {
+        siteService.updateSite(siteUpdateCommandDTO);
         return "redirect:/admin/site";
     }
 }

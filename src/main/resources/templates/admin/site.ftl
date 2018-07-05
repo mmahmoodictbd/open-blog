@@ -75,11 +75,10 @@
                         <div class="row">&nbsp;</div>
 
                         <div class="form-group">
-                            <label for="additionalProperties['keywords']">Keywords</label>
-                            <input name="additionalProperties['keywords']" type="text" class="form-control"
-                                   id="keywords"
-                                   value="${(site.additionalProperties['keywords'])!}">
-                            <small id="additionalPropertiesKeywordsHelp" class="form-text text-muted">Used in meta
+                            <label for="metaKeywords">Keywords</label>
+                            <input name="metaKeywords" type="text" class="form-control" id="keywords"
+                                   value="${(site.metaKeywords)!}">
+                            <small id="metaKeywordsHelp" class="form-text text-muted">Used in meta
                                 tags.
                             </small>
                         </div>
@@ -91,45 +90,45 @@
                         <div class="row">&nbsp;</div>
 
                         <div class="form-group">
-                            <label for="additionalProperties['socialLinkedIn']">LinkedIn URL</label>
-                            <input name="additionalProperties['socialLinkedIn']" type="text" class="form-control"
-                                   id="socialLinkedIn" value="${(site.additionalProperties['socialLinkedIn'])!}">
+                            <label for="socialLinkedInUrl">LinkedIn URL</label>
+                            <input name="socialLinkedInUrl" type="text" class="form-control"
+                                   id="socialLinkedIn" value="${(site.socialLinkedInUrl)!}">
                         </div>
 
                         <div class="form-group">
-                            <label for="additionalProperties['socialGithub']">Github URL</label>
-                            <input name="additionalProperties['socialGithub']" type="text" class="form-control"
-                                   id="socialGithub" value="${(site.additionalProperties['socialGithub'])!}">
+                            <label for="socialGithubUrl">Github URL</label>
+                            <input name="socialGithubUrl" type="text" class="form-control"
+                                   id="socialGithub" value="${(site.socialGithubUrl)!}">
                         </div>
 
                         <div class="form-group">
-                            <label for="additionalProperties['socialFB']">FB URL</label>
-                            <input name="additionalProperties['socialFB']" type="text" class="form-control"
-                                   id="socialFB" value="${(site.additionalProperties['socialFB'])!}">
+                            <label for="socialFBUrl">FB URL</label>
+                            <input name="socialFBUrl" type="text" class="form-control"
+                                   id="socialFB" value="${(site.socialFBUrl)!}">
                         </div>
 
                         <div class="form-group">
-                            <label for="additionalProperties['socialTwitter']">Twitter URL</label>
-                            <input name="additionalProperties['socialTwitter']" type="text" class="form-control"
-                                   id="socialTwitter" value="${(site.additionalProperties['socialTwitter'])!}">
+                            <label for="socialTwitterUrl">Twitter URL</label>
+                            <input name="socialTwitterUrl" type="text" class="form-control"
+                                   id="socialTwitter" value="${(site.socialTwitterUrl)!}">
                         </div>
 
                         <div class="form-group">
-                            <label for="additionalProperties['socialGooglePlus']">Google Plus URL</label>
-                            <input name="additionalProperties['socialGooglePlus']" type="text" class="form-control"
-                                   id="socialGooglePlus" value="${(site.additionalProperties['socialGooglePlus'])!}">
+                            <label for="socialGooglePlusUrl">Google Plus URL</label>
+                            <input name="socialGooglePlusUrl" type="text" class="form-control"
+                                   id="socialGooglePlus" value="${(site.socialGooglePlusUrl)!}">
                         </div>
 
                         <div class="form-group">
-                            <label for="additionalProperties['socialWikiPage']">Wiki URL</label>
-                            <input name="additionalProperties['socialWikiPage']" type="text" class="form-control"
-                                   id="socialWikiPage" value="${(site.additionalProperties['socialWikiPage'])!}">
+                            <label for="socialWikiPageUrl">Wiki URL</label>
+                            <input name="socialWikiPageUrl" type="text" class="form-control"
+                                   id="socialWikiPage" value="${(site.socialWikiPageUrl)!}">
                         </div>
 
                         <div class="form-group">
-                            <label for="additionalProperties['socialEmailMe']">Email Me</label>
-                            <input name="additionalProperties['socialEmailMe']" type="text" class="form-control"
-                                   id="socialEmailMe" value="${(site.additionalProperties['socialEmailMe'])!}">
+                            <label for="socialEmailMe">Email Me</label>
+                            <input name="socialEmailMe" type="text" class="form-control"
+                                   id="socialEmailMe" value="${(site.socialEmailMe)!}">
                         </div>
 
                     </div>
@@ -139,12 +138,12 @@
                         <div class="row">&nbsp;</div>
 
                         <div class="form-group">
-                            <label for="additionalProperties['googleAnalyticsAccountId']">
+                            <label for="googleAnalyticsAccountId">
                                 Google Analytics Account Id
                             </label>
-                            <input name="additionalProperties['googleAnalyticsAccountId']" type="text" class="form-control"
+                            <input name="googleAnalyticsAccountId" type="text" class="form-control"
                                    id="googleAnalyticsAccountId"
-                                   value="${(site.additionalProperties['googleAnalyticsAccountId'])!}">
+                                   value="${(site.googleAnalyticsAccountId)!}">
                         </div>
 
                     </div>
@@ -154,21 +153,21 @@
                         <div class="row">&nbsp;</div>
 
                         <div class="form-group">
-                            <label for="additionalProperties['googleSiteVerificationId']">
+                            <label for="googleSiteVerificationId">
                                 Google Site Verification Id
                             </label>
-                            <input name="additionalProperties['googleSiteVerificationId']" type="text"
+                            <input name="googleSiteVerificationId" type="text"
                                    class="form-control" id="googleSiteVerificationId"
-                                   value="${(site.additionalProperties['googleSiteVerificationId'])!}">
+                                   value="${(site.googleSiteVerificationId)!}">
                         </div>
 
                         <div class="form-group">
-                            <label for="additionalProperties['bingSiteVerificationId']">
+                            <label for="bingSiteVerificationId">
                                 Bing Site Verification Id
                             </label>
-                            <input name="additionalProperties['bingSiteVerificationId']" type="text"
+                            <input name="bingSiteVerificationId" type="text"
                                    class="form-control" id="bingSiteVerificationId"
-                                   value="${(site.additionalProperties['bingSiteVerificationId'])!}">
+                                   value="${(site.bingSiteVerificationId)!}">
                         </div>
 
                     </div>
