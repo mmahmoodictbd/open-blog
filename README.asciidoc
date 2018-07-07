@@ -69,8 +69,7 @@ Deployment]
 
 
 ### // TODO:
-Things are far from perfect. Here is the https://github.com/mmahmoodictbd/OpenBlog/blob/master/documentation/to-dos
-.asciidoc[list].
+Things are far from perfect. Here is the https://github.com/mmahmoodictbd/OpenBlog/blob/master/documentation/to-dos.asciidoc[list].
 
 
 ### Contribute

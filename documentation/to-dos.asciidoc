@@ -1,4 +1,9 @@
 # // TODO::
 
+* Add caching in service layer.
 * Add load test with Gatling.
 * Add caching in forward proxy server Apache configuration.
+* Implement CQRS properly.
+* Add RSS / Atom.
+* Add javadoc in classes and methods.
+* Build tag UI and edit/update functionality.
