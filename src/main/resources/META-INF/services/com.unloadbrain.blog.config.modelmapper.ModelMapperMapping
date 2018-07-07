@@ -1,0 +1,4 @@
+com.unloadbrain.blog.config.modelmapper.PostModelMapperMapping
+com.unloadbrain.blog.config.modelmapper.PublishedPostModelMapperMapping
+com.unloadbrain.blog.config.modelmapper.DraftPostModelMapperMapping
+com.unloadbrain.blog.config.modelmapper.SiteModelMapperMapping
