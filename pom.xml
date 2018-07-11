@@ -51,6 +51,7 @@
         <prism.version>1.12.2</prism.version>
         <webjars-locator.version>0.30</webjars-locator.version>
 
+        <javamelody-spring-boot-starter.version>1.73.1</javamelody-spring-boot-starter.version>
     </properties>
 
     <dependencies>
@@ -73,6 +74,11 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-security</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-aop</artifactId>
         </dependency>
 
         <dependency>
@@ -157,6 +163,13 @@
             <scope>runtime</scope>
         </dependency>
 
+        <!-- Monitoring -->
+
+        <dependency>
+            <groupId>net.bull.javamelody</groupId>
+            <artifactId>javamelody-spring-boot-starter</artifactId>
+            <version>${javamelody-spring-boot-starter.version}</version>
+        </dependency>
 
         <!-- Test dependencies -->
 

@@ -109,3 +109,15 @@ logging:
     org.hibernate:
       SQL: DEBUG
       type.descriptor.sql.BasicBinder: TRACE
+
+---
+
+### Performance profile
+
+spring:
+  profiles: performance
+
+javamelody:
+  advisor-auto-proxy-creator-enabled: false
+  init-parameters:
+    monitoring-path: /admin/monitoring
