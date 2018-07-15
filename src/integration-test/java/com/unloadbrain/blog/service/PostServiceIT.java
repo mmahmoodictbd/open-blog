@@ -22,6 +22,7 @@ import static org.springframework.security.test.web.servlet.setup.SecurityMockMv
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.redirectedUrlPattern;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 
@@ -68,7 +69,7 @@ public class PostServiceIT {
                 .contentType(MediaType.APPLICATION_FORM_URLENCODED)
                 .params(formData))
                 .andExpect(status().is3xxRedirection())
-                .andExpect(view().name("redirect:/admin/post?id=1&status=DRAFT"));
+                .andExpect(redirectedUrlPattern("/admin/post?id={[0-9]+}&status=DRAFT"));
     }
 
 }
