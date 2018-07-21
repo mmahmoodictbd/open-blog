@@ -47,14 +47,14 @@ public class PublishedPostServiceTest {
 
     public PublishedPostServiceTest() {
 
-        this.categoryService = mock(CategoryService.class);
-        this.tagService = mock(TagService.class);
+        this.categoryService = mock(CategoryServiceImpl.class);
+        this.tagService = mock(TagServiceImpl.class);
         this.publishedPostRepository = mock(PublishedPostRepository.class);
         this.draftPostRepository = mock(DraftPostRepository.class);
         this.dateUtility = mock(DateUtility.class);
         this.modelMapper = new MappingConfig().createModelMapper();
 
-        this.publishPostService = new PublishPostService(categoryService, tagService,
+        this.publishPostService = new PublishPostServiceImpl(categoryService, tagService,
                 publishedPostRepository, draftPostRepository, dateUtility, modelMapper);
     }
 
