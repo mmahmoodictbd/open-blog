@@ -60,15 +60,12 @@ public class CategoryServiceImpl implements CategoryService {
 
         category = categoryRepository.save(category);
 
-        System.out.println("---->>> CACHE EVICTED");
-
         return new IdentityDTO(category.getId());
     }
 
     @Override
     @Cacheable(CACHE_KEY_CATEGORIES)
     public List<CategoryDTO> getCategories() {
-        System.out.println("------->ping pong");
         return categoryRepository.findAll().stream().map(this::convertToCategoryDTO).collect(Collectors.toList());
     }
 
