@@ -41,13 +41,13 @@ public class DraftPostServiceTest {
 
     public DraftPostServiceTest() {
 
-        this.categoryService = mock(CategoryService.class);
-        this.tagService = mock(TagService.class);
+        this.categoryService = mock(CategoryServiceImpl.class);
+        this.tagService = mock(TagServiceImpl.class);
         this.publishedPostRepository = mock(PublishedPostRepository.class);
         this.draftPostRepository = mock(DraftPostRepository.class);
         this.modelMapper = new MappingConfig().createModelMapper();
 
-        this.draftPostService = new DraftPostService(
+        this.draftPostService = new DraftPostServiceImpl(
                 categoryService, tagService,
                 publishedPostRepository, draftPostRepository, modelMapper);
     }
