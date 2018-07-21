@@ -21,7 +21,7 @@ public class CategoryServiceTest {
 
     public CategoryServiceTest() {
         this.categoryRepositoryMock = mock(CategoryRepository.class);
-        this.categoryService = new CategoryService(categoryRepositoryMock);
+        this.categoryService = new CategoryServiceImpl(categoryRepositoryMock);
     }
 
 
