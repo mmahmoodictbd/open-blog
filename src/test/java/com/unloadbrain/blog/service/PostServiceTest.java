@@ -40,7 +40,7 @@ public class PostServiceTest {
         this.postRepository = mock(PostRepository.class);
         this.modelMapper = new MappingConfig().createModelMapper();
 
-        this.postService = new PostService(
+        this.postService = new PostServiceImpl(
                 publishedPostRepository, draftPostRepository,
                 postRepository, modelMapper);
 
