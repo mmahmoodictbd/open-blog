@@ -3,8 +3,8 @@
 
 <head>
     <#include "../common/header.ftl">
-    <title>Unload Brain</title>
-    <meta name="description" content="">
+    <title>${site.name}</title>
+    <meta name="description" content="${site.description}">
     <meta name="author" content="">
     <link href="/webjars/prism/1.12.2/themes/prism.css" rel="stylesheet">
     <base href="..">
@@ -25,7 +25,9 @@
                 <#include "meta.ftl">
             </div>
 
-        ${(post.content)!}
+            ${(post.content)!}
+
+            <#include "disqus-comment.ftl">
 
         </div>
 
@@ -42,6 +44,7 @@
     <#include "../common/footer.ftl">
     <#include "../common/scripts.ftl">
     <#include "../common/google-analytics.ftl">
+    <script id="dsq-count-scr" src="//${site.disqusUniqueUrl}/count.js" async></script>
 
 </body>
 
