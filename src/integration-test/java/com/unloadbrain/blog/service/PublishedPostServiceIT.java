@@ -53,29 +53,6 @@ public class PublishedPostServiceIT {
     @Autowired
     private CacheManager cacheManager;
 
-    private static PublishedPost buildPublishedPost() {
-
-        PublishedPost post = new PublishedPost();
-        post.setId(1L);
-        post.setTitle("SamplePost");
-        post.setContent("Hello world!");
-        post.setPermalink("sample-post");
-
-        return post;
-    }
-
-    private static PostDTO buildPublishedPostDTO() {
-
-        PostDTO postDTO = new PostDTO();
-        postDTO.setId(1L);
-        postDTO.setTitle("SamplePost");
-        postDTO.setContent("Hello world!");
-        postDTO.setPermalink("sample-post");
-        postDTO.setStatus(CurrentPostStatus.PUBLISHED);
-
-        return postDTO;
-    }
-
     @Test
     public void testPostByIdCachedOnFirstCall() {
 
@@ -250,6 +227,29 @@ public class PublishedPostServiceIT {
 
         reset(publishedPostRepository);
 
+    }
+
+    private static PublishedPost buildPublishedPost() {
+
+        PublishedPost post = new PublishedPost();
+        post.setId(1L);
+        post.setTitle("SamplePost");
+        post.setContent("Hello world!");
+        post.setPermalink("sample-post");
+
+        return post;
+    }
+
+    private static PostDTO buildPublishedPostDTO() {
+
+        PostDTO postDTO = new PostDTO();
+        postDTO.setId(1L);
+        postDTO.setTitle("SamplePost");
+        postDTO.setContent("Hello world!");
+        postDTO.setPermalink("sample-post");
+        postDTO.setStatus(CurrentPostStatus.PUBLISHED);
+
+        return postDTO;
     }
 
     @Configuration
