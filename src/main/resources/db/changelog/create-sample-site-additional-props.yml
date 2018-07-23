@@ -158,3 +158,17 @@ databaseChangeLog:
               - column:
                   name: property_value
                   value: 86F638A63C724C5E67117AB3B8A092B0
+      - insert:
+          tableName: site_additional_properties
+          columns:
+              - column:
+                  name: site_id
+                  # Braces around the SQL is necessary, liquibase could not generate proper MySQL SQL.
+                  # MySQL expects braces around SELECT query in INSERT VALUES.
+                  valueComputed: "(SELECT id FROM site LIMIT 1)"
+              - column:
+                  name: property_key
+                  value: disqusUniqueUrl
+              - column:
+                  name: property_value
+                  value: unloadbrain.disqus.com
