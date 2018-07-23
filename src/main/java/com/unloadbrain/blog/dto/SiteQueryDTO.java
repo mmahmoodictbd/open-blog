@@ -46,4 +46,6 @@ public class SiteQueryDTO {
     private String googleSiteVerificationId;
 
     private String bingSiteVerificationId;
+
+    private String disqusUniqueUrl;
 }

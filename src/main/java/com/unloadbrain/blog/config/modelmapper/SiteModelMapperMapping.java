@@ -23,6 +23,8 @@ public class SiteModelMapperMapping implements ModelMapperMapping {
     private static final String GOOGLE_ANALYTICS_ACCOUNT_ID = "googleAnalyticsAccountId";
     private static final String GOOGLE_SITE_VERIFICATION_ID = "googleSiteVerificationId";
     private static final String BING_SITE_VERIFICATION_ID = "bingSiteVerificationId";
+    private static final String DISQUS_UNIQUE_URL = "disqusUniqueUrl";
+
 
     @Override
     public void appendToModelMapper(ModelMapper modelMapper) {
@@ -64,6 +66,7 @@ public class SiteModelMapperMapping implements ModelMapperMapping {
             siteQueryDTO.setGoogleAnalyticsAccountId(additionalProperties.get(GOOGLE_ANALYTICS_ACCOUNT_ID));
             siteQueryDTO.setGoogleSiteVerificationId(additionalProperties.get(GOOGLE_SITE_VERIFICATION_ID));
             siteQueryDTO.setBingSiteVerificationId(additionalProperties.get(BING_SITE_VERIFICATION_ID));
+            siteQueryDTO.setDisqusUniqueUrl(additionalProperties.get(DISQUS_UNIQUE_URL));
 
             return siteQueryDTO;
         };
@@ -113,7 +116,12 @@ public class SiteModelMapperMapping implements ModelMapperMapping {
             additionalProperties.put(GOOGLE_ANALYTICS_ACCOUNT_ID, siteUpdateCommandDTO.getGoogleAnalyticsAccountId());
             additionalProperties.put(GOOGLE_SITE_VERIFICATION_ID, siteUpdateCommandDTO.getGoogleSiteVerificationId());
             additionalProperties.put(BING_SITE_VERIFICATION_ID, siteUpdateCommandDTO.getBingSiteVerificationId());
+            additionalProperties.put(DISQUS_UNIQUE_URL, siteUpdateCommandDTO.getDisqusUniqueUrl());
 
+            site.setName(siteUpdateCommandDTO.getName());
+            site.setDescription(siteUpdateCommandDTO.getDescription());
+            site.setHomeUrl(siteUpdateCommandDTO.getHomeUrl());
+            site.setSiteUrl(siteUpdateCommandDTO.getSiteUrl());
             site.setAdditionalProperties(additionalProperties);
 
             return site;

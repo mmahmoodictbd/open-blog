@@ -36,6 +36,11 @@
                             Site Verification
                         </a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#commentsTab" role="tab" data-toggle="tab">
+                            Comments
+                        </a>
+                    </li>
                 </ul>
 
                 <!-- Tab panes -->
@@ -168,6 +173,23 @@
                             <input name="bingSiteVerificationId" type="text"
                                    class="form-control" id="bingSiteVerificationId"
                                    value="${(site.bingSiteVerificationId)!}">
+                        </div>
+
+                    </div>
+
+                    <div role="tabpanel" class="tab-pane fade" id="commentsTab">
+
+                        <div class="row">&nbsp;</div>
+
+                        <div class="form-group">
+                            <label for="disqusUniqueUrl">
+                                Disqus Unique URL
+                            </label>
+                            <input name="disqusUniqueUrl" type="text" class="form-control"
+                                   id="disqusUniqueUrl" value="${(site.disqusUniqueUrl)!}">
+                            <small id="disqusUniqueUrlHelp" class="form-text text-muted">
+                                URL should be without http / https and a tailing slash, i.e. unloadbrain.disqus.com
+                            </small>
                         </div>
 
                     </div>

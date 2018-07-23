@@ -43,4 +43,6 @@ public class SiteUpdateCommandDTO {
 
     private String bingSiteVerificationId;
 
+    private String disqusUniqueUrl;
+
 }
