@@ -4,8 +4,6 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.validation.constraints.NotNull;
-import java.util.HashMap;
-import java.util.Map;
 
 @Getter
 @Setter
@@ -25,13 +23,20 @@ public class CreateUpdatePostRequest {
 
     private String tags;
 
+    @NotNull
     private CurrentPostStatus status;
 
     private String permalink;
 
     private String featureImageLink;
 
-    private Map<String, String> additionalProperties = new HashMap<>();
+    private String seoTitle;
+
+    private String seoSlug;
+
+    private String seoDescription;
+
+    private String seoTags;
 
     @NotNull
     private PostActionDTO action;
