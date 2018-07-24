@@ -53,8 +53,8 @@ public class PublishPostServiceImpl extends AbstractPostService implements Publi
     @Override
     @Caching(evict = {
             @CacheEvict(cacheNames = CACHE_POSTS_PAGE, allEntries = true),
-            @CacheEvict(cacheNames = CACHE_POST_BY_ID, key = "#postDTO.id"),
-            @CacheEvict(cacheNames = CACHE_POST_PERMALINK_BY_ID, key = "#postDTO.id")
+            @CacheEvict(cacheNames = CACHE_POST_BY_ID, key = "#postDTO.id", condition = "#postDTO.id != null"),
+            @CacheEvict(cacheNames = CACHE_POST_PERMALINK_BY_ID, key = "#postDTO.id", condition = "#postDTO.id != null")
     })
     public PostIdentityDTO createUpdatePost(PostDTO postDTO) {
 
@@ -64,7 +64,7 @@ public class PublishPostServiceImpl extends AbstractPostService implements Publi
         setDefaultSummary(postDTO);
         setDefaultFeatureImageLink(postDTO);
 
-        if (postDTO.getId() == null) {
+        if (postDTO.getStatus() == CurrentPostStatus.NEW) {
 
             PublishedPost publishedPost = modelMapper.map(postDTO, PublishedPost.class);
             publishedPost.setPublishDate(dateUtility.getCurrentDate());
@@ -76,16 +76,14 @@ public class PublishPostServiceImpl extends AbstractPostService implements Publi
             publishedPost = publishedPostRepository.save(publishedPost);
 
             return new PostIdentityDTO(publishedPost.getId(), CurrentPostStatus.PUBLISHED);
-        }
 
-        if (postDTO.getStatus() == CurrentPostStatus.DRAFT) {
+        } else if (postDTO.getStatus() == CurrentPostStatus.DRAFT) {
 
             Optional<DraftPost> draftOptional = draftPostRepository.findById(postDTO.getId());
             if (!draftOptional.isPresent()) {
                 throw new DraftPostNotFoundException(
                         String.format("Could not found draft post id - %d", postDTO.getId()));
             }
-
 
             PublishedPost publishedPost = draftOptional.get().getPublishedPost();
             Long publishedPostId = null;
@@ -128,7 +126,7 @@ public class PublishPostServiceImpl extends AbstractPostService implements Publi
             return new PostIdentityDTO(publishedPost.getId(), CurrentPostStatus.PUBLISHED);
 
         } else {
-            throw new InvalidPostStatusException("Post current status should be either PUBLISHED or DRAFT.");
+            throw new InvalidPostStatusException("Post current status should be either NEW, PUBLISHED or DRAFT.");
         }
 
     }
@@ -145,8 +143,7 @@ public class PublishPostServiceImpl extends AbstractPostService implements Publi
 
         Optional<PublishedPost> publishedPostOptional = publishedPostRepository.findById(id);
         if (!publishedPostOptional.isPresent()) {
-            // TODO: Use custom exception
-            throw new IllegalArgumentException("Post id not found.");
+            throw new PublishedPostNotFoundException(String.format("Could not found published post id - %d", id));
         }
 
         PublishedPost publishedPost = publishedPostOptional.get();
@@ -157,6 +154,7 @@ public class PublishPostServiceImpl extends AbstractPostService implements Publi
     @Override
     @Cacheable(cacheNames = CACHE_POST_PERMALINK_BY_ID, key = "#postId")
     public String getPermalink(Long postId) {
+        // TODO:: check if id is valid first
         return publishedPostRepository.getPermalinkById(postId);
     }
 

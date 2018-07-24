@@ -34,7 +34,6 @@ public class DraftPostServiceImpl extends AbstractPostService implements DraftPo
 
     private ModelMapper modelMapper;
 
-
     @Override
     public PostIdentityDTO draftPost(PostDTO postDTO) {
 
@@ -44,7 +43,8 @@ public class DraftPostServiceImpl extends AbstractPostService implements DraftPo
         setDefaultSummary(postDTO);
         setDefaultFeatureImageLink(postDTO);
 
-        if (postDTO.getId() == null) {
+        if (postDTO.getStatus() == CurrentPostStatus.NEW) {
+
             DraftPost draftPost = modelMapper.map(postDTO, DraftPost.class);
             draftPost.setCategories(categories);
             draftPost.setTags(tags);
@@ -55,9 +55,7 @@ public class DraftPostServiceImpl extends AbstractPostService implements DraftPo
 
             return new PostIdentityDTO(draftPost.getId(), CurrentPostStatus.DRAFT);
 
-        }
-
-        if (postDTO.getStatus() == CurrentPostStatus.DRAFT) {
+        } else if (postDTO.getStatus() == CurrentPostStatus.DRAFT) {
 
             Optional<DraftPost> draftOptional = draftPostRepository.findById(postDTO.getId());
             if (!draftOptional.isPresent()) {
@@ -97,7 +95,7 @@ public class DraftPostServiceImpl extends AbstractPostService implements DraftPo
             return new PostIdentityDTO(draftPost.getId(), CurrentPostStatus.DRAFT);
 
         } else {
-            throw new InvalidPostStatusException("Post current status should be either PUBLISHED or DRAFT.");
+            throw new InvalidPostStatusException("Post current status should be either NEW, PUBLISHED or DRAFT.");
         }
 
     }
