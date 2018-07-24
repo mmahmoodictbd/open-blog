@@ -4,7 +4,7 @@ import java.util.Arrays;
 
 public enum CurrentPostStatus {
 
-    DRAFT, PUBLISHED;
+    NEW, DRAFT, PUBLISHED;
 
     private static final String EXCEPTION_MESSAGE_TEMPLATE = "Unknown enum type %s, Allowed values are %s";
 
