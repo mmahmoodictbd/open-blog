@@ -5,7 +5,9 @@ import com.unloadbrain.blog.domain.repository.DraftPostRepository;
 import com.unloadbrain.blog.domain.repository.PostRepository;
 import com.unloadbrain.blog.domain.repository.PublishedPostRepository;
 import com.unloadbrain.blog.dto.CurrentPostStatus;
-import com.unloadbrain.blog.dto.PostDTO;
+import com.unloadbrain.blog.dto.PostQueryDTO;
+import com.unloadbrain.blog.exception.DraftPostNotFoundException;
+import com.unloadbrain.blog.exception.PublishedPostNotFoundException;
 import com.unloadbrain.blog.helper.ObjectFactory;
 import org.junit.Rule;
 import org.junit.Test;
@@ -53,10 +55,10 @@ public class PostServiceTest {
         when(draftPostRepository.findById(any())).thenReturn(Optional.of(ObjectFactory.createDraftPost()));
 
         // When
-        PostDTO postDTO = postService.getPost(1L, CurrentPostStatus.DRAFT);
+        PostQueryDTO postQueryDTO = postService.getPost(1L, CurrentPostStatus.DRAFT);
 
         // Then
-        assertEquals(1, postDTO.getId().longValue());
+        assertEquals(1, postQueryDTO.getId().longValue());
 
     }
 
@@ -67,25 +69,43 @@ public class PostServiceTest {
         when(publishedPostRepository.findById(any())).thenReturn(Optional.of(ObjectFactory.createPublishedPost()));
 
         // When
-        PostDTO postDTO = postService.getPost(1L, CurrentPostStatus.PUBLISHED);
+        PostQueryDTO postQueryDTO = postService.getPost(1L, CurrentPostStatus.PUBLISHED);
 
         // Then
-        assertEquals(1, postDTO.getId().longValue());
+        assertEquals(1, postQueryDTO.getId().longValue());
 
     }
 
     @Test
-    public void throwExceptionPostCouldNotBeFound() throws IllegalStateException {
+    public void shouldThrowExceptionWhenPublishedPostNotFoundById() throws IllegalStateException {
 
         // Given
 
-        thrown.expect(IllegalStateException.class);
-        thrown.expectMessage("Could not find the post.");
+        thrown.expect(PublishedPostNotFoundException.class);
+        thrown.expectMessage("Could not find the published post.");
 
         when(publishedPostRepository.findById(any())).thenReturn(Optional.empty());
 
         // When
-        PostDTO postDTO = postService.getPost(1L, CurrentPostStatus.PUBLISHED);
+        postService.getPost(1L, CurrentPostStatus.PUBLISHED);
+
+        // Then
+        // Expect test to be passed.
+
+    }
+
+    @Test
+    public void shouldThrowExceptionWhenDraftPostNotFoundById() throws IllegalStateException {
+
+        // Given
+
+        thrown.expect(DraftPostNotFoundException.class);
+        thrown.expectMessage("Could not find the draft post.");
+
+        when(draftPostRepository.findById(any())).thenReturn(Optional.empty());
+
+        // When
+        postService.getPost(1L, CurrentPostStatus.DRAFT);
 
         // Then
         // Expect test to be passed.
