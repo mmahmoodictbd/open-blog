@@ -67,7 +67,7 @@ public class ObjectFactory {
 
     public static PostDTO createDraftPostDTO() {
 
-        PostDTO postDTO = createPostDTO();
+        PostDTO postDTO = createPostDTOWithoutStatus();
         postDTO.setStatus(CurrentPostStatus.DRAFT);
         postDTO.setPermalink("sample-post");
 
@@ -76,13 +76,13 @@ public class ObjectFactory {
 
     public static PostDTO createPublishedPostDTO() {
 
-        PostDTO postDTO = createPostDTO();
+        PostDTO postDTO = createPostDTOWithoutStatus();
         postDTO.setStatus(CurrentPostStatus.PUBLISHED);
 
         return postDTO;
     }
 
-    private static PostDTO createPostDTO() {
+    public static PostDTO createPostDTOWithoutStatus() {
 
         PostDTO postDTO = new PostDTO();
         postDTO.setId(1L);
