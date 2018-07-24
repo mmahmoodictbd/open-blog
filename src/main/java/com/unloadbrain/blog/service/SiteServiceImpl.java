@@ -35,12 +35,6 @@ public class SiteServiceImpl implements SiteService {
 
     }
 
-    private void throwExceptionWhenSiteNotFound(Optional<Site> site) {
-        if (!site.isPresent()) {
-            throw new SiteNotFoundException("Site information should be pre persisted using init data mechanism.");
-        }
-    }
-
     @Override
     @CacheEvict(value = CACHE_KEY_SITE, allEntries = true)
     public void updateSite(SiteUpdateCommandDTO siteUpdateCommandDTO) {
@@ -53,6 +47,13 @@ public class SiteServiceImpl implements SiteService {
         modelMapper.map(siteUpdateCommandDTO, site);
 
         siteRepository.save(site);
+    }
+
+
+    private void throwExceptionWhenSiteNotFound(Optional<Site> site) {
+        if (!site.isPresent()) {
+            throw new SiteNotFoundException("Site information should be pre persisted using init data mechanism.");
+        }
     }
 
     private Optional<Site> getFirstSite() {
