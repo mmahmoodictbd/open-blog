@@ -6,8 +6,10 @@ import com.unloadbrain.blog.domain.repository.DraftPostRepository;
 import com.unloadbrain.blog.domain.repository.PostRepository;
 import com.unloadbrain.blog.domain.repository.PublishedPostRepository;
 import com.unloadbrain.blog.dto.CurrentPostStatus;
-import com.unloadbrain.blog.dto.PostDTO;
 import com.unloadbrain.blog.dto.PostListDTO;
+import com.unloadbrain.blog.dto.PostQueryDTO;
+import com.unloadbrain.blog.exception.DraftPostNotFoundException;
+import com.unloadbrain.blog.exception.PublishedPostNotFoundException;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
@@ -33,24 +35,26 @@ public class PostServiceImpl implements PostService {
 
 
     @Override
-    public PostDTO getPost(Long id, CurrentPostStatus status) {
+    public PostQueryDTO getPost(Long id, CurrentPostStatus status) {
 
         if (status == CurrentPostStatus.DRAFT) {
             Optional<DraftPost> draftPostOptional = draftPostRepository.findById(id);
             if (draftPostOptional.isPresent()) {
                 DraftPost draftPost = draftPostOptional.get();
-                return modelMapper.map(draftPost, PostDTO.class);
+                return modelMapper.map(draftPost, PostQueryDTO.class);
+            } else {
+                throw new DraftPostNotFoundException("Could not find the draft post.");
             }
         } else {
             Optional<PublishedPost> publishedPostOptional = publishedPostRepository.findById(id);
             if (publishedPostOptional.isPresent()) {
                 PublishedPost publishedPost = publishedPostOptional.get();
-                return modelMapper.map(publishedPost, PostDTO.class);
+                return modelMapper.map(publishedPost, PostQueryDTO.class);
+            } else {
+                throw new PublishedPostNotFoundException("Could not find the published post.");
             }
         }
 
-        // TODO: Add custom exception
-        throw new IllegalStateException("Could not find the post.");
     }
 
 

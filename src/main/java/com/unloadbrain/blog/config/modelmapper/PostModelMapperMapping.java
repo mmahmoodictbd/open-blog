@@ -9,11 +9,18 @@ import org.modelmapper.Converter;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.PropertyMap;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 
 public class PostModelMapperMapping implements ModelMapperMapping {
+
+    private static final String SEO_TITLE = "seoTitle";
+    private static final String SEO_SLUG = "seoSlug";
+    private static final String SEO_DESCRIPTION = "seoDescription";
+    private static final String SEO_TAGS = "seoTags";
 
     @Override
     public void appendToModelMapper(ModelMapper modelMapper) {
@@ -81,19 +88,41 @@ public class PostModelMapperMapping implements ModelMapperMapping {
         };
 
         mapper.createTypeMap(CreateUpdatePostRequest.class, PostDTO.class)
-                .addMapping(source -> source.getId(), PostDTO::setId)
-                .addMapping(source -> source.getTitle(), PostDTO::setTitle)
-                .addMapping(source -> source.getContent(), PostDTO::setContent)
-                .addMapping(source -> source.getSummary(), PostDTO::setSummary)
-                .addMapping(source -> source.getCategories(), PostDTO::setCategories)
-                .addMapping(source -> source.getTags(), PostDTO::setTags)
-                .addMapping(source -> source.getPermalink(), PostDTO::setPermalink)
-                .addMapping(source -> source.getFeatureImageLink(), PostDTO::setFeatureImageLink)
+                .setConverter(getConverterCreateUpdatePostRequestToPostDTO())
                 .addMappings(propertyMap);
 
         mapper.validate();
 
         return mapper;
+    }
+
+    private Converter<CreateUpdatePostRequest, PostDTO> getConverterCreateUpdatePostRequestToPostDTO() {
+
+        return mappingContext -> {
+
+            CreateUpdatePostRequest createUpdatePostRequest = mappingContext.getSource();
+            PostDTO postDTO = mappingContext.getDestination();
+
+            Map<String, String> additionalProperties = new HashMap<>(4);
+
+            additionalProperties.put(SEO_TITLE, createUpdatePostRequest.getSeoTitle());
+            additionalProperties.put(SEO_SLUG, createUpdatePostRequest.getSeoSlug());
+            additionalProperties.put(SEO_DESCRIPTION, createUpdatePostRequest.getSeoDescription());
+            additionalProperties.put(SEO_TAGS, createUpdatePostRequest.getSeoTags());
+
+            postDTO.setId(createUpdatePostRequest.getId());
+            postDTO.setTitle(createUpdatePostRequest.getTitle());
+            postDTO.setContent(createUpdatePostRequest.getContent());
+            postDTO.setSummary(createUpdatePostRequest.getSummary());
+            postDTO.setCategories(createUpdatePostRequest.getCategories());
+            postDTO.setTags(createUpdatePostRequest.getTags());
+            postDTO.setPermalink(createUpdatePostRequest.getPermalink());
+            postDTO.setFeatureImageLink(createUpdatePostRequest.getFeatureImageLink());
+            postDTO.setStatus(createUpdatePostRequest.getStatus());
+            postDTO.setAdditionalProperties(additionalProperties);
+
+            return postDTO;
+        };
     }
 
 }
