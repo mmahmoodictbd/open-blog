@@ -8,6 +8,9 @@ import com.unloadbrain.blog.domain.repository.PublishedPostRepository;
 import com.unloadbrain.blog.dto.CurrentPostStatus;
 import com.unloadbrain.blog.dto.PostDTO;
 import com.unloadbrain.blog.dto.PostIdentityDTO;
+import com.unloadbrain.blog.exception.DraftPostNotFoundException;
+import com.unloadbrain.blog.exception.InvalidPostStatusException;
+import com.unloadbrain.blog.exception.PublishedPostNotFoundException;
 import com.unloadbrain.blog.helper.ObjectFactory;
 import com.unloadbrain.blog.util.DateUtility;
 import org.junit.Rule;
@@ -73,6 +76,7 @@ public class PublishedPostServiceTest {
 
         PostDTO postDTO = ObjectFactory.createPublishedPostDTO();
         postDTO.setId(null);
+        postDTO.setStatus(CurrentPostStatus.NEW);
 
         // When
         PostIdentityDTO postIdentityDTO = publishPostService.createUpdatePost(postDTO);
@@ -178,5 +182,120 @@ public class PublishedPostServiceTest {
 
     }
 
+    @Test
+    public void shouldSetPermalinkFromTitleIfNull() {
 
+        // Given
+
+        ArgumentCaptor<PublishedPost> publishedPostRepoSaveArg = ArgumentCaptor.forClass(PublishedPost.class);
+
+        when(draftPostRepository.findById(any())).thenReturn(Optional.of(ObjectFactory.createDraftPost()));
+        when(publishedPostRepository.save(any())).thenReturn(ObjectFactory.createPublishedPost());
+
+        // When
+
+        PostDTO draftPostDTO = ObjectFactory.createDraftPostDTO();
+        draftPostDTO.setTitle("New Title");
+        draftPostDTO.setPermalink(null);
+
+        publishPostService.createUpdatePost(draftPostDTO);
+
+        // Then
+
+        verify(publishedPostRepository).save(publishedPostRepoSaveArg.capture());
+        assertEquals("new-title", publishedPostRepoSaveArg.getValue().getPermalink());
+
+    }
+
+    @Test
+    public void shouldThrowExceptionWhenDraftPostNotFoundById() {
+
+        // Given
+
+        thrown.expect(DraftPostNotFoundException.class);
+        thrown.expectMessage("Could not found draft post id - 1");
+
+        when(draftPostRepository.findById(anyLong())).thenReturn(Optional.empty());
+
+        // When
+
+        publishPostService.createUpdatePost(ObjectFactory.createDraftPostDTO());
+
+        // Then
+        // Expect test to be passed.
+
+    }
+
+    @Test
+    public void shouldThrowExceptionWhenPublishedPostNotFoundById() {
+
+        // Given
+
+        thrown.expect(PublishedPostNotFoundException.class);
+        thrown.expectMessage("Could not found published post id - 1");
+
+        when(publishedPostRepository.findById(anyLong())).thenReturn(Optional.empty());
+
+        // When
+
+        publishPostService.createUpdatePost(ObjectFactory.createPublishedPostDTO());
+
+        // Then
+        // Expect test to be passed.
+
+    }
+
+    @Test
+    public void shouldThrowExceptionWhenPostHasUnknownStatus() {
+
+        // Given
+
+        thrown.expect(InvalidPostStatusException.class);
+        thrown.expectMessage("Post current status should be either NEW, PUBLISHED or DRAFT.");
+
+        // When
+
+        publishPostService.createUpdatePost(ObjectFactory.createPostDTOWithoutStatus());
+
+        // Then
+        // Expect test to be passed.
+
+    }
+
+    @Test
+    public void shouldReturnPublishedPostDtoById() {
+
+        // Given
+        PublishedPost publishedPost = ObjectFactory.createPublishedPost();
+        when(publishedPostRepository.findById(any())).thenReturn(Optional.of(publishedPost));
+
+        // When
+
+        PostDTO postDTO = publishPostService.getPost(1L);
+
+        // Then
+
+        assertEquals(postDTO.getId(), publishedPost.getId());
+        // Improve here after kicking out PostDTO
+
+    }
+
+    @Test
+    public void shouldThrowExceptionWhenPublishedPostDtoById() {
+
+        // Given
+
+        thrown.expect(PublishedPostNotFoundException.class);
+        thrown.expectMessage("Could not found published post id - 1");
+
+        when(publishedPostRepository.findById(any())).thenReturn(Optional.empty());
+
+        // When
+
+        publishPostService.getPost(1L);
+
+        // Then
+        // Expect test to be passed.
+
+    }
 }
