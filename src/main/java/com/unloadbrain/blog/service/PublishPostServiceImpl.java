@@ -154,7 +154,11 @@ public class PublishPostServiceImpl extends AbstractPostService implements Publi
     @Override
     @Cacheable(cacheNames = CACHE_POST_PERMALINK_BY_ID, key = "#postId")
     public String getPermalink(Long postId) {
-        // TODO:: check if id is valid first
+
+        if (!publishedPostRepository.existsById(postId)) {
+            throw new PublishedPostNotFoundException(String.format("Could not found published post id - %d", postId));
+        }
+
         return publishedPostRepository.getPermalinkById(postId);
     }
 

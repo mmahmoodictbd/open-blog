@@ -18,7 +18,11 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 import org.mockito.ArgumentCaptor;
 import org.modelmapper.ModelMapper;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
 
+import java.util.Collections;
 import java.util.Date;
 import java.util.Optional;
 
@@ -297,5 +301,70 @@ public class PublishedPostServiceTest {
         // Then
         // Expect test to be passed.
 
+    }
+
+    @Test
+    public void shouldThrowExceptionWhenPublishedPostIdNotFoundForPermalink() {
+
+        // Given
+
+        thrown.expect(PublishedPostNotFoundException.class);
+        thrown.expectMessage("Could not found published post id - 1");
+
+        when(publishedPostRepository.existsById(anyLong())).thenReturn(Boolean.FALSE);
+
+        // When
+
+        publishPostService.getPermalink(1L);
+
+        // Then
+        // Expect test to be passed.
+
+    }
+
+    @Test
+    public void shouldReturnPermalinkWhenPassedPublishedPostId() {
+
+        // Given
+
+        when(publishedPostRepository.existsById(anyLong())).thenReturn(Boolean.TRUE);
+        when(publishedPostRepository.getPermalinkById(anyLong())).thenReturn("hello-world");
+
+        // When
+
+        String permalink = publishPostService.getPermalink(1L);
+
+        // Then
+
+        assertEquals("hello-world", permalink);
+
+    }
+
+    @Test
+    public void shouldReturnPostDTOPage() {
+
+        // Given
+
+        PublishedPost publishedPost = ObjectFactory.createPublishedPost();
+        Page<PublishedPost> publishedPostPage = new PageImpl<>(
+                Collections.singletonList(publishedPost), PageRequest.of(0, 10), 1);
+        when(publishedPostRepository.findAll(any(PageRequest.class))).thenReturn(publishedPostPage);
+
+
+        // When
+
+        Page<PostDTO> postDTOPage = publishPostService.getPosts(PageRequest.of(0, 10));
+
+        // Then
+
+        assertEquals(1, postDTOPage.getTotalElements());
+        assertEquals(1, postDTOPage.getTotalPages());
+        assertEquals(1, postDTOPage.getContent().size());
+
+        PostDTO resultPostDTO = postDTOPage.getContent().get(0);
+        assertEquals(resultPostDTO.getId(), publishedPost.getId());
+        assertEquals(resultPostDTO.getTitle(), publishedPost.getTitle());
+        assertEquals(resultPostDTO.getContent(), publishedPost.getContent());
+        assertEquals(resultPostDTO.getPermalink(), publishedPost.getPermalink());
     }
 }
