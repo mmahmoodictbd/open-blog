@@ -120,6 +120,7 @@ public class PublishedPostServiceIT {
         // Given
 
         cacheManager.getCache(CACHE_POST_PERMALINK_BY_ID).clear();
+        when(publishedPostRepository.existsById(anyLong())).thenReturn(Boolean.TRUE);
         when(publishedPostRepository.getPermalinkById(anyLong())).thenReturn(any());
 
         // When
@@ -147,6 +148,7 @@ public class PublishedPostServiceIT {
         cacheManager.getCache(CACHE_POST_PERMALINK_BY_ID).clear();
         when(publishedPostRepository.findById(anyLong())).thenReturn(Optional.of(buildPublishedPost()));
         when(publishedPostRepository.save(any())).thenReturn(buildPublishedPost());
+        when(publishedPostRepository.existsById(anyLong())).thenReturn(Boolean.TRUE);
         when(publishedPostRepository.getPermalinkById(anyLong())).thenReturn(any());
 
         // When
@@ -174,11 +176,11 @@ public class PublishedPostServiceIT {
 
         cacheManager.getCache(CACHE_POSTS_PAGE).clear();
 
-        Pageable firstPage = PageRequest.of(1, 10);
+        Pageable firstPage = PageRequest.of(0, 10);
         when(publishedPostRepository.findAll(firstPage)).thenReturn(
                 new PageImpl<>(Collections.singletonList(buildPublishedPost()), firstPage, 1));
 
-        Pageable secondPage = PageRequest.of(2, 10);
+        Pageable secondPage = PageRequest.of(1, 10);
         when(publishedPostRepository.findAll(secondPage)).thenReturn(
                 new PageImpl<>(Collections.singletonList(buildPublishedPost()), secondPage, 1));
 
@@ -209,21 +211,21 @@ public class PublishedPostServiceIT {
         when(publishedPostRepository.save(any())).thenReturn(buildPublishedPost());
 
         when(publishedPostRepository.findAll(any(PageRequest.class))).thenReturn(
-                new PageImpl<>(Collections.singletonList(buildPublishedPost()), PageRequest.of(1, 10), 1));
+                new PageImpl<>(Collections.singletonList(buildPublishedPost()), PageRequest.of(0, 10), 1));
 
         // When
 
+        publishPostService.getPosts(PageRequest.of(0, 10));
         publishPostService.getPosts(PageRequest.of(1, 10));
-        publishPostService.getPosts(PageRequest.of(2, 10));
         publishPostService.createUpdatePost(buildPublishedPostDTO());
+        publishPostService.getPosts(PageRequest.of(0, 10));
         publishPostService.getPosts(PageRequest.of(1, 10));
-        publishPostService.getPosts(PageRequest.of(2, 10));
 
         // Then
 
         assertNotNull(cacheManager.getCache(CACHE_POSTS_PAGE));
+        verify(publishedPostRepository, times(2)).findAll(PageRequest.of(0, 10));
         verify(publishedPostRepository, times(2)).findAll(PageRequest.of(1, 10));
-        verify(publishedPostRepository, times(2)).findAll(PageRequest.of(2, 10));
 
         reset(publishedPostRepository);
 
