@@ -13,10 +13,8 @@ image:https://sonarcloud.io/api/project_badges/measure?project=com.unloadbrain.o
 link="https://sonarcloud.io/dashboard?id=com.unloadbrain%3Aopenblog"]
 image:https://sonarcloud.io/api/project_badges/measure?project=com.unloadbrain.openblog&metric=code_smells["Code
 smells", link="https://sonarcloud.io/dashboard?id=com.unloadbrain%3Aopenblog"]
-image:https://sonarcloud.io/api/project_badges/measure?project=com.unloadbrain
-.openblog&metric=security_rating["Security rating", link="https://sonarcloud.io/dashboard?id=com.unloadbrain%3Aopenblog"]
-image:https://sonarcloud.io/api/project_badges/measure?project=com.unloadbrain
-.openblog&metric=sqale_rating["Maintainability", link="https://sonarcloud.io/dashboard?id=com.unloadbrain%3Aopenblog"]
+image:https://sonarcloud.io/api/project_badges/measure?project=com.unloadbrain.openblog&metric=security_rating["Security rating", link="https://sonarcloud.io/dashboard?id=com.unloadbrain.openblog"]
+image:https://sonarcloud.io/api/project_badges/measure?project=com.unloadbrain.openblog&metric=sqale_rating["Maintainability", link="https://sonarcloud.io/dashboard?id=com.unloadbrain.Aopenblog"]
 
 
 
