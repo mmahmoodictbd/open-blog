@@ -96,7 +96,7 @@ public class SiteServiceTest {
 
         // When
 
-        SiteQueryDTO siteQueryDTO = siteService.getSite();
+        siteService.getSite();
 
         // Then
         // Expect test to be passed.
