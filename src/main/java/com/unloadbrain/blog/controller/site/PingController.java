@@ -11,5 +11,6 @@ public class PingController {
     @GetMapping(value = "/ping")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void ping() {
+        // Do nothing because HTTP status code is all we need.
     }
 }
