@@ -12,7 +12,7 @@ public class UrlUtil {
 
     public static Map<String, String> getQueryMap(String url) {
 
-        int queryStringStartIndex = url.indexOf("?");
+        int queryStringStartIndex = url.indexOf('?');
         String queryString = queryStringStartIndex != -1? url.substring(queryStringStartIndex + 1) : "";
 
         if (StringUtils.isEmpty(queryString)) {
