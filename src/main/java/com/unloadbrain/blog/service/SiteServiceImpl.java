@@ -60,7 +60,7 @@ public class SiteServiceImpl implements SiteService {
 
         List<Site> sites = siteRepository.findAll();
 
-        if (sites.size() > 0) {
+        if (!sites.isEmpty()) {
             return Optional.of(sites.get(0));
         }
 
