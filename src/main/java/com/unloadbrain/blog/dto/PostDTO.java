@@ -26,6 +26,7 @@ public class PostDTO {
 
     private String tags;
 
+    @NotNull
     private CurrentPostStatus status;
 
     private String permalink;
