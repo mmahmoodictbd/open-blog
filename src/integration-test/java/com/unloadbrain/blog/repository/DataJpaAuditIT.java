@@ -21,14 +21,19 @@ public class DataJpaAuditIT {
     private TagRepository tagRepository;
 
     @Test
-    public void create() {
+    public void shouldAuditFieldsBeFilled() {
 
+        // Given
         Tag unsaved = new Tag();
         unsaved.setName("sampleTag");
         unsaved.setSlug("sample-tag");
+
+        // When
         Tag saved = tagRepository.save(unsaved);
 
+        // Then
         assertNotNull(saved.getCreatedAt());
+        assertNotNull(saved.getUpdatedAt());
     }
 
 
