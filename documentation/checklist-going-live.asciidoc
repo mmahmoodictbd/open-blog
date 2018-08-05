@@ -1,0 +1,6 @@
+# Go live check list
+
+// TODO:: Update it.
+
+https://github.com/spatie/checklist-going-live
+https://github.com/search?utf8=%E2%9C%93&q=go+live+checklist&type=
