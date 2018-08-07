@@ -64,6 +64,7 @@
         <webjars-locator.version>0.30</webjars-locator.version>
 
         <javamelody-spring-boot-starter.version>1.73.1</javamelody-spring-boot-starter.version>
+        <docker-maven-plugin.version>1.1.1</docker-maven-plugin.version>
     </properties>
 
     <dependencies>
@@ -368,6 +369,35 @@
                     <skipTests>${skip.failsafe.tests}</skipTests>
                     <argLine>${itCoverageAgent}</argLine>
                 </configuration>
+            </plugin>
+
+
+            <plugin>
+                <groupId>com.spotify</groupId>
+                <artifactId>docker-maven-plugin</artifactId>
+                <version>${docker-maven-plugin.version}</version>
+                <configuration>
+                    <imageName>mmahmood/${project.artifactId}</imageName>
+                    <dockerDirectory>${project.basedir}</dockerDirectory>
+                    <resources>
+                        <resource>
+                            <targetPath>/</targetPath>
+                            <directory>${project.build.directory}</directory>
+                            <include>${project.build.finalName}.jar</include>
+                        </resource>
+                    </resources>
+                    <serverId>docker-hub</serverId>
+                    <registryUrl>https://index.docker.io/v1/</registryUrl>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>build-image</id>
+                        <phase>deploy</phase>
+                        <goals>
+                            <goal>build</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
 
         </plugins>

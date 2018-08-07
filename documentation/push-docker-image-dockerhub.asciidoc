@@ -1,0 +1,17 @@
+# Push docker image to dockerhub
+
+I am publish docker image in dockerhub using com.spotify:docker-maven-plugin maven plugin.
+
+Add server entry in ~/.m2/settings.xml, example:
+
+```
+<server>
+  <id>docker-hub</id>
+  <email>mmahmood</email>
+  <password>encrypted pass</password>
+  <configuration>
+    <email>mmahmood.ict.bd@gmail.com</email>
+  </configuration>
+</server>
+```
+
