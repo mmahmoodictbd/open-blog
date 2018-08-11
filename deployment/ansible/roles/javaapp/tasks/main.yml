@@ -1,0 +1,44 @@
+---
+
+- name: Add App SSH User
+  user:
+    name: '{{ app_name }}'
+    password: "{{ app_ssh_pass | password_hash('sha512')}}"
+    createhome: yes
+    update_password: on_create
+    shell: /bin/bash
+
+- name: Create App Directory
+  file:
+    path: "/usr/{{ app_name }}"
+    owner: "{{ app_name }}"
+    group: "{{ app_name }}"
+    mode: 0700
+    state: directory
+
+- name: MySQL | Create App Database
+  mysql_db:
+    login_user: root
+    login_password: "{{ mysql_root_password }}"
+    name: "{{ app_name }}"
+    state: present
+
+- name: MySQL | Create App Database User
+  mysql_user:
+    login_user: root
+    login_password: "{{ mysql_root_password }}"
+    user: "{{ app_name }}"
+    password: "{{ mysql_app_user_password }}"
+    priv: "{{ app_name }}.*:ALL"
+    state: present
+
+- name: Add DB_USERNAME the bashrc file
+  lineinfile: "dest=/home/{{ app_name }}/.profile line='export DB_USERNAME={{ app_name }}' insertafter='EOF' state=present"
+
+- name: Add DB_PASSWORD the bashrc file
+  lineinfile: "dest=/home/{{ app_name }}/.profile line='export DB_PASSWORD={{ mysql_app_user_password }}' insertafter='EOF' state=present"
+
+- name: Source the bashrc file
+  shell: source ~/.bashrc
+  args:
+     executable: /bin/bash
