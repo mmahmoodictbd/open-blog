@@ -1,0 +1,26 @@
+---
+
+- name: Add add-apt-repostory
+  apt: pkg=software-properties-common state=present update_cache=yes
+
+- name: Add add-apt-repostory
+  apt: pkg=python-software-properties state=present update_cache=yes
+  when: ansible_distribution_release == "precise"
+
+- name: Add Oracle Java Repository
+  apt_repository: repo='ppa:webupd8team/java'
+
+- name: Update and upgrade apt packages
+  apt:
+    update_cache: yes
+    cache_valid_time: 86400
+
+- name: Accept Java 8 License
+  debconf: name='oracle-java8-installer' question='shared/accepted-oracle-license-v1-1' value='true' vtype='select'
+
+- name: Install Oracle Java 8
+  apt: name={{item}} state=latest
+  with_items:
+    - oracle-java8-installer
+    - ca-certificates
+    - oracle-java8-set-default
