@@ -6,12 +6,11 @@ import com.unloadbrain.blog.exception.FileNotFoundException;
 import com.unloadbrain.blog.exception.IORuntimeException;
 import com.unloadbrain.blog.util.SlugUtil;
 import org.springframework.core.io.Resource;
-import org.springframework.core.io.UrlResource;
+import org.springframework.core.io.ResourceLoader;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
-import java.net.MalformedURLException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -21,7 +20,7 @@ import java.util.Calendar;
  * Load and save resources from file system.
  */
 @Service
-public class StorageServiceImpl implements StorageService {
+public class FileSystemStorageService implements StorageService {
 
     /**
      * Constant for user's home directory key
@@ -43,6 +42,13 @@ public class StorageServiceImpl implements StorageService {
      */
     private static final String FILE_URL_PREFIX = "files";
 
+
+    private final ResourceLoader resourceLoader;
+
+    public FileSystemStorageService(ResourceLoader resourceLoader) {
+        this.resourceLoader = resourceLoader;
+    }
+
     /**
      * Load resource from file system.
      * @param url the URL for the resource.
@@ -53,10 +59,10 @@ public class StorageServiceImpl implements StorageService {
     @Override
     public Resource loadFileAsResource(String url) {
 
-        Path filePath = Paths.get(String.format("%s/%s/%s/%s",
-                System.getProperty(USER_HOME), OPENBLOG_HOME, FILES_DIR, url));
+        String filePath = String.format("file:%s/%s/%s/%s",
+                System.getProperty(USER_HOME), OPENBLOG_HOME, FILES_DIR, url);
 
-        Resource resource = loadResource(url, filePath);
+        Resource resource = resourceLoader.getResource(filePath);
         if (resource.exists()) {
             return resource;
         }
@@ -81,7 +87,7 @@ public class StorageServiceImpl implements StorageService {
                 OPENBLOG_HOME,
                 FILES_DIR,
                 calendar.get(Calendar.YEAR),
-                calendar.get(Calendar.MONTH),
+                calendar.get(Calendar.MONTH) + 1,
                 calendar.get(Calendar.DATE)));
 
         createUploadDirectoryIfNotExist(uploadPath);
@@ -95,18 +101,10 @@ public class StorageServiceImpl implements StorageService {
         return new FileIdentityDTO(String.format("%s/%d/%d/%d/%s",
                 FILE_URL_PREFIX,
                 calendar.get(Calendar.YEAR),
-                calendar.get(Calendar.MONTH),
+                calendar.get(Calendar.MONTH) + 1,
                 calendar.get(Calendar.DATE),
                 newFileName)
         );
-    }
-
-    private Resource loadResource(String url, Path filePath) {
-        try {
-            return new UrlResource(filePath.toUri());
-        } catch (MalformedURLException ex) {
-            throw new BadUrlException(String.format("Provided URL [%s] is malformed.", url));
-        }
     }
 
     private void writeFileInFileSystem(MultipartFile file, Path path) {
