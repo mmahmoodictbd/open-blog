@@ -6,7 +6,7 @@ import java.util.Date;
 
 import static org.junit.Assert.assertEquals;
 
-public class DateUtilityTest {
+public class DateUtilTest {
 
     @Test
     public void shouldReturnCurrentDate() {
@@ -15,7 +15,7 @@ public class DateUtilityTest {
         Date now = new Date();
 
         // When
-        Date returnedDate = new DateUtility().getCurrentDate();
+        Date returnedDate = new DateUtil().getCurrentDate();
 
         // Then
         // Invoke time considered as delta = 10
