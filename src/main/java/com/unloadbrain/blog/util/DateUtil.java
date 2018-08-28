@@ -2,7 +2,7 @@ package com.unloadbrain.blog.util;
 
 import java.util.Date;
 
-public class DateUtility {
+public class DateUtil {
 
     public Date getCurrentDate() {
         return new Date();

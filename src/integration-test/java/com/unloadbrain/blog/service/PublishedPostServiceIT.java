@@ -6,7 +6,7 @@ import com.unloadbrain.blog.domain.repository.DraftPostRepository;
 import com.unloadbrain.blog.domain.repository.PublishedPostRepository;
 import com.unloadbrain.blog.dto.CurrentPostStatus;
 import com.unloadbrain.blog.dto.PostDTO;
-import com.unloadbrain.blog.util.DateUtility;
+import com.unloadbrain.blog.util.DateUtil;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.modelmapper.ModelMapper;
@@ -285,8 +285,8 @@ public class PublishedPostServiceIT {
         }
 
         @Bean
-        public DateUtility dateUtility() {
-            return mock(DateUtility.class);
+        public DateUtil dateUtility() {
+            return mock(DateUtil.class);
         }
 
         @Bean
