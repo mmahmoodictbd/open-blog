@@ -2,39 +2,42 @@ package com.unloadbrain.blog.service;
 
 import com.unloadbrain.blog.exception.FileNotFoundException;
 import com.unloadbrain.blog.exception.IORuntimeException;
-import org.junit.Ignore;
+import com.unloadbrain.blog.util.FileSystemFileWriterUtil;
+import com.unloadbrain.blog.util.UuidUtil;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
-import org.junit.runner.RunWith;
-import org.mockito.Mockito;
-import org.mockito.junit.MockitoJUnitRunner;
 import org.springframework.core.io.AbstractResource;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.nio.file.Files;
-import java.nio.file.Path;
 
 import static org.junit.Assert.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-@RunWith(MockitoJUnitRunner.class)
 public class FileSystemStorageServiceTest {
 
+    private final FileSystemFileWriterUtil fileSystemFileWriterUtilMock;
     private final ResourceLoader resourceLoaderMock;
-    private final StorageService storageService;
+    private final UuidUtil uuidUtilMock;
+
     @Rule
     public ExpectedException thrown = ExpectedException.none();
 
+    private final StorageService storageService;
+
     public FileSystemStorageServiceTest() {
         this.resourceLoaderMock = mock(ResourceLoader.class);
-        this.storageService = new FileSystemStorageService(resourceLoaderMock);
+        this.fileSystemFileWriterUtilMock = mock(FileSystemFileWriterUtil.class);
+        this.uuidUtilMock = mock(UuidUtil.class);
+        this.storageService = new FileSystemStorageService(resourceLoaderMock, fileSystemFileWriterUtilMock, uuidUtilMock);
     }
 
     @Test
@@ -104,25 +107,21 @@ public class FileSystemStorageServiceTest {
 
     }
 
-    @Ignore
     @Test
-    public void shouldThrowIORuntimeExceptionIfFileCanNotWrittenInFileSystem() throws Exception {
+    public void shouldThrowIORuntimeExceptionWhenCouldNotCreateUploadDirectory() throws Exception {
 
         // Given
 
         thrown.expect(IORuntimeException.class);
-        thrown.expectMessage("Could not write file");
+        thrown.expectMessage("Could not create storage directory.");
 
-
-        Mockito.when(Files.write(any(Path.class), any(byte[].class))).thenThrow(new IOException());
-
+        doThrow(new IOException()).when(fileSystemFileWriterUtilMock).createDirectories(any());
 
         // When
 
-        //storageService.store(mockFile);
+        storageService.store(mock(MultipartFile.class));
 
         // Then
         // Expect test to be passed.
-
     }
 }
