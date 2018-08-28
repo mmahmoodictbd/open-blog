@@ -12,7 +12,7 @@ import com.unloadbrain.blog.dto.PostIdentityDTO;
 import com.unloadbrain.blog.exception.DraftPostNotFoundException;
 import com.unloadbrain.blog.exception.InvalidPostStatusException;
 import com.unloadbrain.blog.exception.PublishedPostNotFoundException;
-import com.unloadbrain.blog.util.DateUtility;
+import com.unloadbrain.blog.util.DateUtil;
 import com.unloadbrain.blog.util.SlugUtil;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
@@ -46,7 +46,7 @@ public class PublishPostServiceImpl extends AbstractPostService implements Publi
     private PublishedPostRepository publishedPostRepository;
     private DraftPostRepository draftPostRepository;
 
-    private DateUtility dateUtility;
+    private DateUtil dateUtil;
     private ModelMapper modelMapper;
 
 
@@ -67,7 +67,7 @@ public class PublishPostServiceImpl extends AbstractPostService implements Publi
         if (postDTO.getStatus() == CurrentPostStatus.NEW) {
 
             PublishedPost publishedPost = modelMapper.map(postDTO, PublishedPost.class);
-            publishedPost.setPublishDate(dateUtility.getCurrentDate());
+            publishedPost.setPublishDate(dateUtil.getCurrentDate());
             publishedPost.setCategories(categories);
             publishedPost.setTags(tags);
 
@@ -89,7 +89,7 @@ public class PublishPostServiceImpl extends AbstractPostService implements Publi
             Long publishedPostId = null;
             if (publishedPost == null) {
                 publishedPost = new PublishedPost();
-                publishedPost.setPublishDate(dateUtility.getCurrentDate());
+                publishedPost.setPublishDate(dateUtil.getCurrentDate());
             } else {
                 publishedPostId = publishedPost.getId();
             }
@@ -115,7 +115,7 @@ public class PublishPostServiceImpl extends AbstractPostService implements Publi
 
             PublishedPost publishedPost = publishedPostOptional.get();
             modelMapper.map(postDTO, publishedPost);
-            publishedPost.setPublishDate(dateUtility.getCurrentDate());
+            publishedPost.setPublishDate(dateUtil.getCurrentDate());
             publishedPost.setCategories(categories);
             publishedPost.setTags(tags);
 
