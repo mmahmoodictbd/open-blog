@@ -4,14 +4,15 @@ import com.unloadbrain.blog.dto.FileIdentityDTO;
 import com.unloadbrain.blog.exception.BadUrlException;
 import com.unloadbrain.blog.exception.FileNotFoundException;
 import com.unloadbrain.blog.exception.IORuntimeException;
+import com.unloadbrain.blog.util.FileSystemFileWriterUtil;
 import com.unloadbrain.blog.util.SlugUtil;
+import com.unloadbrain.blog.util.UuidUtil;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
-import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Calendar;
@@ -44,9 +45,15 @@ public class FileSystemStorageService implements StorageService {
 
 
     private final ResourceLoader resourceLoader;
+    private final FileSystemFileWriterUtil fileSystemFileWriterUtil;
+    private final UuidUtil uuidUtil;
 
-    public FileSystemStorageService(ResourceLoader resourceLoader) {
+    public FileSystemStorageService(ResourceLoader resourceLoader,
+                                    FileSystemFileWriterUtil fileSystemFileWriterUtil,
+                                    UuidUtil uuidUtil) {
         this.resourceLoader = resourceLoader;
+        this.fileSystemFileWriterUtil = fileSystemFileWriterUtil;
+        this.uuidUtil = uuidUtil;
     }
 
     /**
@@ -92,11 +99,11 @@ public class FileSystemStorageService implements StorageService {
 
         createUploadDirectoryIfNotExist(uploadPath);
 
-        String newFileName = SlugUtil.toSlug(file.getOriginalFilename());
+        String newFileName = buildNewFilename(file.getOriginalFilename());
 
         Path path = Paths.get(uploadPath.toString(), newFileName);
 
-        writeFileInFileSystem(file, path);
+        writeFileInFileSystem(path, readFileBytes(file));
 
         return new FileIdentityDTO(String.format("%s/%d/%d/%d/%s",
                 FILE_URL_PREFIX,
@@ -107,22 +114,46 @@ public class FileSystemStorageService implements StorageService {
         );
     }
 
-    private void writeFileInFileSystem(MultipartFile file, Path path) {
-        try {
-            byte[] bytes = file.getBytes();
-            Files.write(path, bytes);
-        } catch (IOException ex) {
-            throw new IORuntimeException("Could not write file");
-        }
-    }
-
     private void createUploadDirectoryIfNotExist(Path uploadPath) {
         if (!uploadPath.toFile().exists()) {
             try {
-                Files.createDirectories(uploadPath);
+                fileSystemFileWriterUtil.createDirectories(uploadPath);
             } catch (IOException e) {
                 throw new IORuntimeException("Could not create storage directory.");
             }
         }
+    }
+
+    private String buildNewFilename(String originalFilename) {
+        String filenameWithoutExt = getFilenameWithoutExtension(originalFilename);
+        String sluggedFilenameWithoutExt = SlugUtil.toSlug(filenameWithoutExt);
+        String fileExt = getFileExtension(originalFilename);
+        return uuidUtil.getUuid() + "_" + sluggedFilenameWithoutExt + fileExt;
+    }
+
+    private byte[] readFileBytes(MultipartFile file) {
+        try {
+            return file.getBytes();
+        } catch (IOException ex) {
+            throw new IORuntimeException("Could not read file.");
+        }
+    }
+
+    private void writeFileInFileSystem(Path path, byte[] fileBytes) {
+        try {
+            fileSystemFileWriterUtil.write(path, fileBytes);
+        } catch (IOException ex) {
+            throw new IORuntimeException("Could not write file.");
+        }
+    }
+
+    private String getFilenameWithoutExtension(String filename) {
+        int pos = filename.lastIndexOf(".");
+        return pos > 0 ? filename.substring(0, pos) : filename;
+    }
+
+    private String getFileExtension(String filename) {
+        int pos = filename.lastIndexOf(".");
+        return pos > 0 ? filename.substring(pos + 1) : filename;
     }
 }
