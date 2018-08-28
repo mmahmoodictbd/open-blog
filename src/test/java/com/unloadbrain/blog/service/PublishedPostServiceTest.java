@@ -12,7 +12,7 @@ import com.unloadbrain.blog.exception.DraftPostNotFoundException;
 import com.unloadbrain.blog.exception.InvalidPostStatusException;
 import com.unloadbrain.blog.exception.PublishedPostNotFoundException;
 import com.unloadbrain.blog.helper.ObjectFactory;
-import com.unloadbrain.blog.util.DateUtility;
+import com.unloadbrain.blog.util.DateUtil;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
@@ -47,7 +47,7 @@ public class PublishedPostServiceTest {
     private PublishedPostRepository publishedPostRepository;
     private DraftPostRepository draftPostRepository;
 
-    private DateUtility dateUtility;
+    private DateUtil dateUtil;
     private ModelMapper modelMapper;
 
     private PublishPostService publishPostService;
@@ -58,11 +58,11 @@ public class PublishedPostServiceTest {
         this.tagService = mock(TagServiceImpl.class);
         this.publishedPostRepository = mock(PublishedPostRepository.class);
         this.draftPostRepository = mock(DraftPostRepository.class);
-        this.dateUtility = mock(DateUtility.class);
+        this.dateUtil = mock(DateUtil.class);
         this.modelMapper = new MappingConfig().createModelMapper();
 
         this.publishPostService = new PublishPostServiceImpl(categoryService, tagService,
-                publishedPostRepository, draftPostRepository, dateUtility, modelMapper);
+                publishedPostRepository, draftPostRepository, dateUtil, modelMapper);
     }
 
 
@@ -76,7 +76,7 @@ public class PublishedPostServiceTest {
         when(publishedPostRepository.save(any())).thenReturn(ObjectFactory.createPublishedPost());
 
         Date now = new Date();
-        when(dateUtility.getCurrentDate()).thenReturn(now);
+        when(dateUtil.getCurrentDate()).thenReturn(now);
 
         PostDTO postDTO = ObjectFactory.createPublishedPostDTO();
         postDTO.setId(null);
