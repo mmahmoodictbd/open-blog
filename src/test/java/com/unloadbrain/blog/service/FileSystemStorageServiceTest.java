@@ -15,6 +15,7 @@ import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Path;
@@ -229,7 +230,12 @@ public class FileSystemStorageServiceTest {
 
         // Then
         verify(fileSystemFileWriterUtilMock).createDirectories(pathArgumentCaptor.capture());
-        assertEquals("/home/user/.openblog/files/2018/8/29", pathArgumentCaptor.getValue().toString());
+
+        if ("/".equals(File.separator)) {
+            assertEquals("/home/user/.openblog/files/2018/8/29", pathArgumentCaptor.getValue().toString());
+        } else {
+            assertEquals("\\home\\user\\.openblog\\files\\2018\\8\\29", pathArgumentCaptor.getValue().toString());
+        }
     }
 
     @Test
@@ -249,8 +255,14 @@ public class FileSystemStorageServiceTest {
 
         // Then
         verify(fileSystemFileWriterUtilMock).write(pathArgumentCaptor.capture(), any());
-        assertEquals("/home/user/.openblog/files/2018/8/29/uuid123_my-picture.jpg",
-                pathArgumentCaptor.getValue().toString());
+
+        if ("/".equals(File.separator)) {
+            assertEquals("/home/user/.openblog/files/2018/8/29/uuid123_my-picture.jpg",
+                    pathArgumentCaptor.getValue().toString());
+        } else {
+            assertEquals("\\home\\user\\.openblog\\files\\2018\\8\\29\\uuid123_my-picture.jpg",
+                    pathArgumentCaptor.getValue().toString());
+        }
     }
 
     @Test
