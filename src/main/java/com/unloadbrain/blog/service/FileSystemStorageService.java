@@ -1,11 +1,12 @@
 package com.unloadbrain.blog.service;
 
 import com.unloadbrain.blog.dto.FileIdentityDTO;
-import com.unloadbrain.blog.exception.BadUrlException;
 import com.unloadbrain.blog.exception.FileNotFoundException;
 import com.unloadbrain.blog.exception.IORuntimeException;
+import com.unloadbrain.blog.util.DateUtil;
 import com.unloadbrain.blog.util.FileSystemFileWriterUtil;
 import com.unloadbrain.blog.util.SlugUtil;
+import com.unloadbrain.blog.util.SystemUtil;
 import com.unloadbrain.blog.util.UuidUtil;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
@@ -15,23 +16,12 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.Calendar;
 
 /**
  * Load and save resources from file system.
  */
 @Service
 public class FileSystemStorageService implements StorageService {
-
-    /**
-     * Constant for user's home directory key
-     */
-    private static final String USER_HOME = "user.home";
-
-    /**
-     * OpenBlog home directory under user home
-     */
-    private static final String OPENBLOG_HOME = ".openblog";
 
     /**
      * Directory name where files will be stored under OpenBlog home directory.
@@ -45,29 +35,34 @@ public class FileSystemStorageService implements StorageService {
 
 
     private final ResourceLoader resourceLoader;
-    private final FileSystemFileWriterUtil fileSystemFileWriterUtil;
+    private final DateUtil dateUtil;
     private final UuidUtil uuidUtil;
+    private final SystemUtil systemUtil;
+    private final FileSystemFileWriterUtil fileSystemFileWriterUtil;
+
 
     public FileSystemStorageService(ResourceLoader resourceLoader,
-                                    FileSystemFileWriterUtil fileSystemFileWriterUtil,
-                                    UuidUtil uuidUtil) {
+                                    DateUtil dateUtil,
+                                    UuidUtil uuidUtil,
+                                    SystemUtil systemUtil,
+                                    FileSystemFileWriterUtil fileSystemFileWriterUtil) {
         this.resourceLoader = resourceLoader;
-        this.fileSystemFileWriterUtil = fileSystemFileWriterUtil;
+        this.dateUtil = dateUtil;
         this.uuidUtil = uuidUtil;
+        this.systemUtil = systemUtil;
+        this.fileSystemFileWriterUtil = fileSystemFileWriterUtil;
     }
 
     /**
      * Load resource from file system.
      * @param url the URL for the resource.
      * @return the resource handle for the relative resource.
-     * @throws BadUrlException when provided URL is malformed.
      * @throws FileNotFoundException when file is not exist in file system.
      */
     @Override
     public Resource loadFileAsResource(String url) {
 
-        String filePath = String.format("file:%s/%s/%s/%s",
-                System.getProperty(USER_HOME), OPENBLOG_HOME, FILES_DIR, url);
+        String filePath = String.format("file:%s/%s/%s", systemUtil.getOpenBlogHome(), FILES_DIR, url);
 
         Resource resource = resourceLoader.getResource(filePath);
         if (resource.exists()) {
@@ -87,15 +82,8 @@ public class FileSystemStorageService implements StorageService {
     @Override
     public FileIdentityDTO store(MultipartFile file) {
 
-        Calendar calendar = Calendar.getInstance();
-
-        Path uploadPath = Paths.get(String.format("%s/%s/%s/%d/%d/%d",
-                System.getProperty(USER_HOME),
-                OPENBLOG_HOME,
-                FILES_DIR,
-                calendar.get(Calendar.YEAR),
-                calendar.get(Calendar.MONTH) + 1,
-                calendar.get(Calendar.DATE)));
+        Path uploadPath = Paths.get(String.format("%s/%s/%s", systemUtil.getOpenBlogHome(), FILES_DIR,
+                dateUtil.getCurrentYearMonthDateString()));
 
         createUploadDirectoryIfNotExist(uploadPath);
 
@@ -105,11 +93,9 @@ public class FileSystemStorageService implements StorageService {
 
         writeFileInFileSystem(path, readFileBytes(file));
 
-        return new FileIdentityDTO(String.format("%s/%d/%d/%d/%s",
+        return new FileIdentityDTO(String.format("%s/%s/%s",
                 FILE_URL_PREFIX,
-                calendar.get(Calendar.YEAR),
-                calendar.get(Calendar.MONTH) + 1,
-                calendar.get(Calendar.DATE),
+                dateUtil.getCurrentYearMonthDateString(),
                 newFileName)
         );
     }
@@ -118,8 +104,8 @@ public class FileSystemStorageService implements StorageService {
         if (!uploadPath.toFile().exists()) {
             try {
                 fileSystemFileWriterUtil.createDirectories(uploadPath);
-            } catch (IOException e) {
-                throw new IORuntimeException("Could not create storage directory.");
+            } catch (IOException ex) {
+                throw new IORuntimeException("Could not create storage directory.", ex);
             }
         }
     }
@@ -128,14 +114,14 @@ public class FileSystemStorageService implements StorageService {
         String filenameWithoutExt = getFilenameWithoutExtension(originalFilename);
         String sluggedFilenameWithoutExt = SlugUtil.toSlug(filenameWithoutExt);
         String fileExt = getFileExtension(originalFilename);
-        return uuidUtil.getUuid() + "_" + sluggedFilenameWithoutExt + fileExt;
+        return uuidUtil.getUuid() + "_" + sluggedFilenameWithoutExt + "." + fileExt;
     }
 
     private byte[] readFileBytes(MultipartFile file) {
         try {
             return file.getBytes();
         } catch (IOException ex) {
-            throw new IORuntimeException("Could not read file.");
+            throw new IORuntimeException("Could not read file.", ex);
         }
     }
 
@@ -143,17 +129,17 @@ public class FileSystemStorageService implements StorageService {
         try {
             fileSystemFileWriterUtil.write(path, fileBytes);
         } catch (IOException ex) {
-            throw new IORuntimeException("Could not write file.");
+            throw new IORuntimeException("Could not write file.", ex);
         }
     }
 
     private String getFilenameWithoutExtension(String filename) {
-        int pos = filename.lastIndexOf(".");
+        int pos = filename.lastIndexOf('.');
         return pos > 0 ? filename.substring(0, pos) : filename;
     }
 
     private String getFileExtension(String filename) {
-        int pos = filename.lastIndexOf(".");
+        int pos = filename.lastIndexOf('.');
         return pos > 0 ? filename.substring(pos + 1) : filename;
     }
 }
