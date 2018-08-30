@@ -2,7 +2,7 @@ package com.unloadbrain.blog.config;
 
 import com.unloadbrain.blog.util.DateUtil;
 import com.unloadbrain.blog.util.FileSystemFileWriterUtil;
-import com.unloadbrain.blog.util.SystemUtil;
+import com.unloadbrain.blog.util.OpenBlogSystemUtil;
 import com.unloadbrain.blog.util.UuidUtil;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -26,7 +26,7 @@ public class AppBeanConfig {
     }
 
     @Bean
-    public SystemUtil systemUtil() {
-        return new SystemUtil();
+    public OpenBlogSystemUtil systemUtil() {
+        return new OpenBlogSystemUtil();
     }
 }

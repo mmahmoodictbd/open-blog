@@ -1,9 +1,9 @@
 package com.unloadbrain.blog.util;
 
 /**
- * System related utils
+ * OpenBlog System related utils
  */
-public class SystemUtil {
+public class OpenBlogSystemUtil {
 
     /**
      * Constant for user's home directory key

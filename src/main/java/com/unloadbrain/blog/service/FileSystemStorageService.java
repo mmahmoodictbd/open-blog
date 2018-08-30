@@ -6,7 +6,7 @@ import com.unloadbrain.blog.exception.IORuntimeException;
 import com.unloadbrain.blog.util.DateUtil;
 import com.unloadbrain.blog.util.FileSystemFileWriterUtil;
 import com.unloadbrain.blog.util.SlugUtil;
-import com.unloadbrain.blog.util.SystemUtil;
+import com.unloadbrain.blog.util.OpenBlogSystemUtil;
 import com.unloadbrain.blog.util.UuidUtil;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
@@ -37,19 +37,19 @@ public class FileSystemStorageService implements StorageService {
     private final ResourceLoader resourceLoader;
     private final DateUtil dateUtil;
     private final UuidUtil uuidUtil;
-    private final SystemUtil systemUtil;
+    private final OpenBlogSystemUtil openBlogSystemUtil;
     private final FileSystemFileWriterUtil fileSystemFileWriterUtil;
 
 
     public FileSystemStorageService(ResourceLoader resourceLoader,
                                     DateUtil dateUtil,
                                     UuidUtil uuidUtil,
-                                    SystemUtil systemUtil,
+                                    OpenBlogSystemUtil openBlogSystemUtil,
                                     FileSystemFileWriterUtil fileSystemFileWriterUtil) {
         this.resourceLoader = resourceLoader;
         this.dateUtil = dateUtil;
         this.uuidUtil = uuidUtil;
-        this.systemUtil = systemUtil;
+        this.openBlogSystemUtil = openBlogSystemUtil;
         this.fileSystemFileWriterUtil = fileSystemFileWriterUtil;
     }
 
@@ -62,7 +62,7 @@ public class FileSystemStorageService implements StorageService {
     @Override
     public Resource loadFileAsResource(String url) {
 
-        String filePath = String.format("file:%s/%s/%s", systemUtil.getOpenBlogHome(), FILES_DIR, url);
+        String filePath = String.format("file:%s/%s/%s", openBlogSystemUtil.getOpenBlogHome(), FILES_DIR, url);
 
         Resource resource = resourceLoader.getResource(filePath);
         if (resource.exists()) {
@@ -82,7 +82,7 @@ public class FileSystemStorageService implements StorageService {
     @Override
     public FileIdentityDTO store(MultipartFile file) {
 
-        Path uploadPath = Paths.get(String.format("%s/%s/%s", systemUtil.getOpenBlogHome(), FILES_DIR,
+        Path uploadPath = Paths.get(String.format("%s/%s/%s", openBlogSystemUtil.getOpenBlogHome(), FILES_DIR,
                 dateUtil.getCurrentYearMonthDateString()));
 
         createUploadDirectoryIfNotExist(uploadPath);

@@ -4,7 +4,7 @@ import com.unloadbrain.blog.exception.FileNotFoundException;
 import com.unloadbrain.blog.exception.IORuntimeException;
 import com.unloadbrain.blog.util.DateUtil;
 import com.unloadbrain.blog.util.FileSystemFileWriterUtil;
-import com.unloadbrain.blog.util.SystemUtil;
+import com.unloadbrain.blog.util.OpenBlogSystemUtil;
 import com.unloadbrain.blog.util.UuidUtil;
 import org.junit.Rule;
 import org.junit.Test;
@@ -36,7 +36,7 @@ public class FileSystemStorageServiceTest {
     private final ResourceLoader resourceLoaderMock;
     private final DateUtil dateUtilMock;
     private final UuidUtil uuidUtilMock;
-    private final SystemUtil systemUtilMock;
+    private final OpenBlogSystemUtil openBlogSystemUtilMock;
 
     @Rule
     public ExpectedException thrown = ExpectedException.none();
@@ -48,12 +48,12 @@ public class FileSystemStorageServiceTest {
         this.resourceLoaderMock = mock(ResourceLoader.class);
         this.dateUtilMock = mock(DateUtil.class);
         this.uuidUtilMock = mock(UuidUtil.class);
-        this.systemUtilMock = mock(SystemUtil.class);
+        this.openBlogSystemUtilMock = mock(OpenBlogSystemUtil.class);
         this.fileSystemFileWriterUtilMock = mock(FileSystemFileWriterUtil.class);
         this.storageService = new FileSystemStorageService(resourceLoaderMock,
                 dateUtilMock,
                 uuidUtilMock,
-                systemUtilMock,
+                openBlogSystemUtilMock,
                 fileSystemFileWriterUtilMock);
     }
 
@@ -150,7 +150,7 @@ public class FileSystemStorageServiceTest {
         };
         when(resourceLoaderMock.getResource(anyString())).thenReturn(resource);
 
-        when(systemUtilMock.getOpenBlogHome()).thenReturn("/home/user/.openblog");
+        when(openBlogSystemUtilMock.getOpenBlogHome()).thenReturn("/home/user/.openblog");
 
         // When
         storageService.loadFileAsResource("anything");
@@ -223,7 +223,7 @@ public class FileSystemStorageServiceTest {
 
         when(fileMock.getOriginalFilename()).thenReturn("my picture.jpg");
         when(dateUtilMock.getCurrentYearMonthDateString()).thenReturn("2018/8/29");
-        when(systemUtilMock.getOpenBlogHome()).thenReturn("/home/user/.openblog");
+        when(openBlogSystemUtilMock.getOpenBlogHome()).thenReturn("/home/user/.openblog");
 
         // When
         storageService.store(fileMock);
@@ -247,7 +247,7 @@ public class FileSystemStorageServiceTest {
 
         when(fileMock.getOriginalFilename()).thenReturn("my picture.jpg");
         when(dateUtilMock.getCurrentYearMonthDateString()).thenReturn("2018/8/29");
-        when(systemUtilMock.getOpenBlogHome()).thenReturn("/home/user/.openblog");
+        when(openBlogSystemUtilMock.getOpenBlogHome()).thenReturn("/home/user/.openblog");
         when(uuidUtilMock.getUuid()).thenReturn("uuid123");
 
         // When
@@ -276,7 +276,7 @@ public class FileSystemStorageServiceTest {
         when(fileMock.getBytes()).thenReturn("pictureBytes".getBytes());
 
         when(dateUtilMock.getCurrentYearMonthDateString()).thenReturn("2018/8/29");
-        when(systemUtilMock.getOpenBlogHome()).thenReturn("/home/user/.openblog");
+        when(openBlogSystemUtilMock.getOpenBlogHome()).thenReturn("/home/user/.openblog");
         when(uuidUtilMock.getUuid()).thenReturn("uuid123");
 
         // When
