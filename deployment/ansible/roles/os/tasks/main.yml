@@ -1,0 +1,23 @@
+---
+
+- name: Install base packages
+  apt: pkg={{item}} state=latest update_cache=yes cache_valid_time=604800
+  with_items:
+    - ufw
+    - emacs
+    - git
+    - maven
+    - python-mysqldb
+
+
+- name: UFW Defaults | Deny incoming Allow outgoing
+  ufw: direction={{ item.direction }} policy={{ item.policy }} state=enabled
+  with_items:
+    - { direction: 'incoming', policy: 'deny' }
+    - { direction: 'outgoing', policy: 'allow' }
+
+
+- name: Allow SSH in UFW
+  ufw:
+    rule: allow
+    name: OpenSSH
