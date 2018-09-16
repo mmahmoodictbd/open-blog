@@ -59,7 +59,9 @@ public class PublishPostServiceImpl extends AbstractPostService implements Publi
     public PostIdentityDTO createUpdatePost(PostDTO postDTO) {
 
         Set<Category> categories = categoryService.getCategories(postDTO.getCategories());
-        Set<Tag> tags = tagService.getTags(postDTO.getTags());
+
+        tagService.createUnsavedTags(postDTO.getTags());
+        Set<Tag> tags =  tagService.getExistedTags(postDTO.getTags());
 
         setDefaultSummary(postDTO);
         setDefaultFeatureImageLink(postDTO);

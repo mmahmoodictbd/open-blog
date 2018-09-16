@@ -9,6 +9,7 @@ import com.unloadbrain.blog.domain.repository.PublishedPostRepository;
 import com.unloadbrain.blog.dto.CurrentPostStatus;
 import com.unloadbrain.blog.dto.PostDTO;
 import com.unloadbrain.blog.dto.PostIdentityDTO;
+import com.unloadbrain.blog.dto.TagDTO;
 import com.unloadbrain.blog.exception.DraftPostNotFoundException;
 import com.unloadbrain.blog.exception.InvalidPostStatusException;
 import com.unloadbrain.blog.exception.PublishedPostNotFoundException;
@@ -18,6 +19,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.LinkedHashSet;
 import java.util.Optional;
 import java.util.Set;
 
@@ -25,6 +27,8 @@ import java.util.Set;
 @Service
 @Transactional
 public class DraftPostServiceImpl extends AbstractPostService implements DraftPostService {
+
+
 
     private CategoryService categoryService;
     private TagService tagService;
@@ -38,7 +42,9 @@ public class DraftPostServiceImpl extends AbstractPostService implements DraftPo
     public PostIdentityDTO draftPost(PostDTO postDTO) {
 
         Set<Category> categories = categoryService.getCategories(postDTO.getCategories());
-        Set<Tag> tags = tagService.getTags(postDTO.getTags());
+
+        tagService.createUnsavedTags(postDTO.getTags());
+        Set<Tag> tags =  tagService.getExistedTags(postDTO.getTags());
 
         setDefaultSummary(postDTO);
         setDefaultFeatureImageLink(postDTO);
