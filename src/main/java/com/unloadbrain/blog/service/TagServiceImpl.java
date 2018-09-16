@@ -26,13 +26,15 @@ public class TagServiceImpl implements TagService {
     @Override
     public IdentityDTO createUpdateTag(TagDTO tagDTO) {
 
-        Tag tag;
+        Tag tag = null;
 
         if (tagDTO.getId() != null) {
             tag = tagRepository.getOne(tagDTO.getId());
         } else if (tagDTO.getName() != null) {
             tag = tagRepository.findByName(tagDTO.getName());
-        } else {
+        }
+
+        if(tag == null) {
             tag = new Tag();
         }
 
