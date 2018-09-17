@@ -1,0 +1,27 @@
+---
+
+- name: MySQL | Install MySQL
+  apt: name={{ item }} update_cache=yes cache_valid_time=3600 state=present
+  with_items:
+  - python-mysqldb
+  - mysql-server
+  register: installed_just_now
+
+- debug: msg="Skipping MySQL restart and set root password because MySQL did not run this run."
+  when: installed_just_now.changed == false
+
+- name: MySQL | Restart MySQL
+  service:
+    name: mysql
+    state: restarted
+    enabled: true
+  when: installed_just_now.changed == true
+
+- name: MySQL | Set the root password.
+  mysql_user:
+    login_user: root
+    login_password: "{{ mysql_root_password }}"
+    name: root
+    host: localhost
+    password: "{{ mysql_root_password }}"
+  when: installed_just_now.changed == true
