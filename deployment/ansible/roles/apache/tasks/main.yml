@@ -1,0 +1,60 @@
+---
+
+- name: Install apache2
+  apt: name=apache2 update_cache=yes state=latest
+
+- name: Enabled mod_rewrite
+  apache2_module: name=rewrite state=present
+
+- name: Turn off ServerSignature
+  replace:
+    path: /etc/apache2/conf-enabled/security.conf
+    regexp: '(\s+)ServerSignature On(\s+.*)?$'
+    replace: '\1ServerSignature Off\2'
+    backup: yes
+
+- name: Set ServerTokens to Prod
+  replace:
+    path: /etc/apache2/conf-enabled/security.conf
+    regexp: '(\s+)ServerTokens OS(\s+.*)?$'
+    replace: '\1ServerTokens Prod\2'
+    backup: yes
+
+- name: Restart Apache
+  service:
+    name: apache2
+    state: restarted
+    enabled: true
+  changed_when: false
+
+- name: Check if Apache is running
+  command: systemctl status apache2
+  ignore_errors: yes
+  changed_when: false
+  register: service_apache_status
+
+- name: Report status of Apache
+  fail:
+    msg: |
+      Service apache2 is not running.
+      Output of `systemctl status apache2`:
+      {{ service_apache_status.stdout }}
+      {{ service_apache_status.stderr }}
+  when: service_apache_status | failed
+
+#- name: Set ServerTokens to Prod
+#  lineinfile:
+#    dest: /etc/apache2/conf-enabled/security.conf
+#    regexp: "^ServerTokens OS"
+#    line: "ServerTokens Prod"
+#    state: present
+
+- name: Allow HTTP in UFW
+  ufw:
+    rule: allow
+    name: http
+
+- name: Allow HTTPS in UFW
+  ufw:
+    rule: allow
+    name: https
