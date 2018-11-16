@@ -6,6 +6,8 @@ import com.unloadbrain.blog.service.SiteService;
 import com.unloadbrain.blog.service.TagService;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.SortDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,7 +23,8 @@ public class HomePageController {
     private TagService tagService;
 
     @RequestMapping(path = "/", method = RequestMethod.GET)
-    public String showHomePage(Pageable pageable, Model model) {
+    public String showHomePage(@SortDefault.SortDefaults(
+            @SortDefault(sort = "publishDate", direction = Sort.Direction.DESC)) Pageable pageable, Model model) {
 
         model.addAttribute("site", siteService.getSite());
         model.addAttribute("categories", categoryService.getCategories());
