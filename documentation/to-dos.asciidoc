@@ -1,9 +1,14 @@
 # // TODO::
 
-* Add caching in service layer.
+* [.line-through]#Add caching in service layer.#
+* Improve code coverage.
 * Add load test with Gatling.
 * Add caching in forward proxy server Apache configuration.
 * Implement CQRS properly.
 * Add RSS / Atom.
 * Add javadoc in classes and methods.
 * Build tag UI and edit/update functionality.
+* [.line-through]#Add performance profile hooked up with javamelody.#
+* [.line-through]#Add discuss comment in post detail.#
+* Add deployment scripts in Ansible.
+* Develop sitemap.xml
