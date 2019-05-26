@@ -2,7 +2,8 @@
 
 The main purpose to this project is to build a small blogging engine.
 
-image:https://travis-ci.org/mmahmoodictbd/OpenBlog.svg?branch=master["Build Status", link="https://travis-ci.org/mmahmoodictbd/open-blog"]
+image:https://travis-ci.org/mmahmoodictbd/open-blog.svg?branch=master["Build Status", link="https://travis-ci
+.org/mmahmoodictbd/open-blog"]
 image:https://ci.appveyor.com/api/projects/status/pvt16qsbnb4atemd?svg=true["Appveyor Status", link="https://ci
 .appveyor.com/project/mmahmoodictbd/open-blog"]
 image:https://codecov.io/gh/mmahmoodictbd/open-blog/branch/master/graph/badge.svg["Code Coverage",
