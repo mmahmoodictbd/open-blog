@@ -7,7 +7,7 @@
     <parent>
         <groupId>com.chumbok</groupId>
         <artifactId>chumbok-starter-parent</artifactId>
-        <version>3.0.0</version>
+        <version>5.0.0</version>
     </parent>
 
     <groupId>com.unloadbrain</groupId>
@@ -20,23 +20,8 @@
 
     <properties>
 
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <java.version>1.8</java.version>
-
         <modelmapper.version>2.0.0</modelmapper.version>
         <jsoup.version>1.11.3</jsoup.version>
-
-        <skipTests>false</skipTests>
-
-        <skip.surefire.tests>${skipTests}</skip.surefire.tests>
-        <maven-surefire-plugin.version>2.21.0</maven-surefire-plugin.version>
-
-        <skip.failsafe.tests>false</skip.failsafe.tests>
-        <maven-failsafe-plugin.version>2.21.0</maven-failsafe-plugin.version>
-        <build-helper-maven-plugin.version>3.0.0</build-helper-maven-plugin.version>
-        <jacoco-maven-plugin.version>0.8.1</jacoco-maven-plugin.version>
-        <pitest-maven.version>1.4.0</pitest-maven.version>
 
         <sonar.organization>mmahmoodictbd-github</sonar.organization>
         <sonar.host.url>https://sonarcloud.io</sonar.host.url>
@@ -52,9 +37,6 @@
             ${project.build.directory}/jacoco-it.exec
         </sonar.jacoco.reportPaths>
 
-        <mockito-core.version>2.21.0</mockito-core.version>
-        <rest-assured.version>3.0.6</rest-assured.version>
-
         <bootstrap.version>4.0.0-2</bootstrap.version>
         <font-awesome.version>5.0.6</font-awesome.version>
         <summernote.version>0.8.10</summernote.version>
@@ -63,7 +45,6 @@
         <webjars-locator.version>0.30</webjars-locator.version>
 
         <javamelody-spring-boot-starter.version>1.73.1</javamelody-spring-boot-starter.version>
-        <docker-maven-plugin.version>1.1.1</docker-maven-plugin.version>
 
     </properties>
 
@@ -212,14 +193,12 @@
         <dependency>
             <groupId>org.mockito</groupId>
             <artifactId>mockito-core</artifactId>
-            <version>${mockito-core.version}</version>
             <scope>test</scope>
         </dependency>
 
         <dependency>
             <groupId>io.rest-assured</groupId>
             <artifactId>rest-assured</artifactId>
-            <version>${rest-assured.version}</version>
             <scope>test</scope>
         </dependency>
 
@@ -234,63 +213,14 @@
                 <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
 
-            <!-- jacoco code coverage report plugin-->
-
             <plugin>
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
-                <version>${jacoco-maven-plugin.version}</version>
-                <executions>
-                    <execution>
-                        <id>pre-unit-test</id>
-                        <goals>
-                            <goal>prepare-agent</goal>
-                        </goals>
-                        <configuration>
-                            <destFile>${project.build.directory}/jacoco.exec</destFile>
-                        </configuration>
-                    </execution>
-                    <execution>
-                        <id>post-unit-test</id>
-                        <phase>prepare-package</phase>
-                        <goals>
-                            <goal>report</goal>
-                        </goals>
-                        <configuration>
-                            <dataFile>${project.build.directory}/jacoco.exec</dataFile>
-                            <outputDirectory>${project.reporting.outputDirectory}/jacoco</outputDirectory>
-                        </configuration>
-                    </execution>
-                    <execution>
-                        <id>pre-integration-test</id>
-                        <goals>
-                            <goal>prepare-agent-integration</goal>
-                        </goals>
-                        <configuration>
-                            <destFile>${project.build.directory}/jacoco-it.exec</destFile>
-                            <propertyName>itCoverageAgent</propertyName>
-                        </configuration>
-                    </execution>
-                    <execution>
-                        <id>post-integration-test</id>
-                        <phase>post-integration-test</phase>
-                        <goals>
-                            <goal>report</goal>
-                        </goals>
-                        <configuration>
-                            <dataFile>${project.build.directory}/jacoco-it.exec</dataFile>
-                            <outputDirectory>${project.reporting.outputDirectory}/jacoco-it</outputDirectory>
-                        </configuration>
-                    </execution>
-                </executions>
             </plugin>
-
-            <!-- Real test coverage check :-) -->
 
             <plugin>
                 <groupId>org.pitest</groupId>
                 <artifactId>pitest-maven</artifactId>
-                <version>${pitest-maven.version}</version>
                 <configuration>
                     <targetClasses>
                         <param>com.unloadbrain.blog.*</param>
@@ -298,91 +228,29 @@
                 </configuration>
             </plugin>
 
-            <!-- Unit tests runner -->
-
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
-                <version>${maven-surefire-plugin.version}</version>
-                <configuration>
-                    <skipTests>${skip.surefire.tests}</skipTests>
-                    <excludes>
-                        <exclude>**/*IT.java</exclude>
-                    </excludes>
-                </configuration>
             </plugin>
-
-            <!-- Helps to set integration-test directory -->
 
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>build-helper-maven-plugin</artifactId>
-                <version>${build-helper-maven-plugin.version}</version>
-                <executions>
-                    <execution>
-                        <id>add-test-source</id>
-                        <phase>process-resources</phase>
-                        <goals>
-                            <goal>add-test-source</goal>
-                        </goals>
-                        <configuration>
-                            <sources>
-                                <source>src/integration-test/java</source>
-                            </sources>
-                        </configuration>
-                    </execution>
-                </executions>
             </plugin>
 
-            <!-- Integration test runner (*IT.java) -->
-
+            <!-- Overriding parent pom's version because of a known maven-failsafe-plugin bug -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-failsafe-plugin</artifactId>
-                <version>${maven-failsafe-plugin.version}</version>
-                <executions>
-                    <execution>
-                        <id>failsafe-integration-tests</id>
-                        <phase>integration-test</phase>
-                        <goals>
-                            <goal>integration-test</goal>
-                            <goal>verify</goal>
-                        </goals>
-                    </execution>
-                </executions>
-                <configuration>
-                    <skipTests>${skip.failsafe.tests}</skipTests>
-                    <argLine>${itCoverageAgent}</argLine>
-                </configuration>
+                <version>2.18.1</version>
             </plugin>
-
 
             <plugin>
                 <groupId>com.spotify</groupId>
                 <artifactId>docker-maven-plugin</artifactId>
-                <version>${docker-maven-plugin.version}</version>
                 <configuration>
                     <imageName>mmahmood/${project.artifactId}</imageName>
-                    <dockerDirectory>${project.basedir}</dockerDirectory>
-                    <resources>
-                        <resource>
-                            <targetPath>/</targetPath>
-                            <directory>${project.build.directory}</directory>
-                            <include>${project.build.finalName}.jar</include>
-                        </resource>
-                    </resources>
-                    <serverId>docker-hub</serverId>
-                    <registryUrl>https://index.docker.io/v1/</registryUrl>
                 </configuration>
-                <executions>
-                    <execution>
-                        <id>build-image</id>
-                        <phase>deploy</phase>
-                        <goals>
-                            <goal>build</goal>
-                        </goals>
-                    </execution>
-                </executions>
             </plugin>
 
         </plugins>
